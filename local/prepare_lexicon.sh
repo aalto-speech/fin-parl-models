@@ -23,14 +23,10 @@ outdir=$3
 
 mkdir -p $workdir
 
-echo -e "SIL\nSPN" > $workdir/silence_phones.txt
-
-echo "SIL" > $workdir/optional_silence.txt
+local/seed_dict.sh $workdir
 
 cut -d" " -f2- $traindir/text | tr " " "\n" | sort -u | local/word-list-to-lexicon.py - > $workdir/lexicon.txt
 cut -d" " -f2- $workdir/lexicon.txt | tr " " "\n" | sort -u | grep -vf $workdir/silence_phones.txt - > $workdir/nonsilence_phones.txt
-
-touch $workdir/extra_questions.txt
 
 tmpdir=$(mktemp -d)
 
