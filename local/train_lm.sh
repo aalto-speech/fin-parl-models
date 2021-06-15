@@ -3,6 +3,7 @@ set -eu
 stage=1
 BPE_units=1000
 varikn_opts="--scale 0.01"
+skip_lang=false
 traindata=
 validdata=
 
@@ -68,15 +69,20 @@ if [ "$stage" -le 3 ]; then
     "$lmdir"/valid_perplexity
 fi
 
+if [ "$skip_lang" = true ]; then
+	echo "Skipping lang dir creation."
+	exit 0
+fi
+
 if [ "$stage" -le 4 ]; then
 	echo "Make SentencePiece LM."
-	local/make_spm_lang.sh "$lmdir"/bpe.${BPE_units}.vocab.plain data/local/dict_bpe.$BPE_units data/lang_bpe.${BPE_units}.varikn
+	local/make_spm_lang.sh "$lmdir"/bpe.${BPE_units}.vocab.plain data/local/dict_bpe.$BPE_units $outdir 
 fi
 
 if [ "$stage" -le 5 ]; then
 	echo "Convert ARPA to FST."
 	utils/format_lm.sh \
-		data/lang_bpe.${BPE_units}.varikn "$lmdir"/varikn.lm.gz \
+		$outdir "$lmdir"/varikn.lm.gz \
 		data/local/dict_bpe.$BPE_units/lexicon.txt $outdir
 fi
 
