@@ -7,9 +7,8 @@
 # This is to see whether the additional triphone modeling
 # steps are necessary.
 
-release_traindir=/scratch/elec/puhe/c/eduskunta_new/datasets/kaldi-format/2015-2020-kevat
+release_traindir=raw_data/2015-2020-kevat
 stage=5 # Assume that run_a.sh has been run before so first four stages are done already
-
 
 
 . ./cmd.sh

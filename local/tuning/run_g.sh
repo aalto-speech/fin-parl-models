@@ -4,7 +4,7 @@
 # where a GMM is trained just like in the Kaldi Librispeech recipe.
 # (with added decoding steps)
 
-release_traindir=/scratch/elec/puhe/c/eduskunta_new/datasets/kaldi-format/2015-2020-kevat
+release_traindir=raw_data/2015-2020-kevat
 stage=1
 tri_version=a
 
