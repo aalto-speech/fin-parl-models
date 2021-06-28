@@ -4,5 +4,6 @@ module load cuda/10.2.89
 module load variKN
 module load sentencepiece
 export PATH=$PWD/utils:$PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD
 
 export LC_ALL=C
