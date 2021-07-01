@@ -5,6 +5,7 @@ set -e
 stage=0
 train_stage=0
 train_set=train
+decode_set=parl-dev-all
 gmm_str="i/tri4j"
 
 # EGS options
@@ -149,5 +150,17 @@ if [ $stage -le 2 ]; then
 			--tree-dir $tree_dir \
 			--lat-dir $lat_dir \
 			--dir $dir
+fi
+
+if [ $stage -le 3 ]; then
+  utils/mkgraph.sh --self-loop-scale 1.0 --remove-oov data/lang_test_small $dir $dir/graph_test_small 
+	#utils/mkgraph.sh data/lang_test_small exp/i/tri4$tri_version exp/i/tri4$tri_version/graph_test_small
+	
+	steps/nnet3/decode.sh --acwt 1.0 --post-decode-acwt 10.0 \
+			--nj 16 --cmd "$basic_cmd" \
+			$dir/graph_test_small data/${decode_set}_hires $dir/decode_${decode_set}_test_small
+	#steps/decode_fmllr.sh --cmd "$basic_cmd" --nj 16 \
+	#								exp/i/tri4$tri_version/graph_test_small data/parl-dev-all \
+	#								exp/i/tri4$tri_version/decode_parl-dev-all_test_small
 fi
 
