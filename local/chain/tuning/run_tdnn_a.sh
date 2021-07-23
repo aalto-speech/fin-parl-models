@@ -86,8 +86,6 @@ EOF
   steps/nnet3/xconfig_to_configs.py --xconfig-file $dir/configs/network.xconfig --config-dir $dir/configs/
 fi
 
-
-
 if [ $stage -le 1 ]; then
 	# Chain prep (egs, phone-lm, etc.) separately:
 
@@ -133,14 +131,14 @@ if [ $stage -le 2 ]; then
 			--feat.cmvn-opts "--norm-means=false --norm-vars=false" \
 			--chain.xent-regularize $xent_regularize \
 			--chain.leaky-hmm-coefficient 0.1 \
-			--chain.l2-regularize 0.0 \
+      --chain.l2-regularize 0.0 \
 			--chain.apply-deriv-weights false \
 			--chain.lm-opts="--num-extra-lm-states=2000" \
 			--trainer.dropout-schedule $dropout_schedule \
 			--trainer.add-option="--optimization.memory-compression-level=2" \
 			--trainer.num-chunk-per-minibatch 64 \
 			--trainer.frames-per-iter 2500000 \
-			--trainer.num-epochs 4 \
+			--trainer.num-epochs 8 \
 			--trainer.optimization.num-jobs-initial 1 \
 			--trainer.optimization.num-jobs-final 1 \
 			--trainer.optimization.initial-effective-lrate 0.00015 \
@@ -153,14 +151,10 @@ if [ $stage -le 2 ]; then
 fi
 
 if [ $stage -le 3 ]; then
-  utils/mkgraph.sh --self-loop-scale 1.0 --remove-oov data/lang_test_small $dir $dir/graph_test_small 
-	#utils/mkgraph.sh data/lang_test_small exp/i/tri4$tri_version exp/i/tri4$tri_version/graph_test_small
+	utils/mkgraph.sh --self-loop-scale 1.0 --remove-oov data/lang_test_small $dir $dir/graph_test_small
 	
 	steps/nnet3/decode.sh --acwt 1.0 --post-decode-acwt 10.0 \
 			--nj 16 --cmd "$basic_cmd" \
 			$dir/graph_test_small data/${decode_set}_hires $dir/decode_${decode_set}_test_small
-	#steps/decode_fmllr.sh --cmd "$basic_cmd" --nj 16 \
-	#								exp/i/tri4$tri_version/graph_test_small data/parl-dev-all \
-	#								exp/i/tri4$tri_version/decode_parl-dev-all_test_small
 fi
 
