@@ -2,6 +2,9 @@
 set -e
 
 decode_set=parl-dev-all
+start_iter=4000
+end_iter=6000
+step=500
 
 echo "$0 $@"  # Print the command line for logging
 
@@ -24,8 +27,9 @@ if [ ! -d $dir/graph_test_small ]; then
 	utils/mkgraph.sh --self-loop-scale 1.0 --remove-oov data/lang_test_small $dir $dir/graph_test_small
 fi
 
-for iter in {4000..6000..500}
+for iter in $(eval echo "{$start_iter..$end_iter..$step}")
 do
+	echo "Decoding iteration $iter of $dir next."
 	steps/nnet3/decode.sh --acwt 1.0 --post-decode-acwt 10.0 \
 		--nj 16 --cmd "$basic_cmd" --iter $iter \
 		$dir/graph_test_small data/${decode_set}_hires $dir/decode_${decode_set}_test_small_${iter}
