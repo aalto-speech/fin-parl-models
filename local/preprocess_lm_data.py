@@ -18,7 +18,7 @@ def normalize(line):
     # Just decide that everything will be lowercase:
     line = line.lower()
     # All whitespace to one space:
-    line = " ".join(line.strip().split()) 
+    line = " ".join(line.strip().split())
     # Remove all extra characters:
     line = "".join(char for char in line if char.isalpha() or char == " ")
     return line
@@ -31,7 +31,7 @@ if __name__ == "__main__":
     parser.add_argument("files", nargs = "*", help = "Files to operate on. If not given, read from stdin.")
     parser.add_argument("--outfile", default = "", help = "Path to write to. If not given, write to stdout instead.")
     args = parser.parse_args()
-    if args.outfile: 
+    if args.outfile:
         with open(args.outfile, "w") as fo:
             for line in fileinput.input(args.files,openhook=fileinput.hook_encoded("utf-8")):
                 print(normalize(line), file = fo)
