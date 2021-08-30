@@ -38,7 +38,7 @@ fi
 train_data_dir=data/${train_set}_hires
 tree_dir=exp/chain/tree
 lat_dir=exp/chain/${gmm_str}_${train_set}_lats
-dir=exp/chain/tdnn_blstm_a  
+dir=exp/chain/tdnn_blstm_a_multigpu
 
 if [ $stage -le 0 ]; then
   echo "$0: creating neural net configs using the xconfig parser";
@@ -132,10 +132,10 @@ fi
 
 if [ $stage -le 2 ]; then
 	# Network training
-  $nnet_cmd $dir/log/train_network.log \
+  run.pl $dir/log/train_network.log \
 		steps/nnet3/chain/train.py \
 			--stage $train_stage \
-			--cmd "run.pl" \
+			--cmd "$nnet_cmd" \
 			--egs.chunk-width $frames_per_eg \
 			--egs.chunk-left-context $chunk_left_context \
 			--egs.chunk-right-context $chunk_right_context \
@@ -154,8 +154,8 @@ if [ $stage -le 2 ]; then
 			--trainer.num-epochs 8 \
 			--trainer.optimization.shrink-value 0.99 \
 			--trainer.optimization.momentum 0.0 \
-			--trainer.optimization.num-jobs-initial 1 \
-			--trainer.optimization.num-jobs-final 1 \
+			--trainer.optimization.num-jobs-initial 4 \
+			--trainer.optimization.num-jobs-final 4 \
 			--trainer.optimization.initial-effective-lrate 0.001 \
 			--trainer.optimization.final-effective-lrate 0.0001 \
 			--trainer.max-param-change 2.0 \

@@ -10,8 +10,8 @@
 # conf/queue.conf in http://kaldi-asr.org/doc/queue.html for more information,
 # or search for the string 'default_config' in utils/queue.pl or utils/slurm.pl.
 
-export basic_cmd="slurm.pl --mem 4G --time 01:00:00"
+export basic_cmd="slurm.pl --mem 4G --time 04:00:00"
 export train_cmd="slurm.pl --mem 4G --time 01:30:00"
 export gmm_cmd="slurm.pl --mem 4G --time 1:30:00"
 export egs_cmd="slurm.pl --mem 2G --time 8:0:0"
-export nnet_cmd="slurm.pl --gpu 1 --mem 16G --time 05-00"
+export nnet_cmd="slurm.pl --gpu 1 --mem 4G --time 00:10:00"
