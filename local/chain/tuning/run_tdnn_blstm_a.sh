@@ -167,7 +167,7 @@ if [ $stage -le 2 ]; then
 fi
 
 if [ $stage -le 3 ]; then
-	utils/mkgraph.sh --self-loop-scale 1.0 data/lang_test_small $dir $dir/graph_test_small
+	utils/mkgraph.sh --self-loop-scale 1.0 --remove-oov data/lang_test_small $dir $dir/graph_test_small
 	
   frames_per_chunk=$(echo $frames_per_eg | cut -d, -f1)
 	steps/nnet3/decode.sh --acwt 1.0 --post-decode-acwt 10.0 \
