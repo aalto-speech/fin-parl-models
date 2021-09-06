@@ -43,7 +43,7 @@ if [ $stage -le 2 ]; then
   fi
   echo "$0: aligning with the data"
   steps/align_fmllr.sh --nj 100 --cmd "$train_cmd" \
-    data/$train_set data/andre_comparison/lang_train $gmm_dir $ali_dir || exit 1
+    ${lores_traindir} data/andre_comparison/lang_train $gmm_dir $ali_dir || exit 1
 fi
 
 if [ $stage -le 3 ]; then
