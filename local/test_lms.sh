@@ -24,15 +24,55 @@ lm=$1
 decode_set=$2
 
 if [ $stage -le 1 ]; then
-	dir=exp/i/tri4j
-	echo "Decode with the best GMM."
+	dir=exp/i/mono
+	echo "Decoding set $decode_set with monophone model $dir and LM $lm next."
 	utils/mkgraph.sh --remove-oov data/lang_$lm $dir $dir/graph_$lm
 
-	steps/decode_fmllr.sh	--nj 16 --cmd "$basic_cmd" \
+	# Decode with triphone model
+	steps/decode.sh --nj 8 --cmd "$basic_cmd" \
 				$dir/graph_$lm data/${decode_set} $dir/decode_${decode_set}_$lm
 fi
 
 if [ $stage -le 2 ]; then
+	dir=exp/i/tri1a
+	echo "Decoding set $decode_set with first triphone model $dir and LM $lm next."
+	utils/mkgraph.sh --remove-oov data/lang_$lm $dir $dir/graph_$lm
+
+	# Decode with triphone model
+	steps/decode.sh --nj 8 --cmd "$basic_cmd" \
+				$dir/graph_$lm data/${decode_set} $dir/decode_${decode_set}_$lm
+fi
+
+if [ $stage -le 3 ]; then
+	dir=exp/i/tri2a
+	echo "Decoding set $decode_set with second triphone model $dir and LM $lm next."
+	utils/mkgraph.sh --remove-oov data/lang_$lm $dir $dir/graph_$lm
+
+	# Decode with triphone model
+	steps/decode.sh --nj 8 --cmd "$basic_cmd" \
+				$dir/graph_$lm data/${decode_set} $dir/decode_${decode_set}_$lm
+fi
+
+if [ $stage -le 4 ]; then
+	dir=exp/i/tri3a
+	echo "Decoding set $decode_set with third triphone model $dir and LM $lm next."
+	utils/mkgraph.sh --remove-oov data/lang_$lm $dir $dir/graph_$lm
+
+	# Decode with triphone model
+	steps/decode_fmllr.sh --nj 8 --cmd "$basic_cmd" \
+				$dir/graph_$lm data/${decode_set} $dir/decode_${decode_set}_$lm
+fi
+
+if [ $stage -le 5 ]; then
+	dir=exp/i/tri4j
+	echo "Decode with the last GMM."
+	utils/mkgraph.sh --remove-oov data/lang_$lm $dir $dir/graph_$lm
+
+	steps/decode_fmllr.sh --nj 16 --cmd "$basic_cmd" \
+				$dir/graph_$lm data/${decode_set} $dir/decode_${decode_set}_$lm
+fi
+
+if [ $stage -le 6 ]; then
 	for model in a b c d
 	do
 		dir=exp/chain/tdnn_$model
@@ -45,7 +85,7 @@ if [ $stage -le 2 ]; then
 	done
 fi
 
-if [ $stage -le 3 ]; then
+if [ $stage -le 7 ]; then
 	dir=exp/chain/tdnn_blstm_a_multigpu
 	echo "Decoding set $decode_set with AM $dir and LM $lm next."
 	utils/mkgraph.sh --self-loop-scale 1.0 --remove-oov data/lang_$lm $dir $dir/graph_$lm
@@ -59,4 +99,3 @@ if [ $stage -le 3 ]; then
 			--frames-per-chunk "140" \
 			$dir/graph_$lm data/${decode_set}_hires $dir/decode_${decode_set}_$lm
 fi
-
