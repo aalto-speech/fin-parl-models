@@ -4,8 +4,8 @@
 # where a GMM is trained just like in the Kaldi Librispeech recipe.
 # (with added decoding steps)
 
-release_traindir=/scratch/work/psmit/chars-fin-2017/am/data/parl-train-unfiltered_cleaned
-traindir=data/andre_comparison/parl-train-unfiltered_cleaned
+release_traindir=/scratch/work/psmit/chars-fin-2017/am/data/parl-train-unfiltered
+traindir=data/andre_comparison/parl-train-unfiltered
 lm=test_parl_20M_varikn.bpe19000.d0.0001
 stage=1
 tri_version=j
@@ -21,8 +21,9 @@ if [ $stage -le 1 ]; then
   # Prep the data locally
   mkdir -p data
   # Copy the datadir from the release directory.
-  utils/copy_data_dir.sh $release_traindir data/andre_comparison/parl-train-unfiltered_cleaned
+  utils/copy_data_dir.sh $release_traindir data/andre_comparison/parl-train-unfiltered
 	local/enforce_letter_in_data.sh --max-utt-to-add 100 data/train "å" ${traindir}
+	# NOTE: FIX viejÃ€Ã€ -> viejää in single offending utterance! 
 fi
 
 if [ $stage -le 2 ]; then

@@ -4,9 +4,9 @@ set -e
 # Flow
 stage=0
 train_stage=0
-train_set=parl-train-unfiltered
+train_set=parl-train-unfiltered_cleaned
 decode_set=parl-dev-all
-gmm_str="i/tri4j"
+gmm_str="i_cleaned/tri4j"
 lm=test_parl_20M_varikn.bpe19000.d0.0001
 
 # EGS options
@@ -33,9 +33,9 @@ EOF
 fi
 
 train_data_dir=data/andre_comparison/${train_set}_hires
-tree_dir=exp/andre_comparison/chain/tree
-lat_dir=exp/andre_comparison/chain/${gmm_str}_${train_set}_lats
-dir=exp/andre_comparison/chain/tdnn_d
+tree_dir=exp/andre_comparison/chain_cleaned/tree
+lat_dir=exp/andre_comparison/chain_cleaned/${gmm_str}_${train_set}_lats
+dir=exp/andre_comparison/chain_cleaned/tdnn_d
 
 if [ $stage -le 0 ]; then
   echo "$0: creating neural net configs using the xconfig parser";

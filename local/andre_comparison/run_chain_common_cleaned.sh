@@ -1,15 +1,15 @@
 #!/bin/bash
 
-train_set=parl-train-unfiltered
+train_set=parl-train-unfiltered_cleaned
 lores_traindir=data/andre_comparison/${train_set}
-gmm_str=i/tri4j
+gmm_str=i_cleaned/tri4j
 
 
 gmm_dir=exp/andre_comparison/${gmm_str}
 ali_dir=exp/andre_comparison/${gmm_str}_ali_${train_set}
-lang=data/andre_comparison/lang_chain
-lat_dir=exp/andre_comparison/chain/${gmm_str}_${train_set}_lats
-tree_dir=exp/andre_comparison/chain/tree
+lang=data/andre_comparison/lang_chain_cleaned
+lat_dir=exp/andre_comparison/chain_cleaned/${gmm_str}_${train_set}_lats
+tree_dir=exp/andre_comparison/chain_cleaned/tree
 
 stage=1
 num_leaves=6000
@@ -43,7 +43,7 @@ if [ $stage -le 2 ]; then
   fi
   echo "$0: aligning with the data"
   steps/align_fmllr.sh --nj 100 --cmd "$train_cmd" \
-    ${lores_traindir} data/andre_comparison/lang_train $gmm_dir $ali_dir || exit 1
+    ${lores_traindir} data/andre_comparison/lang_train_cleaned $gmm_dir $ali_dir || exit 1
 fi
 
 if [ $stage -le 3 ]; then
@@ -52,15 +52,15 @@ if [ $stage -le 3 ]; then
   # topo file. [note, it really has two states.. the first one is only repeated
   # once, the second one has zero or more repeats.]
   if [ -d $lang ]; then
-    if [ $lang/L.fst -nt data/andre_comparison/lang_train/L.fst ]; then
+    if [ $lang/L.fst -nt data/andre_comparison/lang_train_cleaned/L.fst ]; then
       echo "$0: $lang already exists, not overwriting it; continuing"
     else
-      echo "$0: $lang already exists and seems to be older than data/andre_comparison/lang_train..."
+      echo "$0: $lang already exists and seems to be older than data/andre_comparison/lang_train_cleaned..."
       echo " ... not sure what to do.  Exiting."
       exit 1;
     fi
   else
-    cp -r data/andre_comparison/lang_train $lang
+    cp -r data/andre_comparison/lang_train_cleaned $lang
     silphonelist=$(cat $lang/phones/silence.csl) || exit 1;
     nonsilphonelist=$(cat $lang/phones/nonsilence.csl) || exit 1;
     # Use our special topology... note that later on may have to tune this
