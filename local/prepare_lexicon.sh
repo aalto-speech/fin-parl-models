@@ -1,6 +1,12 @@
 #!/bin/bash
+# Prepares a grapheme lexicon based on the training data text
+#
+# This script can also add lexicon entries for extra text files' words
+# The script checks that the extra text entries don't have graphemes
+# that don't appear in the training data
 
 oov_entry="<UNK>"
+extra_texts=
 
 . path.sh
 . parse_options.sh
@@ -23,9 +29,11 @@ outdir=$3
 
 mkdir -p $workdir
 
+local/check_grapheme_sets_compatible.py $traindir/text $extra_texts || exit 1
+
 local/seed_dict.sh $workdir
 
-cut -d" " -f2- $traindir/text | tr " " "\n" | sort -u | local/word-list-to-lexicon.py - > $workdir/lexicon.txt
+cat $traindir/text $extra_texts | cut -d" " -f2- | tr " " "\n" | sort -u | local/word-list-to-lexicon.py - > $workdir/lexicon.txt
 cut -d" " -f2- $workdir/lexicon.txt | tr " " "\n" | sort -u | grep -vf $workdir/silence_phones.txt - > $workdir/nonsilence_phones.txt
 
 tmpdir=$(mktemp -d)
