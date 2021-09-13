@@ -47,6 +47,7 @@ LM (same data and n-gram model).
 %WER 19.26 [ 6874 / 35693, 920 ins, 1788 del, 4166 sub ] exp/andre_comparison/i/tri3a/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001.si/wer_15_0.0
 %WER 14.42 [ 5147 / 35693, 843 ins, 1336 del, 2968 sub ] exp/andre_comparison/i/tri4j/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_14_0.0
 %WER 16.79 [ 5993 / 35693, 929 ins, 1511 del, 3553 sub ] exp/andre_comparison/i/tri4j/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001.si/wer_14_0.0
+%WER 10.34 [ 3691 / 35693, 632 ins, 1290 del, 1769 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_9_0.0
 ```
 
 ### 1.2.2. Old parliament cleaned
@@ -87,9 +88,9 @@ Comparison of models with different acoustic model training datasets.
 
 | Acoustic model        | New parliament data | Old parliament data | Old parliament data (cleaned) | Combined |
 | --------------------- | ------------------- | ------------------- | ----------------------------- | -------- |
-| Monophone GMM         | 56.24               | 69.87               | 55.16                         | -        |
+| Monophone GMM         | 56.24               | 69.87               | 55.16                         | 61.29    |
 | Delta+delta-delta GMM | 21.56               | 21.43               | 21.16                         | -        |
 | LDA+MLLT GMM          | 17.83               | 17.72               | 17.70                         | -        |
 | LDA+MLLT+SAT GMM      | 19.38, 16.70        | 19.26, 16.77        | 19.30, 16.71                  | -        |
 | LDA+MLLT+SAT GMM      | 16.41, 14.34        | 16.79, 14.42        | 16.52, 14.05                  | -        |
-| TDNN-d                | 9.98                | -                   | 8.35                          | -        |
+| TDNN-d                | 9.98                | 10.34               | 8.35                          | -        |
