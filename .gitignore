@@ -3,3 +3,4 @@ exp/
 data/
 raw_data
 libcuda*
+*.log
