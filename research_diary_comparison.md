@@ -2,7 +2,7 @@
 
 - [1. Experiments comparing different parliament data combinations](#1-experiments-comparing-different-parliament-data-combinations)
   - [1.1. Datasets](#11-datasets)
-    - [1.1.1. Sizes](#111-sizes)
+    - [1.1.1. Dataset sizes](#111-dataset-sizes)
   - [1.2. Results](#12-results)
     - [1.2.1. Old parliament](#121-old-parliament)
     - [1.2.2. Old parliament cleaned](#122-old-parliament-cleaned)
@@ -18,9 +18,21 @@ the new, **published** (in Kielipankki), parliament data is 'uncleaned'. To see 
 procedure affects the results, we did experiments on both versions. The cleaning procedure in this case
 refers to Kaldi's `steps/cleanup/clean_and_segment_data_nnet3.sh` script.
 
-There is a cleaned version of the new parliament data too, but no experiments done using it yet.
+There is a cleaned version of the new parliament data too (cleaned with Peter's model), but no experiments
+done using it yet. We are also considering using the best HMM-GMM to clean the new data, because that would
+make our Kaldi recipes replicable and self-contained. André also cleaned his data with Kaldi using a
+HMM-GMM:
 
-### 1.1.1. Sizes
+> After the segmentation and data division a completely independent speech recognition system was
+> trained using the Kaldi toolkit [12]. At first a GMM-HMM was trained and this model was used to do
+> another cleaning and segmentation step. (Mansikkaniemi et al. 2017)
+
+The uncleaned versions of old and new parliament sets were combined in to one large dataset of over
+3000 hours. Since the sets had overlap for years 2015 and 2016, samples from those years were filtered
+out of the old parliament set. The new set was cleaned of any speech that appears in the development
+and test sets.
+
+### 1.1.1. Dataset sizes
 
 Dataset sizes computed using the Kaldi `utt2dur` files.
 
@@ -29,7 +41,7 @@ Dataset sizes computed using the Kaldi `utt2dur` files.
 | Old (André) parliament         | 1559.4523 h   | `parl-train-unfiltered`         |
 | Old (André) parliament cleaned | 1385.1348 h   | `parl-train-unfiltered_cleaned` |
 | New parliament                 | 1783.4233 h   | `train`                         |
-| Combined                       | -             |                                 |
+| Combined                       | 3087.1670 h   | `parl-train-2008-2020-kevat`    |
 
 ## 1.2. Results
 
@@ -79,18 +91,24 @@ LM (same data and n-gram model).
 ### 1.2.4. Combined
 
 ```txt
-#TODO
+%WER 61.29 [ 21877 / 35693, 883 ins, 6218 del, 14776 sub ] exp/combined_comparison/i/mono/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_8_0.0
+%WER 21.34 [ 7617 / 35693, 844 ins, 2163 del, 4610 sub ] exp/combined_comparison/i/tri1a/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_13_0.0
+%WER 17.63 [ 6291 / 35693, 803 ins, 1794 del, 3694 sub ] exp/combined_comparison/i/tri2a/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_15_0.0
+%WER 16.41 [ 5858 / 35693, 829 ins, 1604 del, 3425 sub ] exp/combined_comparison/i/tri3a/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_16_0.0
+%WER 19.23 [ 6864 / 35693, 984 ins, 1668 del, 4212 sub ] exp/combined_comparison/i/tri3a/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001.si/wer_13_0.0
+%WER 14.09 [ 5029 / 35693, 824 ins, 1326 del, 2879 sub ] exp/combined_comparison/i/tri4j/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_16_0.0
+%WER 16.21 [ 5787 / 35693, 880 ins, 1409 del, 3498 sub ] exp/combined_comparison/i/tri4j/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001.si/wer_15_0.0
 ```
 
 ### 1.2.5. Comparison tables (WER)
 
 Comparison of models with different acoustic model training datasets.
 
-| Acoustic model        | New parliament data | Old parliament data | Old parliament data (cleaned) | Combined |
-| --------------------- | ------------------- | ------------------- | ----------------------------- | -------- |
-| Monophone GMM         | 56.24               | 69.87               | 55.16                         | 61.29    |
-| Delta+delta-delta GMM | 21.56               | 21.43               | 21.16                         | -        |
-| LDA+MLLT GMM          | 17.83               | 17.72               | 17.70                         | -        |
-| LDA+MLLT+SAT GMM      | 19.38, 16.70        | 19.26, 16.77        | 19.30, 16.71                  | -        |
-| LDA+MLLT+SAT GMM      | 16.41, 14.34        | 16.79, 14.42        | 16.52, 14.05                  | -        |
-| TDNN-d                | 9.98                | 10.34               | 8.35                          | -        |
+| Acoustic model        | New parliament data | Old parliament data | Old cleaned  | Combined     |
+| --------------------- | ------------------- | ------------------- | ------------ | ------------ |
+| Monophone GMM         | 56.24               | 69.87               | 55.16        | 61.29        |
+| Delta+delta-delta GMM | 21.56               | 21.43               | 21.16        | 21.34        |
+| LDA+MLLT GMM          | 17.83               | 17.72               | 17.70        | 17.63        |
+| LDA+MLLT+SAT GMM      | 19.38, 16.70        | 19.26, 16.77        | 19.30, 16.71 | 19.23, 16.41 |
+| LDA+MLLT+SAT GMM      | 16.41, 14.34        | 16.79, 14.42        | 16.52, 14.05 | 16.21, 14.09 |
+| TDNN-d                | 9.98                | 10.34               | 8.35         | -            |

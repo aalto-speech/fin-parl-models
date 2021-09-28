@@ -162,7 +162,6 @@ LM comparison:
 | TDNN-d (retrained TDNN-a) | 16.73                                 | 14.19                                      | 9.98                                |
 | TDNN-BLSTM                | 16.25                                 | 14.34                                      | 10.66                               |
 
-
 ---
 
 ## 1.5. Modeling decisions
