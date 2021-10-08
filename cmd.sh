@@ -15,3 +15,5 @@ export train_cmd="slurm.pl --mem 4G --time 04:00:00"
 export gmm_cmd="slurm.pl --mem 4G --time 1:30:00"
 export egs_cmd="slurm.pl --mem 2G --time 8:0:0"
 export nnet_cmd="slurm.pl --gpu 1 --mem 4G --time 00:10:00"
+export varikn_cmd="slurm.pl --mem 16G --time 04:00:00"
+

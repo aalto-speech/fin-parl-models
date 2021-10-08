@@ -8,7 +8,7 @@ cutoffs="0 0 1" #-O --cutoffs
 scale=0.001 #-D --dscale
 prune_scale= #-E --dscale2
 extra_args="--clear_history --3nzer --arpa" #-C -3 -a
-cmd="$train_cmd"
+cmd="$varikn_cmd"
 
 . ./path.sh
 . parse_options.sh
