@@ -11,19 +11,22 @@ validdata=
 . path.sh
 . parse_options.sh
 
-if [ "$#" -ne 3 ]; then
-  echo "Usage: $0 <lm-data-dir> <lmdir> <outdir>"
-	echo "e.g.: $0 --BPE-units 1000 data/lm_data exp/varikn.bpe1000 data/lang_bpe.1000.varikn"
-  echo "<lm-data-dir> should have files: plain_text and plain_text.valid"
-  echo " or you can specify:"
+if [ "$#" -ne 2 ]; then
+  echo "Usage: $0 <lm-data> <outdir>"
+	echo "e.g.: $0 --BPE-units 1000 train data/lang_bpe.1000.varikn"
+  echo "If you don't have LM data dir with files plain_text and plain_text.valid,"
+  echo "you can specify:"
   echo "    --stage 0 --traindata <traindata> --validdata <validdata>"
-  echo " to use Kaldi datadirs' text files for lm data prep."
+  echo "to use Kaldi datadirs' text files for lm data prep."
   exit 1
 fi
 
-lmdatadir="$1"
-lmdir="$2"
-outdir="$3"
+lmdata="$1"
+outdir="$2"
+
+lmdatadir="data/lm_$lmdata"
+scale=$(echo $varikn_opts | grep -oPe "--scale \d\.\d+" | cut -d" " -f2)
+lmdir="exp/lm/${lmdata}_varikn.bpe${BPE_units}.d${scale}"
 
 if [ "$stage" -le 0 ]; then
   echo "LM training data prep from Kaldi style data dirs"
@@ -74,15 +77,16 @@ if [ "$skip_lang" = true ]; then
 	exit 0
 fi
 
+dict_dir="data/local/dict_${lmdata}_bpe.$BPE_units"
 if [ "$stage" -le 4 ]; then
 	echo "Make SentencePiece LM."
-	local/make_spm_lang.sh "$lmdir"/bpe.${BPE_units}.vocab.plain data/local/dict_bpe.$BPE_units $outdir 
+	local/make_spm_lang.sh "$lmdir"/bpe.${BPE_units}.vocab.plain $dict_dir $outdir
 fi
 
 if [ "$stage" -le 5 ]; then
 	echo "Convert ARPA to FST."
 	utils/format_lm.sh \
 		$outdir "$lmdir"/varikn.lm.gz \
-		data/local/dict_bpe.$BPE_units/lexicon.txt $outdir
+		$dict_dir/lexicon.txt $outdir
 fi
 
