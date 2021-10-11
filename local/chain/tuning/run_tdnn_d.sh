@@ -7,6 +7,8 @@ train_stage=0
 train_set=train
 decode_set=parl-dev-all
 gmm_str="i/tri4j"
+lm=test_parl_20M_varikn.bpe19000.d0.0001
+use_cleaned=false
 
 # EGS options
 frames_per_eg=150,110,100
@@ -23,6 +25,9 @@ echo "$0 $@"  # Print the command line for logging
 . ./path.sh
 . ./utils/parse_options.sh
 
+suffix=
+$use_cleaned && suffix=_cleaned
+
 if ! cuda-compiled; then
   cat <<EOF && exit 1
 This script is intended to be used with GPUs but you have not compiled Kaldi with CUDA
@@ -31,10 +36,10 @@ where "nvcc" is installed.
 EOF
 fi
 
-train_data_dir=data/${train_set}_hires
-tree_dir=exp/chain/tree
-lat_dir=exp/chain/${gmm_str}_${train_set}_lats
-dir=exp/chain/tdnn_d
+train_data_dir=data/${train_set}${suffix}_hires
+tree_dir=exp/chain/tree${suffix}
+lat_dir=exp/chain/${gmm_str}_${train_set}${suffix}_lats
+dir=exp/chain/tdnn_d${suffix}
 
 if [ $stage -le 0 ]; then
   echo "$0: creating neural net configs using the xconfig parser";
@@ -86,16 +91,6 @@ EOF
   steps/nnet3/xconfig_to_configs.py --xconfig-file $dir/configs/network.xconfig --config-dir $dir/configs/
 fi
 
-# Potentially use these egs (if they still exist).
-compatible_egs="exp/chain/tdnn_a/egs"
-egs_opts=
-if [ -e $compatible_egs/cegs.1.ark ]; then
-	echo "Egs found in $compatible_egs"
-	egs_opts="--egs.dir $compatible_egs"
-else
-	echo "No egs found in $compatible_egs"
-fi
-
 if [ $stage -le 1 ]; then
 	# Chain prep (egs, phone-lm, etc.) separately:
 
@@ -107,7 +102,6 @@ if [ $stage -le 1 ]; then
     --egs.stage -10 \
     --egs.opts "--frames-overlap-per-eg 0 --constrained false" \
     --egs.chunk-width $frames_per_eg \
-		  $egs_opts \
     --cleanup.remove-egs false \
     --feat.cmvn-opts "--norm-means=false --norm-vars=false" \
     --chain.xent-regularize $xent_regularize \
@@ -138,7 +132,6 @@ if [ $stage -le 2 ]; then
 			--stage $train_stage \
 			--cmd "$nnet_cmd" \
 			--egs.chunk-width $frames_per_eg \
-		    $egs_opts \
 			--cleanup.remove-egs false \
 			--feat.cmvn-opts "--norm-means=false --norm-vars=false" \
 			--chain.xent-regularize $xent_regularize \
@@ -151,7 +144,7 @@ if [ $stage -le 2 ]; then
 			--trainer.num-chunk-per-minibatch 64 \
 			--trainer.frames-per-iter 2500000 \
 			--trainer.num-epochs 8 \
-			--trainer.optimization.num-jobs-initial 3 \
+			--trainer.optimization.num-jobs-initial 1 \
 			--trainer.optimization.num-jobs-final 4 \
 			--trainer.optimization.initial-effective-lrate 0.00015 \
 			--trainer.optimization.final-effective-lrate 0.000015 \
@@ -163,10 +156,10 @@ if [ $stage -le 2 ]; then
 fi
 
 if [ $stage -le 3 ]; then
-	utils/mkgraph.sh --self-loop-scale 1.0 --remove-oov data/lang_test_small $dir $dir/graph_test_small
+	utils/mkgraph.sh --self-loop-scale 1.0 --remove-oov data/lang_$lm $dir $dir/graph_$lm
 
 	steps/nnet3/decode.sh --acwt 1.0 --post-decode-acwt 10.0 \
 			--nj 16 --cmd "$basic_cmd" \
-			$dir/graph_test_small data/${decode_set}_hires $dir/decode_${decode_set}_test_small
+			$dir/graph_$lm data/${decode_set}_hires $dir/decode_${decode_set}_$lm
 fi
 

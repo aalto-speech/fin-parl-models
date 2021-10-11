@@ -1,55 +1,48 @@
 #!/bin/bash
 
-# TODO
-
-# Other:
-# - No cleanup (done already)
-# - Improve LM
-# - Try increasing num_leaves?
 # Use chain (not chain2), seems like it is still better
-
-# RUN TDNN:
-# Name these with _a, _b etc. so we can tune the model
-# - egs files?
-# - Model config file? or somehow define model
-# call train.py
 
 train_set=train
 gmm_str=i/tri4j
 
-gmm_dir=exp/${gmm_str}
-ali_dir=exp/${gmm_str}_ali_${train_set}
-lang=data/lang_chain
-lores_train_data_dir=data/${train_set}
-lat_dir=exp/chain/${gmm_str}_${train_set}_lats
-tree_dir=exp/chain/tree
-
 stage=1
 num_leaves=6000
+use_cleaned=false
 
 # EGS OPTIONS:
 
 egs_opts="--frames-overlap-per-eg 0 --constrained false"
 frames_per_eg=150,110,100
 
+echo "$0 $@"  # Print the command line for logging
 
 . ./cmd.sh
 . ./path.sh
 . ./utils/parse_options.sh
 
+suffix=
+$use_cleaned && suffix=_cleaned
+
+lores_traindir=data/${train_set}${suffix}
+gmm_dir=exp/${gmm_str}${suffix}
+ali_dir=exp/${gmm_str}_ali_${train_set}${suffix}
+gmm_lang=data/lang_${train_set}${suffix}
+lang=data/lang_chain${suffix}
+lat_dir=exp/chain/${gmm_str}_${train_set}${suffix}_lats
+tree_dir=exp/chain/tree${suffix}
 
 # -- Step 1, Features --
 
 if [ $stage -le 1 ]; then
 	echo "$0: Stage 1, prepare data dirs."
 	# Training set
-	utils/copy_data_dir.sh data/train data/train_hires
-	steps/make_mfcc.sh --nj 32 --cmd "$basic_cmd" --mfcc-config conf/mfcc_hires.conf data/train_hires
-	steps/compute_cmvn_stats.sh data/train_hires
+	utils/copy_data_dir.sh ${lores_traindir} ${lores_traindir}_hires
+	steps/make_mfcc.sh --nj 32 --cmd "$basic_cmd" --mfcc-config conf/mfcc_hires.conf ${lores_traindir}_hires
+	steps/compute_cmvn_stats.sh ${lores_traindir}_hires
 	# Dev set
-	utils/copy_data_dir.sh data/parl-dev-all data/parl-dev-all_hires
-	steps/make_mfcc.sh --nj 16 --cmd "$basic_cmd" --mfcc-config conf/mfcc_hires.conf data/parl-dev-all_hires
-	steps/compute_cmvn_stats.sh data/parl-dev-all_hires
+	#utils/copy_data_dir.sh data/parl-dev-all data/parl-dev-all_hires
+	#steps/make_mfcc.sh --nj 16 --cmd "$basic_cmd" --mfcc-config conf/mfcc_hires.conf data/parl-dev-all_hires
+	#steps/compute_cmvn_stats.sh data/parl-dev-all_hires
 fi
 
 if [ $stage -le 2 ]; then
@@ -60,7 +53,7 @@ if [ $stage -le 2 ]; then
   fi
   echo "$0: aligning with the data"
   steps/align_fmllr.sh --nj 100 --cmd "$train_cmd" \
-    data/$train_set data/lang_$train_set $gmm_dir $ali_dir || exit 1
+    ${lores_traindir} $gmm_lang $gmm_dir $ali_dir || exit 1
 fi
 
 if [ $stage -le 3 ]; then
@@ -69,15 +62,15 @@ if [ $stage -le 3 ]; then
   # topo file. [note, it really has two states.. the first one is only repeated
   # once, the second one has zero or more repeats.]
   if [ -d $lang ]; then
-    if [ $lang/L.fst -nt data/lang_$train_set/L.fst ]; then
+    if [ $lang/L.fst -nt $gmm_lang/L.fst ]; then
       echo "$0: $lang already exists, not overwriting it; continuing"
     else
-      echo "$0: $lang already exists and seems to be older than data/lang_${train_set}..."
+      echo "$0: $lang already exists and seems to be older than ${gmm_lang}..."
       echo " ... not sure what to do.  Exiting."
       exit 1;
     fi
   else
-    cp -r data/lang_$train_set $lang
+    cp -r $gmm_lang $lang
     silphonelist=$(cat $lang/phones/silence.csl) || exit 1;
     nonsilphonelist=$(cat $lang/phones/nonsilence.csl) || exit 1;
     # Use our special topology... note that later on may have to tune this
@@ -90,7 +83,7 @@ if [ $stage -le 4 ]; then
   # Get the alignments as lattices (gives the chain training more freedom).
   # use the same num-jobs as the alignments
   nj=$(cat ${ali_dir}/num_jobs) || exit 1;
-  steps/align_fmllr_lats.sh --nj $nj --cmd "$train_cmd" ${lores_train_data_dir} \
+  steps/align_fmllr_lats.sh --nj $nj --cmd "$train_cmd" ${lores_traindir} \
     $lang $gmm_dir $lat_dir
   rm $lat_dir/fsts.*.gz # save space
 fi
@@ -105,7 +98,7 @@ if [ $stage -le 5 ]; then
   fi
   steps/nnet3/chain/build_tree.sh --frame-subsampling-factor 3 \
       --context-opts "--context-width=2 --central-position=1" \
-      --cmd "$train_cmd" $num_leaves ${lores_train_data_dir} $lang $ali_dir $tree_dir
+      --cmd "$train_cmd" $num_leaves ${lores_traindir} $lang $ali_dir $tree_dir
 fi
 
 # Turns out that get_egs.sh takes the chain model directory as one
@@ -125,7 +118,8 @@ fi
 #		--frames-per-iter 2500000 \
 #		--frames-per-eg ${frames_per_eg} \
 #		${egs_opts} \
-#		data/train_hires
+#		${lores_traindir}_hires
 #
 #		#{data} {dir} {lat_dir} {egs_dir}
 #fi
+
