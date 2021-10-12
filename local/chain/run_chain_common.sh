@@ -26,8 +26,8 @@ $use_cleaned && suffix=_cleaned
 lores_traindir=data/${train_set}${suffix}
 gmm_dir=exp/${gmm_str}${suffix}
 ali_dir=exp/${gmm_str}_ali_${train_set}${suffix}
-gmm_lang=data/lang_${train_set}${suffix}
-lang=data/lang_chain${suffix}
+gmm_lang=data/lang_${train_set}
+lang=data/lang_chain
 lat_dir=exp/chain/${gmm_str}_${train_set}${suffix}_lats
 tree_dir=exp/chain/tree${suffix}
 
