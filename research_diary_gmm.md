@@ -64,7 +64,6 @@ We start our model building using Kaldi's [Librispeech recipe](https://github.co
     - c) Train one monophone model with shortest 2k utterances, one triphone model (LDA+MLLT) with 250k utts and one triphone model (LDA+MLLT+SAT) with all data
     - d) Same as c) but increase params for LDA+MLLT model
 
-
 ---
 
 ## 1.3. Research questions
@@ -90,7 +89,7 @@ which cut the total audio length from 1780 h to 1717 h.
 
 Results for experiment A when run with the 1000 h set.  
 
-```
+```txt
 $ cat exp/a/*/decode*/scoring_kaldi/best_wer
 %WER 68.53 [ 24459 / 35693, 962 ins, 6956 del, 16541 sub ] exp/a/mono/decode_parl-dev-all_test_small/wer_7_0.0
 %WER 38.39 [ 13703 / 35693, 1305 ins, 3119 del, 9279 sub ] exp/a/tri1a/decode_parl-dev-all_test_small/wer_12_0.0
@@ -113,7 +112,7 @@ $ cat exp/a/*/decode*/scoring_kaldi/best_wer
 
 Results for experiment B when run with the 1000 h set.
 
-```
+```txt
 $ cat exp/b/*/decode*/scoring_kaldi/best_wer
 %WER 56.71 [ 20242 / 35693, 1007 ins, 5649 del, 13586 sub ] exp/b/mono/decode_parl-dev-all_test_small/wer_8_0.0
 %WER 35.22 [ 12572 / 35693, 1238 ins, 3003 del, 8331 sub ] exp/b/tri1a/decode_parl-dev-all_test_small/wer_13_0.0
@@ -125,7 +124,7 @@ $ cat exp/b/*/decode*/scoring_kaldi/best_wer
 
 Results for experiment B when run with the 1000 h set.
 
-```
+```txt
 $ cat exp/c/*/decode*/scoring_kaldi/best_wer
 %WER 68.53 [ 24459 / 35693, 962 ins, 6956 del, 16541 sub ] exp/c/mono/decode_parl-dev-all_test_small/wer_7_0.0
 %WER 35.11 [ 12533 / 35693, 1266 ins, 2903 del, 8364 sub ] exp/c/tri1a/decode_parl-dev-all_test_small/wer_13_0.0
@@ -137,7 +136,7 @@ $ cat exp/c/*/decode*/scoring_kaldi/best_wer
 
 Results for experiment D when run with the 1000 h set.
 
-```
+```txt
 $ cat exp/d/*/decode*/scoring_kaldi/best_wer
 %WER 68.53 [ 24459 / 35693, 962 ins, 6956 del, 16541 sub ] exp/d/mono/decode_parl-dev-all_test_small/wer_7_0.0
 %WER 32.97 [ 11769 / 35693, 1292 ins, 2672 del, 7805 sub ] exp/d/tri1a/decode_parl-dev-all_test_small/wer_13_0.0
@@ -153,7 +152,7 @@ $ cat exp/d/*/decode*/scoring_kaldi/best_wer
 
 Results for experiment E when run with the 1000 h set.
 
-```
+```txt
 $ cat exp/e/*/decode*/scoring_kaldi/best_wer
 %WER 68.53 [ 24459 / 35693, 962 ins, 6956 del, 16541 sub ] exp/e/mono/decode_parl-dev-all_test_small/wer_7_0.0
 %WER 32.97 [ 11769 / 35693, 1292 ins, 2672 del, 7805 sub ] exp/e/tri1a/decode_parl-dev-all_test_small/wer_13_0.0
@@ -167,7 +166,7 @@ $ cat exp/e/*/decode*/scoring_kaldi/best_wer
 
 Results for experiment F when run with the 1000 h set.
 
-```
+```txt
 $ cat exp/f/*/decode*/scoring_kaldi/best_wer
 %WER 68.53 [ 24459 / 35693, 962 ins, 6956 del, 16541 sub ] exp/f/mono/decode_parl-dev-all_test_small/wer_7_0.0
 %WER 37.44 [ 13364 / 35693, 1251 ins, 3196 del, 8917 sub ] exp/f/tri1a/decode_parl-dev-all_test_small/wer_13_0.0
@@ -192,7 +191,7 @@ $ cat exp/f/*/decode*/scoring_kaldi/best_wer
 
 Results for experiment G when run with the 1000 h set.
 
-```
+```txt
 $ cat exp/g/*/decode*/scoring_kaldi/best_wer
 %WER 68.53 [ 24459 / 35693, 962 ins, 6956 del, 16541 sub ] exp/e/mono/decode_parl-dev-all_test_small/wer_7_0.0
 %WER 37.44 [ 13364 / 35693, 1251 ins, 3196 del, 8917 sub ] exp/f/tri1a/decode_parl-dev-all_test_small/wer_13_0.0
@@ -207,7 +206,7 @@ $ cat exp/g/*/decode*/scoring_kaldi/best_wer
 
 Results for experiment H when run with the cleaned version of the published Kielipankki set (1717 hours).
 
-```
+```txt
 $ cat exp/h/*/decode*/scoring_kaldi/best_wer
 %WER 66.98 [ 23907 / 35693, 1067 ins, 6595 del, 16245 sub ] exp/h/mono/decode_parl-dev-all_test_small/wer_7_0.0
 %WER 37.36 [ 13336 / 35693, 1303 ins, 3128 del, 8905 sub ] exp/h/tri1a/decode_parl-dev-all_test_small/wer_13_0.0
@@ -230,7 +229,7 @@ $ cat exp/h/*/decode*/scoring_kaldi/best_wer
 
 Results for experiment I when run with the full training set published in Kielipankki (1780 hours).
 
-```
+```txt
 $ cat exp/i/*/decode*/scoring_kaldi/best_wer
 %WER 71.03 [ 25352 / 35693, 916 ins, 7315 del, 17121 sub ] exp/i/mono/decode_parl-dev-all_test_small/wer_7_0.0
 %WER 37.75 [ 13475 / 35693, 1266 ins, 3178 del, 9031 sub ] exp/i/tri1a/decode_parl-dev-all_test_small/wer_13_0.0
@@ -239,6 +238,21 @@ $ cat exp/i/*/decode*/scoring_kaldi/best_wer
 %WER 33.65 [ 12010 / 35693, 1366 ins, 2599 del, 8045 sub ] exp/i/tri3a/decode_parl-dev-all_test_small.si/wer_13_0.0
 %WER 27.32 [ 9751 / 35693, 1366 ins, 2021 del, 6364 sub ] exp/i/tri4g/decode_parl-dev-all_test_small/wer_14_0.0
 %WER 30.57 [ 10910 / 35693, 1389 ins, 2221 del, 7300 sub ] exp/i/tri4g/decode_parl-dev-all_test_small.si/wer_13_0.0
+%WER 26.50 [ 9460 / 35693, 1344 ins, 1954 del, 6162 sub ] exp/i/tri4j/decode_parl-dev-all_test_small/wer_14_0.0
+%WER 29.60 [ 10566 / 35693, 1380 ins, 2201 del, 6985 sub ] exp/i/tri4j/decode_parl-dev-all_test_small.si/wer_13_0.0
+%WER 26.56 [ 9481 / 35693, 1326 ins, 2010 del, 6145 sub ] exp/i/tri4k/decode_parl-dev-all_test_small/wer_14_0.0
+%WER 29.42 [ 10501 / 35693, 1409 ins, 2102 del, 6990 sub ] exp/i/tri4k/decode_parl-dev-all_test_small.si/wer_12_0.0
+%WER 56.24 [ 20073 / 35693, 714 ins, 6535 del, 12824 sub ] exp/i/mono/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_8_0.0
+%WER 21.56 [ 7694 / 35693, 820 ins, 2211 del, 4663 sub ] exp/i/tri1a/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_14_0.0
+%WER 17.83 [ 6365 / 35693, 844 ins, 1736 del, 3785 sub ] exp/i/tri2a/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_14_0.0
+%WER 16.70 [ 5961 / 35693, 857 ins, 1553 del, 3551 sub ] exp/i/tri3a/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_15_0.0
+%WER 19.38 [ 6917 / 35693, 961 ins, 1682 del, 4274 sub ] exp/i/tri3a/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001.si/wer_13_0.0
+%WER 14.34 [ 5117 / 35693, 803 ins, 1379 del, 2935 sub ] exp/i/tri4j/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_16_0.0
+%WER 16.41 [ 5858 / 35693, 877 ins, 1466 del, 3515 sub ] exp/i/tri4j/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001.si/wer_14_0.0
+%WER 14.38 [ 5131 / 35693, 832 ins, 1347 del, 2952 sub ] exp/i/tri4j/decode_parl-dev-all_test_parl_30M_varikn.bpe19000.d0.0001/wer_15_0.0
+%WER 16.63 [ 5937 / 35693, 895 ins, 1477 del, 3565 sub ] exp/i/tri4j/decode_parl-dev-all_test_parl_30M_varikn.bpe19000.d0.0001.si/wer_14_0.0
+%WER 21.12 [ 7538 / 35693, 1074 ins, 1741 del, 4723 sub ] exp/i/tri4j/decode_parl-dev-all_test_varikn.bpe1750.d0.0001/wer_14_0.0
+%WER 23.86 [ 8517 / 35693, 1123 ins, 1906 del, 5488 sub ] exp/i/tri4j/decode_parl-dev-all_test_varikn.bpe1750.d0.0001.si/wer_13_0.0
 ```
 
 ### 1.4.10. WER comparison tables
