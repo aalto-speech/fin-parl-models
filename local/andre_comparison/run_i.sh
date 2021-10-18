@@ -9,6 +9,7 @@ traindir=data/andre_comparison/parl-train-unfiltered
 lm=test_parl_20M_varikn.bpe19000.d0.0001
 stage=1
 tri_version=j
+use_cleaned=false
 
 . ./cmd.sh
 . ./path.sh
@@ -16,12 +17,18 @@ tri_version=j
 
 set -e -u
 
+suffix=
+$use_cleaned && suffix=_cleaned
+
+release_traindir=${release_traindir}${suffix}
+traindir=${traindir}${suffix}
+
 if [ $stage -le 1 ]; then
 	echo "Stage 1: Get datadirs."
   # Prep the data locally
   mkdir -p data
   # Copy the datadir from the release directory.
-  utils/copy_data_dir.sh $release_traindir data/andre_comparison/parl-train-unfiltered
+  utils/copy_data_dir.sh $release_traindir data/andre_comparison/parl-train-unfiltered${suffix}
 	local/enforce_letter_in_data.sh --max-utt-to-add 100 data/train "å" ${traindir}
 	# NOTE: FIX viejÃ€Ã€ -> viejää in single offending utterance! 
 fi
@@ -29,10 +36,12 @@ fi
 if [ $stage -le 2 ]; then
 	echo "Stage 2: Prepare lexicon."
 	# Prep lexicon
-	local/prepare_lexicon.sh ${traindir} data/andre_comparison/local/dict_train data/andre_comparison/lang_train
+	local/prepare_lexicon.sh ${traindir} data/andre_comparison/local/dict_train${suffix} \
+									data/andre_comparison/lang_train${suffix}
 fi
 
-utils/lang/check_phones_compatible.sh data/andre_comparison/lang_train/phones.txt data/lang_train/phones.txt
+utils/lang/check_phones_compatible.sh data/andre_comparison/lang_train${suffix}/phones.txt \
+									data/lang_train/phones.txt
 
 if [ $stage -le 4 ]; then
 	echo "Stage 4: Compute features."
@@ -64,77 +73,99 @@ if [ $stage -le 6 ]; then
 	echo "Stage 6: Train monophone system."
   # train a monophone system
   steps/train_mono.sh --boost-silence 1.25 --nj 20 --cmd "$basic_cmd" \
-                      ${traindir}_2kshort data/andre_comparison/lang_train exp/andre_comparison/i/mono
+                  ${traindir}_2kshort data/andre_comparison/lang_train${suffix} \
+									exp/andre_comparison/i${suffix}/mono
 fi
 
 if [ $stage -le 7 ]; then
 	echo "Stage 7: Evaluate monophone system."
-	utils/mkgraph.sh data/lang_$lm exp/andre_comparison/i/mono exp/andre_comparison/i/mono/graph_$lm
+	utils/mkgraph.sh data/lang_$lm exp/andre_comparison/i${suffix}/mono \
+									exp/andre_comparison/i${suffix}/mono/graph_$lm
 
 	# Decode with triphone model
 	steps/decode.sh --cmd "$basic_cmd" --nj 8 \
-									exp/andre_comparison/i/mono/graph_$lm data/parl-dev-all \
-									exp/andre_comparison/i/mono/decode_parl-dev-all_$lm
+									exp/andre_comparison/i${suffix}/mono/graph_$lm data/parl-dev-all \
+									exp/andre_comparison/i${suffix}/mono/decode_parl-dev-all_$lm
 fi
 
 if [ $stage -le 8 ]; then
 	echo "Stage 8: Train first triphone system with 100k utterances."
   steps/align_si.sh --boost-silence 1.25 --nj 10 --cmd "$basic_cmd" \
-                    ${traindir}_100k data/andre_comparison/lang_train exp/andre_comparison/i/mono exp/andre_comparison/i/mono_ali_100k
+                  ${traindir}_100k data/andre_comparison/lang_train${suffix} \
+									exp/andre_comparison/i${suffix}/mono \
+									exp/andre_comparison/i${suffix}/mono_ali_100k \
 
   # train a first delta + delta-delta triphone system on a subset of 100 000 utterances
   steps/train_deltas.sh --boost-silence 1.25 --cmd "$basic_cmd" \
-                        2000 10000 ${traindir}_100k data/andre_comparison/lang_train exp/andre_comparison/i/mono_ali_100k exp/andre_comparison/i/tri1a
+                  2000 10000 ${traindir}_100k \
+									data/andre_comparison/lang_train${suffix} \
+									exp/andre_comparison/i${suffix}/mono_ali_100k \
+									exp/andre_comparison/i${suffix}/tri1a
 fi
 
 if [ $stage -le 9 ]; then
 	echo "Stage 9: Evaluate 100k triphone system."
-	utils/mkgraph.sh data/lang_$lm exp/andre_comparison/i/tri1a exp/andre_comparison/i/tri1a/graph_$lm
+	utils/mkgraph.sh data/lang_$lm exp/andre_comparison/i${suffix}/tri1a \
+									exp/andre_comparison/i${suffix}/tri1a/graph_$lm
 
 	# Decode with triphone model
 	steps/decode.sh --cmd "$basic_cmd" --nj 8 \
-									exp/andre_comparison/i/tri1a/graph_$lm data/parl-dev-all \
-									exp/andre_comparison/i/tri1a/decode_parl-dev-all_$lm
+									exp/andre_comparison/i${suffix}/tri1a/graph_$lm data/parl-dev-all \
+									exp/andre_comparison/i${suffix}/tri1a/decode_parl-dev-all_$lm
 fi
 
 if [ $stage -le 10 ]; then
 	echo "Stage 10: Train second triphone system with 250k utterances."
-	steps/align_si.sh --nj 40 --cmd "$basic_cmd" ${traindir}_250k data/andre_comparison/lang_train exp/andre_comparison/i/tri1a exp/andre_comparison/i/tri1a_ali_250k
+	steps/align_si.sh --nj 40 --cmd "$basic_cmd" ${traindir}_250k \
+									data/andre_comparison/lang_train${suffix} \
+									exp/andre_comparison/i${suffix}/tri1a \
+									exp/andre_comparison/i${suffix}/tri1a_ali_250k
 
 	# train an LDA+MLLT system
-	steps/train_lda_mllt.sh --cmd "$basic_cmd" --splice-opts "--left-context=3 --right-context=3" 4000 45000 \
-													${traindir}_250k data/andre_comparison/lang_train exp/andre_comparison/i/tri1a_ali_250k exp/andre_comparison/i/tri2a
+	steps/train_lda_mllt.sh --cmd "$basic_cmd" \
+									--splice-opts "--left-context=3 --right-context=3" \
+									4000 45000 ${traindir}_250k \
+									data/andre_comparison/lang_train${suffix} \
+									exp/andre_comparison/i${suffix}/tri1a_ali_250k \
+									exp/andre_comparison/i${suffix}/tri2a
 fi
 
 if [ $stage -le 11 ]; then
 	echo "Stage 11: Evaluate second triphone system."
-	utils/mkgraph.sh data/lang_$lm exp/andre_comparison/i/tri2a exp/andre_comparison/i/tri2a/graph_$lm
+	utils/mkgraph.sh data/lang_$lm exp/andre_comparison/i${suffix}/tri2a \
+									exp/andre_comparison/i${suffix}/tri2a/graph_$lm
 
 	# Decode with triphone model
 	steps/decode.sh --cmd "$basic_cmd" --nj 8 \
-									exp/andre_comparison/i/tri2a/graph_$lm data/parl-dev-all \
-									exp/andre_comparison/i/tri2a/decode_parl-dev-all_$lm
+									exp/andre_comparison/i${suffix}/tri2a/graph_$lm data/parl-dev-all \
+									exp/andre_comparison/i${suffix}/tri2a/decode_parl-dev-all_$lm
 fi
 
 if [ $stage -le 12 ]; then
 	echo "Stage 12: Train third triphone system with 250k utts and LDA+MLLT+SAT."
 	steps/align_si.sh --nj 40 --cmd "$basic_cmd" --use-graphs true \
-										${traindir}_250k data/andre_comparison/lang_train exp/andre_comparison/i/tri2a exp/andre_comparison/i/tri2a_ali_250k
+									${traindir}_250k \
+									data/andre_comparison/lang_train${suffix} \
+									exp/andre_comparison/i${suffix}/tri2a \
+									exp/andre_comparison/i${suffix}/tri2a_ali_250k
 
 	# train an LDA+MLLT+SAT system
 	steps/train_sat.sh --cmd "$basic_cmd" \
-													4000 45000 \
-													${traindir}_250k data/andre_comparison/lang_train exp/andre_comparison/i/tri2a_ali_250k exp/andre_comparison/i/tri3a
+									4000 45000 ${traindir}_250k \
+									data/andre_comparison/lang_train${suffix} \
+									exp/andre_comparison/i${suffix}/tri2a_ali_250k \
+									exp/andre_comparison/i${suffix}/tri3a
 fi
 
 if [ $stage -le 13 ]; then
 	echo "Stage 13: Evaluate third triphone system."
-	utils/mkgraph.sh data/lang_$lm exp/andre_comparison/i/tri3a exp/andre_comparison/i/tri3a/graph_$lm
+	utils/mkgraph.sh data/lang_$lm exp/andre_comparison/i${suffix}/tri3a \
+									exp/andre_comparison/i${suffix}/tri3a/graph_$lm
 
 	# Decode with triphone model
 	steps/decode_fmllr.sh --cmd "$basic_cmd" --nj 16 \
-									exp/andre_comparison/i/tri3a/graph_$lm data/parl-dev-all \
-									exp/andre_comparison/i/tri3a/decode_parl-dev-all_$lm
+									exp/andre_comparison/i${suffix}/tri3a/graph_$lm data/parl-dev-all \
+									exp/andre_comparison/i${suffix}/tri3a/decode_parl-dev-all_$lm
 fi
 
 
@@ -216,25 +247,30 @@ if [ $stage -le 14 ]; then
 	echo "Using configuration tri4$tri_version with $num_leaves leaves, $num_gauss gaussians,"
 	echo "$num_iters iterations, $realign_iters realign iterations, and $fmllr_iters fmllr iterations."
 
-	if [ ! -d exp/andre_comparison/i/tri3a_ali_full ]; then
+	if [ ! -d exp/andre_comparison/i${suffix}/tri3a_ali_full ]; then
 		steps/align_fmllr.sh --nj 40 --cmd "$basic_cmd" \
-										${traindir} data/andre_comparison/lang_train exp/andre_comparison/i/tri3a exp/andre_comparison/i/tri3a_ali_full
+									${traindir} data/andre_comparison/lang_train${suffix} \
+									exp/andre_comparison/i${suffix}/tri3a \
+									exp/andre_comparison/i${suffix}/tri3a_ali_full
 	fi
 
 	# train an LDA+MLLT+SAT system
 	steps/train_sat.sh --cmd "$basic_cmd" --num-iters $num_iters \
-													--realign-iters "$realign_iters" --fmllr-iters "$fmllr_iters" \
-													$num_leaves $num_gauss \
-													${traindir} data/andre_comparison/lang_train exp/andre_comparison/i/tri3a_ali_full exp/andre_comparison/i/tri4$tri_version
+									--realign-iters "$realign_iters" --fmllr-iters "$fmllr_iters" \
+									$num_leaves $num_gauss ${traindir} \
+									data/andre_comparison/lang_train${suffix} \
+									exp/andre_comparison/i${suffix}/tri3a_ali_full \
+									exp/andre_comparison/i${suffix}/tri4$tri_version
 fi
 
 if [ $stage -le 15 ]; then
 	echo "Stage 15: Evaluate fourth triphone system."
-	utils/mkgraph.sh data/lang_$lm exp/andre_comparison/i/tri4$tri_version exp/andre_comparison/i/tri4$tri_version/graph_$lm
+	utils/mkgraph.sh data/lang_$lm exp/andre_comparison/i${suffix}/tri4$tri_version \
+									exp/andre_comparison/i${suffix}/tri4$tri_version/graph_$lm
 
 	# Decode with triphone model
 	steps/decode_fmllr.sh --cmd "$basic_cmd" --nj 16 \
-									exp/andre_comparison/i/tri4$tri_version/graph_$lm data/parl-dev-all \
-									exp/andre_comparison/i/tri4$tri_version/decode_parl-dev-all_$lm
+									exp/andre_comparison/i${suffix}/tri4$tri_version/graph_$lm data/parl-dev-all \
+									exp/andre_comparison/i${suffix}/tri4$tri_version/decode_parl-dev-all_$lm
 fi
 
