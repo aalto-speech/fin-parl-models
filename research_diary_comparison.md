@@ -145,7 +145,7 @@ when _only_ the original data is published because it allows others to replicate
 | LDA+MLLT+SAT GMM (tri4)         | 16.41, 14.34  | 16.79, 14.42  | 16.52, 14.05                  | 16.21, 14.09 |
 | TDNN-d                          | 9.98          | 10.34         | 8.35                          | 10.28        |
 | LDA+MLLT+SAT GMM (tri4) cleaned | 16.42, 14.31  | 16.51, 14.22  | -                             | -            |
-| TDNN-d cleaned                  | 9.37          | ?             | -                             | -            |
+| TDNN-d cleaned                  | 9.37          | 8.49          | -                             | -            |
 
 Next is a comparison of language models made from the transcripts of acoustic model training data
 versus 20M indomain corpus.
