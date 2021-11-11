@@ -116,6 +116,7 @@ LM (same data and n-gram model).
 %WER 14.09 [ 5029 / 35693, 824 ins, 1326 del, 2879 sub ] exp/combined_comparison/i/tri4j/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_16_0.0
 %WER 16.21 [ 5787 / 35693, 880 ins, 1409 del, 3498 sub ] exp/combined_comparison/i/tri4j/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001.si/wer_15_0.0
 %WER 10.28 [ 3668 / 35693, 718 ins, 1051 del, 1899 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_8_0.0
+%WER 10.54 [ 3761 / 35693, 804 ins, 1115 del, 1842 sub ] exp/combined_comparison/chain/tdnn_blstm_a_multigpu/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.0
 %WER 69.17 [ 24688 / 35693, 939 ins, 6999 del, 16750 sub ] exp/combined_comparison/i/mono/decode_parl-dev-all_test_parl-train-2008-2020-kevat_varikn.bpe1750.d0.0001/wer_8_0.0
 %WER 28.43 [ 10148 / 35693, 1023 ins, 2626 del, 6499 sub ] exp/combined_comparison/i/tri1a/decode_parl-dev-all_test_parl-train-2008-2020-kevat_varikn.bpe1750.d0.0001/wer_13_0.0
 %WER 23.77 [ 8484 / 35693, 930 ins, 2104 del, 5450 sub ] exp/combined_comparison/i/tri2a/decode_parl-dev-all_test_parl-train-2008-2020-kevat_varikn.bpe1750.d0.0001/wer_14_0.0
@@ -144,6 +145,7 @@ when _only_ the original data is published because it allows others to replicate
 | LDA+MLLT+SAT GMM (tri3)         | 19.38, 16.70  | 19.26, 16.77  | 19.30, 16.71                  | 19.23, 16.41 |
 | LDA+MLLT+SAT GMM (tri4)         | 16.41, 14.34  | 16.79, 14.42  | 16.52, 14.05                  | 16.21, 14.09 |
 | TDNN-d                          | 9.98          | 10.34         | 8.35                          | 10.28        |
+| TDNN-BLSTM                      | 10.66         | -             | -                             | 10.54        |
 | LDA+MLLT+SAT GMM (tri4) cleaned | 16.42, 14.31  | 16.51, 14.22  | -                             | -            |
 | TDNN-d cleaned                  | 9.37          | 8.49          | -                             | -            |
 
