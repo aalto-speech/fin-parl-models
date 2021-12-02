@@ -6,6 +6,9 @@ echo "$0 $@"  # Print the command line for logging
 
 stage=1
 score_only_tdnn_d=true
+nj=8
+scoring_opts=
+decode_cmd="slurm.pl --mem 4G --time 04:00:00"
 
 [ -f path.sh ] && . ./path.sh # source the path.
 . parse_options.sh || exit 1;
@@ -31,7 +34,7 @@ if [ $stage -le 1 ]; then
 	utils/mkgraph.sh --remove-oov data/lang_$lm $dir $dir/graph_$lm
 
 	# Decode with triphone model
-	steps/decode.sh --nj 8 --cmd "$basic_cmd" \
+	steps/decode.sh --scoring-opts "$scoring_opts" --nj $nj --cmd "$decode_cmd" \
 				$dir/graph_$lm data/${decode_set} $dir/decode_${decode_set}_$lm
 fi
 
@@ -41,7 +44,7 @@ if [ $stage -le 2 ]; then
 	utils/mkgraph.sh --remove-oov data/lang_$lm $dir $dir/graph_$lm
 
 	# Decode with triphone model
-	steps/decode.sh --nj 8 --cmd "$basic_cmd" \
+	steps/decode.sh --scoring-opts "$scoring_opts" --nj $nj --cmd "$decode_cmd" \
 				$dir/graph_$lm data/${decode_set} $dir/decode_${decode_set}_$lm
 fi
 
@@ -51,7 +54,7 @@ if [ $stage -le 3 ]; then
 	utils/mkgraph.sh --remove-oov data/lang_$lm $dir $dir/graph_$lm
 
 	# Decode with triphone model
-	steps/decode.sh --nj 8 --cmd "$basic_cmd" \
+	steps/decode.sh --scoring-opts "$scoring_opts" --nj $nj --cmd "$decode_cmd" \
 				$dir/graph_$lm data/${decode_set} $dir/decode_${decode_set}_$lm
 fi
 
@@ -61,7 +64,7 @@ if [ $stage -le 4 ]; then
 	utils/mkgraph.sh --remove-oov data/lang_$lm $dir $dir/graph_$lm
 
 	# Decode with triphone model
-	steps/decode_fmllr.sh --nj 8 --cmd "$basic_cmd" \
+	steps/decode_fmllr.sh --scoring-opts "$scoring_opts" --nj $nj --cmd "$decode_cmd" \
 				$dir/graph_$lm data/${decode_set} $dir/decode_${decode_set}_$lm
 fi
 
@@ -70,7 +73,7 @@ if [ $stage -le 5 ]; then
 	echo "Decode with the last GMM."
 	utils/mkgraph.sh --remove-oov data/lang_$lm $dir $dir/graph_$lm
 
-	steps/decode_fmllr.sh --nj 16 --cmd "$basic_cmd" \
+	steps/decode_fmllr.sh --scoring-opts "$scoring_opts" --nj $nj --cmd "$decode_cmd" \
 				$dir/graph_$lm data/${decode_set} $dir/decode_${decode_set}_$lm
 fi
 
@@ -79,8 +82,8 @@ if [ $stage -le 6 ]; then
 	echo "Decoding set $decode_set with AM $dir and LM $lm next."
 	utils/mkgraph.sh --self-loop-scale 1.0 --remove-oov data/lang_$lm $dir $dir/graph_$lm
 
-	steps/nnet3/decode.sh --acwt 1.0 --post-decode-acwt 10.0 \
-			--nj 16 --cmd "$basic_cmd" \
+	steps/nnet3/decode.sh --scoring-opts "$scoring_opts" --acwt 1.0 --post-decode-acwt 10.0 \
+			--nj $nj --cmd "$decode_cmd" \
 			$dir/graph_$lm data/${decode_set}_hires $dir/decode_${decode_set}_$lm
 fi
 
@@ -96,8 +99,8 @@ if [ $stage -le 7 ]; then
 		echo "Decoding set $decode_set with AM $dir and LM $lm next."
 		utils/mkgraph.sh --self-loop-scale 1.0 --remove-oov data/lang_$lm $dir $dir/graph_$lm
 
-		steps/nnet3/decode.sh --acwt 1.0 --post-decode-acwt 10.0 \
-				--nj 16 --cmd "$basic_cmd" \
+		steps/nnet3/decode.sh --scoring-opts "$scoring_opts" --acwt 1.0 --post-decode-acwt 10.0 \
+				--nj $nj --cmd "$decode_cmd" \
 				$dir/graph_$lm data/${decode_set}_hires $dir/decode_${decode_set}_$lm
 	done
 fi
@@ -108,7 +111,8 @@ if [ $stage -le 8 ]; then
 	utils/mkgraph.sh --self-loop-scale 1.0 --remove-oov data/lang_$lm $dir $dir/graph_$lm
 
 	steps/nnet3/decode.sh --acwt 1.0 --post-decode-acwt 10.0 \
-			--nj 16 --cmd "$basic_cmd" \
+			--scoring-opts "$scoring_opts" \
+			--nj $nj --cmd "$decode_cmd" \
 			--extra-left-context 40 \
 			--extra-right-context 40 \
 			--extra-left-context-initial 0 \
