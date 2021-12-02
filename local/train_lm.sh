@@ -1,15 +1,21 @@
 #!/bin/bash
 set -eu
+. cmd.sh
+
 stage=1
 BPE_units=1000
-varikn_opts="--scale 0.01"
+varikn_scale="0.01"
+varikn_cmd="$varikn_cmd"
+varikn_extra="--clear_history --3nzer --arpa"
 skip_lang=false
 traindata=
 validdata=
 
-. cmd.sh
+echo $0 $@
+
 . path.sh
 . parse_options.sh
+
 
 if [ "$#" -ne 2 ]; then
   echo "Usage: $0 <lm-data> <outdir>"
@@ -21,12 +27,12 @@ if [ "$#" -ne 2 ]; then
   exit 1
 fi
 
+
 lmdata="$1"
 outdir="$2"
 
 lmdatadir="data/lm_$lmdata"
-scale=$(echo $varikn_opts | grep -oPe "--scale \d\.\d+" | cut -d" " -f2)
-lmdir="exp/lm/${lmdata}_varikn.bpe${BPE_units}.d${scale}"
+lmdir="exp/lm/${lmdata}_varikn.bpe${BPE_units}.d${varikn_scale}"
 
 if [ "$stage" -le 0 ]; then
   echo "LM training data prep from Kaldi style data dirs"
@@ -59,7 +65,10 @@ if [ "$stage" -le 1 ]; then
 fi
 
 if [ "$stage" -le 2 ]; then
-  local/train_varikn.sh $varikn_opts \
+  local/train_varikn.sh \
+		--cmd "$varikn_cmd"  \
+		--scale "$varikn_scale" \
+		--extra-args "$varikn_extra" \
     "cat $lmdatadir/text.bpe.$BPE_units" \
     "cat $lmdatadir/valid.bpe.$BPE_units" \
     "$lmdir" 
