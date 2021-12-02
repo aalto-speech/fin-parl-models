@@ -15,7 +15,7 @@ echo "$0 $@"  # Print the command line for logging
 . parse_options.sh || exit 1;
 
 if [ "$#" -ne 3 ]; then
-   echo "Usage: $0 vocab dict_dir lang_dir"
+   echo "Usage: $0 vocab dict_out lang_out"
    echo "e.g.:  $0 data/train/vocab data/dict data/lang_spm"
    exit 1;
 fi
