@@ -130,9 +130,7 @@ LM (same data and n-gram model).
 
 ### Test set evaluations
 
-Acoustic model in all of these is trained with the Eduskunta2021 data and LM is the André's 20M token one.
-
-Parliament test set, unseen and seen splits. Unseen and seen speaker splits do not apply for the new eduskunta2021 set.
+Parliament2017 test set, unseen and seen splits. Unseen and seen speaker splits do not apply for the new eduskunta2021 set.
 
 ```txt
 # Seen
@@ -140,9 +138,11 @@ Parliament test set, unseen and seen splits. Unseen and seen speaker splits do n
 %WER 12.63 [ 2259 / 17881, 367 ins, 470 del, 1422 sub ] exp/i/tri4j/decode_parl-test-seen_test_parl_20M_varikn.bpe19000.d0.0001.si/wer_13_0.0
 %WER 8.25 [ 1475 / 17881, 183 ins, 539 del, 753 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-test-seen_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.0
 %WER 7.64 [ 1367 / 17881, 181 ins, 420 del, 766 sub ] exp/chain/tdnn_d/decode_parl-test-seen_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.0
+%WER 7.70 [ 1376 / 17881, 187 ins, 416 del, 773 sub ] exp/chain/tdnn_d/decode_parl-test-seen_test_parl_30M_varikn.bpe19000.d0.0001/wer_7_0.0
 %WER 11.69 [ 2090 / 17881, 220 ins, 628 del, 1242 sub ] exp/chain/tdnn_d/decode_parl-test-seen_test_5gram-kielipankki.bpe19000.d0.0001/wer_7_0.0
 %WER 11.31 [ 2022 / 17881, 254 ins, 528 del, 1240 sub ] exp/chain/tdnn_d/decode_parl-test-seen_test_varikn.bpe1750.d0.0001/wer_8_0.0
 %WER 8.32 [ 1488 / 17881, 377 ins, 368 del, 743 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl-test-seen_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.5
+%WER 8.41 [ 1503 / 17881, 366 ins, 402 del, 735 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl-test-seen_test_parl_30M_varikn.bpe19000.d0.0001/wer_8_0.0
 %WER 12.29 [ 2197 / 17881, 402 ins, 556 del, 1239 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl-test-seen_test_5gram-kielipankki.bpe19000.d0.0001/wer_7_0.0
 %WER 11.46 [ 2050 / 17881, 395 ins, 479 del, 1176 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl-test-seen_test_parl-train-unfiltered_varikn.bpe1750.d0.0001/wer_7_1.0
 %WER 7.57 [ 1354 / 17881, 276 ins, 402 del, 676 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl-test-seen_test_parl_20M_varikn.bpe19000.d0.0001/wer_8_0.5
@@ -154,29 +154,71 @@ Parliament test set, unseen and seen splits. Unseen and seen speaker splits do n
 %WER 10.45 [ 1803 / 17261, 346 ins, 340 del, 1117 sub ] exp/i/tri4j/decode_parl-test-unseen_test_parl_20M_varikn.bpe19000.d0.0001.si/wer_13_0.0
 %WER 6.52 [ 1125 / 17261, 170 ins, 369 del, 586 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-test-unseen_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.0
 %WER 6.26 [ 1081 / 17261, 164 ins, 313 del, 604 sub ] exp/chain/tdnn_d/decode_parl-test-unseen_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.0
+%WER 6.24 [ 1077 / 17261, 167 ins, 313 del, 597 sub ] exp/chain/tdnn_d/decode_parl-test-unseen_test_parl_30M_varikn.bpe19000.d0.0001/wer_7_0.0
 %WER 10.06 [ 1736 / 17261, 220 ins, 464 del, 1052 sub ] exp/chain/tdnn_d/decode_parl-test-unseen_test_5gram-kielipankki.bpe19000.d0.0001/wer_7_0.0
 %WER 9.63 [ 1662 / 17261, 272 ins, 344 del, 1046 sub ] exp/chain/tdnn_d/decode_parl-test-unseen_test_varikn.bpe1750.d0.0001/wer_7_0.0
 %WER 7.11 [ 1227 / 17261, 334 ins, 293 del, 600 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl-test-unseen_test_parl_20M_varikn.bpe19000.d0.0001/wer_8_0.0
+%WER 7.09 [ 1224 / 17261, 288 ins, 352 del, 584 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl-test-unseen_test_parl_30M_varikn.bpe19000.d0.0001/wer_8_0.5
 %WER 11.07 [ 1911 / 17261, 315 ins, 522 del, 1074 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl-test-unseen_test_5gram-kielipankki.bpe19000.d0.0001/wer_7_1.0
 %WER 10.86 [ 1875 / 17261, 379 ins, 388 del, 1108 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl-test-unseen_test_parl-train-unfiltered_varikn.bpe1750.d0.0001/wer_7_1.0
 %WER 6.62 [ 1143 / 17261, 252 ins, 338 del, 553 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl-test-unseen_test_parl_20M_varikn.bpe19000.d0.0001/wer_9_0.0
 %WER 6.62 [ 1142 / 17261, 257 ins, 336 del, 549 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl-test-unseen_test_parl_30M_varikn.bpe19000.d0.0001/wer_8_0.5
 %WER 9.90 [ 1708 / 17261, 282 ins, 406 del, 1020 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl-test-unseen_test_5gram-kielipankki.bpe19000.d0.0001/wer_7_0.0
 %WER 9.09 [ 1569 / 17261, 288 ins, 335 del, 946 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl-test-unseen_test_parl-train-2008-2020-kevat_varikn.bpe1750.d0.0001/wer_7_1.0
-# Parl-test-all 2017
+# Parl-test-all 2017 (calculated by hand)
 %WER 9.69 [ 3405 / 35142, 622 ins, 741 del, 2042 sub ] exp/i/tri4j + test_parl_20M_varikn.bpe19000.d0.0001
 %WER 11.56 [ 4062 / 35142, 713 ins, 810 del, 2539 sub ] exp/i/tri4j + test_parl_20M_varikn.bpe19000.d0.0001.si
 %WER 7.40 [ 2600 / 35142, 353 ins, 908 del, 1339 sub ] exp/chain/tdnn_blstm_a_multigpu + test_parl_20M_varikn.bpe19000.d0.0001
 %WER 6.97 [ 2448 / 35142, 345 ins, 733 del, 1370 sub ] exp/chain/tdnn_d + test_parl_20M_varikn.bpe19000.d0.0001
+%WER 6.98 [ 2453 / 35142, 354 ins, 729 del, 1370 sub ] exp/chain/tdnn_d + test_parl_30M_varikn.bpe19000.d0.0001
 %WER 10.89 [ 3826 / 35142, 440 ins, 1092 del, 2294 sub ] exp/chain/tdnn_d + test_5gram-kielipankki.bpe19000.d0.0001
 %WER 10.48 [ 3684 / 35142, 526 ins, 872 del, 2286 sub ] exp/chain/tdnn_d + test_varikn.bpe1750.d0.0001
 %WER 7.73 [ 2715 / 35142, 711 ins, 661 del, 1343 sub ] exp/andre_comparison/chain/tdnn_d + test_parl_20M_varikn.bpe19000.d0.0001
+%WER 7.76 [ 2727 / 35142, 654 ins, 754 del, 1319 sub ] exp/andre_comparison/chain/tdnn_d + test_parl_30M_varikn.bpe19000.d0.0001
 %WER 11.69 [ 4108 / 35142, 717 ins, 1078 del, 2313 sub ] exp/andre_comparison/chain/tdnn_d + test_5gram-kielipankki.bpe19000.d0.0001
 %WER 11.17 [ 3925 / 35142, 774 ins, 867 del, 2284 sub ] exp/andre_comparison/chain/tdnn_d + test_parl-train-unfiltered_varikn.bpe1750.d0.0001
 %WER 7.11 [ 2497 / 35142, 528 ins, 740 del, 1229 sub ] exp/combined_comparison/chain/tdnn_d + test_parl_20M_varikn.bpe19000.d0.0001
 %WER 7.15 [ 2511 / 35142, 570 ins, 660 del, 1281 sub ] exp/combined_comparison/chain/tdnn_d + test_parl_30M_varikn.bpe19000.d0.0001
 %WER 10.57 [ 3713 / 35142, 559 ins, 963 del, 2191 sub ] exp/combined_comparison/chain/tdnn_d + test_5gram-kielipankki.bpe19000.d0.0001
 %WER 9.61 [ 3377 / 35142, 649 ins, 698 del, 2030 sub ] exp/combined_comparison/chain/tdnn_d + test_parl-train-2008-2020-kevat_varikn.bpe1750.d0.0001
+```
+
+Parliament2021 test set.
+
+```txt
+%WER 16.59 [ 4522 / 27261, 739 ins, 705 del, 3078 sub ] exp/i/tri4j/decode_parl2021-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_11_1.0
+%WER 19.95 [ 5438 / 27261, 889 ins, 792 del, 3757 sub ] exp/i/tri4j/decode_parl2021-test_test_parl_20M_varikn.bpe19000.d0.0001.si/wer_11_1.0
+%WER 10.23 [ 2789 / 27261, 262 ins, 853 del, 1674 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl2021-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.5
+%WER 9.82 [ 2676 / 27261, 262 ins, 718 del, 1696 sub ] exp/chain/tdnn_d/decode_parl2021-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.5
+%WER 8.95 [ 2440 / 27261, 257 ins, 641 del, 1542 sub ] exp/chain/tdnn_d/decode_parl2021-test_test_parl_30M_varikn.bpe19000.d0.0001/wer_7_0.0
+%WER 9.71 [ 2647 / 27261, 249 ins, 795 del, 1603 sub ] exp/chain/tdnn_d/decode_parl2021-test_test_5gram-kielipankki.bpe19000.d0.0001/wer_7_0.0
+%WER 8.73 [ 2380 / 27261, 259 ins, 544 del, 1577 sub ] exp/chain/tdnn_d/decode_parl2021-test_test_varikn.bpe1750.d0.0001/wer_7_0.5
+%WER 13.96 [ 3805 / 27261, 701 ins, 1054 del, 2050 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2021-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_1.0
+%WER 12.59 [ 3433 / 27261, 615 ins, 1028 del, 1790 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2021-test_test_parl_30M_varikn.bpe19000.d0.0001/wer_7_1.0
+%WER 13.88 [ 3784 / 27261, 418 ins, 1283 del, 2083 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2021-test_test_5gram-kielipankki.bpe19000.d0.0001/wer_7_0.5
+%WER 13.90 [ 3790 / 27261, 581 ins, 1075 del, 2134 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2021-test_test_parl-train-unfiltered_varikn.bpe1750.d0.0001/wer_7_1.0
+%WER 10.26 [ 2798 / 27261, 333 ins, 677 del, 1788 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2021-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.0
+%WER 9.30 [ 2535 / 27261, 257 ins, 733 del, 1545 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2021-test_test_parl_30M_varikn.bpe19000.d0.0001/wer_7_0.5
+%WER 10.12 [ 2759 / 27261, 243 ins, 814 del, 1702 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2021-test_test_5gram-kielipankki.bpe19000.d0.0001/wer_7_0.0
+%WER 8.68 [ 2366 / 27261, 247 ins, 566 del, 1553 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2021-test_test_parl-train-2008-2020-kevat_varikn.bpe1750.d0.0001/wer_7_0.5
+```
+
+Lahjoita puhetta test set.
+
+```txt
+%WER 72.22 [ 45191 / 62574, 1813 ins, 16503 del, 26875 sub ] exp/i/tri4j/decode_lp-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_10_1.0
+%WER 81.67 [ 51102 / 62574, 1558 ins, 24053 del, 25491 sub ] exp/i/tri4j/decode_lp-test_test_parl_20M_varikn.bpe19000.d0.0001.si/wer_10_0.0
+%WER 71.13 [ 44511 / 62574, 689 ins, 24027 del, 19795 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_lp-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.0
+%WER 66.59 [ 41666 / 62574, 1152 ins, 16130 del, 24384 sub ] exp/chain/tdnn_d/decode_lp-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.0
+%WER 66.06 [ 41334 / 62574, 1102 ins, 16216 del, 24016 sub ] exp/chain/tdnn_d/decode_lp-test_test_parl_30M_varikn.bpe19000.d0.0001/wer_7_0.0
+%WER 64.33 [ 40253 / 62574, 588 ins, 18984 del, 20681 sub ] exp/chain/tdnn_d/decode_lp-test_test_5gram-kielipankki.bpe19000.d0.0001/wer_8_0.0
+%WER 66.90 [ 41864 / 62574, 898 ins, 17872 del, 23094 sub ] exp/chain/tdnn_d/decode_lp-test_test_varikn.bpe1750.d0.0001/wer_8_0.0
+%WER 67.30 [ 42113 / 62574, 1068 ins, 18377 del, 22668 sub ] exp/andre_comparison/chain/tdnn_d/decode_lp-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.0
+%WER 66.64 [ 41699 / 62574, 1027 ins, 18343 del, 22329 sub ] exp/andre_comparison/chain/tdnn_d/decode_lp-test_test_parl_30M_varikn.bpe19000.d0.0001/wer_7_0.0
+%WER 64.75 [ 40515 / 62574, 687 ins, 18920 del, 20908 sub ] exp/andre_comparison/chain/tdnn_d/decode_lp-test_test_5gram-kielipankki.bpe19000.d0.0001/wer_7_0.0
+%WER 65.37 [ 40907 / 62574, 1254 ins, 14710 del, 24943 sub ] exp/combined_comparison/chain/tdnn_d/decode_lp-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.5
+%WER 64.84 [ 40576 / 62574, 1443 ins, 13731 del, 25402 sub ] exp/combined_comparison/chain/tdnn_d/decode_lp-test_test_parl_30M_varikn.bpe19000.d0.0001/wer_7_0.0
+%WER 62.61 [ 39180 / 62574, 724 ins, 16579 del, 21877 sub ] exp/combined_comparison/chain/tdnn_d/decode_lp-test_test_5gram-kielipankki.bpe19000.d0.0001/wer_8_0.0
 ```
 
 Speecon test set.
@@ -186,8 +228,10 @@ Speecon test set.
 %WER 37.56 [ 2078 / 5533, 336 ins, 297 del, 1445 sub ] exp/i/tri4j/decode_speecon-test_test_parl_20M_varikn.bpe19000.d0.0001.si/wer_8_1.0
 %WER 21.60 [ 1195 / 5533, 115 ins, 285 del, 795 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_speecon-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.5
 %WER 22.05 [ 1220 / 5533, 119 ins, 301 del, 800 sub ] exp/chain/tdnn_d/decode_speecon-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_1.0
+%WER 21.11 [ 1168 / 5533, 122 ins, 297 del, 749 sub ] exp/chain/tdnn_d/decode_speecon-test_test_parl_30M_varikn.bpe19000.d0.0001/wer_7_1.0
 %WER 13.27 [ 734 / 5533, 77 ins, 249 del, 408 sub ] exp/chain/tdnn_d/decode_speecon-test_test_5gram-kielipankki.bpe19000.d0.0001/wer_9_0.0
 %WER 22.79 [ 1261 / 5533, 130 ins, 299 del, 832 sub ] exp/andre_comparison/chain/tdnn_d/decode_speecon-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_1.0
+%WER 21.16 [ 1171 / 5533, 121 ins, 301 del, 749 sub ] exp/andre_comparison/chain/tdnn_d/decode_speecon-test_test_parl_30M_varikn.bpe19000.d0.0001/wer_7_1.0
 %WER 13.36 [ 739 / 5533, 62 ins, 242 del, 435 sub ] exp/andre_comparison/chain/tdnn_d/decode_speecon-test_test_5gram-kielipankki.bpe19000.d0.0001/wer_8_0.5
 %WER 21.72 [ 1202 / 5533, 120 ins, 287 del, 795 sub ] exp/combined_comparison/chain/tdnn_d/decode_speecon-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_1.0
 %WER 20.33 [ 1125 / 5533, 119 ins, 280 del, 726 sub ] exp/combined_comparison/chain/tdnn_d/decode_speecon-test_test_parl_30M_varikn.bpe19000.d0.0001/wer_7_1.0
@@ -201,8 +245,10 @@ Yle test set.
 %WER 40.38 [ 14886 / 36869, 2139 ins, 2123 del, 10624 sub ] exp/i/tri4j/decode_yle-test-new_test_parl_20M_varikn.bpe19000.d0.0001.si/wer_10_0.5
 %WER 25.43 [ 9377 / 36869, 783 ins, 2190 del, 6404 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_yle-test-new_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_1.0
 %WER 25.22 [ 9299 / 36869, 931 ins, 1882 del, 6486 sub ] exp/chain/tdnn_d/decode_yle-test-new_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_1.0
+%WER 24.73 [ 9119 / 36869, 1039 ins, 1825 del, 6255 sub ] exp/chain/tdnn_d/decode_yle-test-new_test_parl_30M_varikn.bpe19000.d0.0001/wer_7_1.0
 %WER 16.87 [ 6220 / 36869, 630 ins, 1580 del, 4010 sub ] exp/chain/tdnn_d/decode_yle-test-new_test_5gram-kielipankki.bpe19000.d0.0001/wer_8_0.0
 %WER 26.68 [ 9837 / 36869, 998 ins, 2099 del, 6740 sub ] exp/andre_comparison/chain/tdnn_d/decode_yle-test-new_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_1.0
+%WER 25.60 [ 9440 / 36869, 994 ins, 2015 del, 6431 sub ] exp/andre_comparison/chain/tdnn_d/decode_yle-test-new_test_parl_30M_varikn.bpe19000.d0.0001/wer_7_1.0
 %WER 17.11 [ 6308 / 36869, 428 ins, 2007 del, 3873 sub ] exp/andre_comparison/chain/tdnn_d/decode_yle-test-new_test_5gram-kielipankki.bpe19000.d0.0001/wer_9_0.0
 %WER 25.11 [ 9257 / 36869, 1045 ins, 1620 del, 6592 sub ] exp/combined_comparison/chain/tdnn_d/decode_yle-test-new_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.5
 %WER 24.37 [ 8984 / 36869, 1050 ins, 1712 del, 6222 sub ] exp/combined_comparison/chain/tdnn_d/decode_yle-test-new_test_parl_30M_varikn.bpe19000.d0.0001/wer_7_1.0
@@ -269,94 +315,73 @@ Acoustic models trained with combined parliament data:
 
 ---
 
-| Tehty | Test data        | Train data    | AM          | LM          | WER % | CER % |
-| ----- | ---------------- | ------------- | ----------- | ----------- | ----- | ----- |
-| ✔️     | Parl-test-seen   | Eduskunta2021 | i/tri4j GMM | André 20M   | 10.53 | 3.66  |
-| ✔️     | Parl-test-seen   | Eduskunta2021 | TDNN-BLSTM  | André 20M   | 8.25  | 3.22  |
-| ✔️     | Parl-test-seen   | Eduskunta2021 | TDNN-d      | André 20M   | 7.64  | 2.78  |
-| ✔️     | Parl-test-seen   | Eduskunta2021 | TDNN-d      | Kielipankki | 11.69 | 3.75  |
-| ✔️     | Parl-test-seen   | Eduskunta2021 | TDNN-d      | Transkripti | 11.31 | 3.51  |
-| ✔️     | Parl-test-seen   | Eduskunta2017 | TDNN-d      | André 20M   | 8.32  | 3.81  |
-| ✔️     | Parl-test-seen   | Eduskunta2017 | TDNN-d      | Kielipankki | 12.29 | 4.72  |
-| ✔️     | Parl-test-seen   | Eduskunta2017 | TDNN-d      | Transkripti | 11.46 | 4.25  |
-| ✔️     | Parl-test-seen   | Combined      | TDNN-d      | André 20M   | 7.57  | 3.13  |
-| ✔️     | Parl-test-seen   | Combined      | TDNN-d      | André 30M   | 7.66  | 3.17  |
-| ✔️     | Parl-test-seen   | Combined      | TDNN-d      | Kielipankki | 11.21 | 4.09  |
-| ✔️     | Parl-test-seen   | Combined      | TDNN-d      | Transkripti | 10.11 | 3.50  |
-| ✔️     | Parl-test-unseen | Eduskunta2021 | i/tri4j GMM | André 20M   | 8.82  | 3.35  |
-| ✔️     | Parl-test-unseen | Eduskunta2021 | TDNN-BLSTM  | André 20M   | 6.52  | 2.73  |
-| ✔️     | Parl-test-unseen | Eduskunta2021 | TDNN-d      | André 20M   | 6.26  | 2.53  |
-| ✔️     | Parl-test-unseen | Eduskunta2021 | TDNN-d      | Kielipankki | 10.06 | 3.34  |
-| ✔️     | Parl-test-unseen | Eduskunta2021 | TDNN-d      | Transkripti | 9.63  | 3.17  |
-| ✔️     | Parl-test-unseen | Eduskunta2017 | TDNN-d      | André 20M   | 7.11  | 3.38  |
-| ✔️     | Parl-test-unseen | Eduskunta2017 | TDNN-d      | Kielipankki | 11.07 | 4.35  |
-| ✔️     | Parl-test-unseen | Eduskunta2017 | TDNN-d      | Transkripti | 10.86 | 4.02  |
-| ✔️     | Parl-test-unseen | Combined      | TDNN-d      | André 20M   | 6.62  | 2.87  |
-| ✔️     | Parl-test-unseen | Combined      | TDNN-d      | André 30M   | 6.62  | 2.90  |
-| ✔️     | Parl-test-unseen | Combined      | TDNN-d      | Kielipankki | 9.90  | 3.64  |
-| ✔️     | Parl-test-unseen | Combined      | TDNN-d      | Transkripti | 9.09  | 3.19  |
-| ✔️     | Parl-test 2017   | Eduskunta2021 | i/tri4j GMM | André 20M   | 9.69  | 3.51  |
-| ✔️     | Parl-test 2017   | Eduskunta2021 | TDNN-BLSTM  | André 20M   | 7.40  | 2.98  |
-| ✔️     | Parl-test 2017   | Eduskunta2021 | TDNN-d      | André 20M   | 6.97  | 2.66  |
-| ✔️     | Parl-test 2017   | Eduskunta2021 | TDNN-d      | Kielipankki | 10.89 | 3.55  |
-| ✔️     | Parl-test 2017   | Eduskunta2021 | TDNN-d      | Transkripti | 10.48 | 3.35  |
-| ✔️     | Parl-test 2017   | Eduskunta2017 | TDNN-d      | André 20M   | 7.73  | 3.60  |
-| ✔️     | Parl-test 2017   | Eduskunta2017 | TDNN-d      | Kielipankki | 11.69 | 4.54  |
-| ✔️     | Parl-test 2017   | Eduskunta2017 | TDNN-d      | Transkripti | 11.17 | 4.14  |
-| ✔️     | Parl-test 2017   | Combined      | TDNN-d      | André 20M   | 7.11  | 3.00  |
-| ✔️     | Parl-test 2017   | Combined      | TDNN-d      | André 30M   | 7.15  | 3.04  |
-| ✔️     | Parl-test 2017   | Combined      | TDNN-d      | Kielipankki | 10.57 | 3.87  |
-| ✔️     | Parl-test 2017   | Combined      | TDNN-d      | Transkripti | 9.61  | 3.34  |
-| ✔️     | Parl-test 2021   | Eduskunta2021 | i/tri4j GMM | André 20M   |       |       |
-| ✔️     | Parl-test 2021   | Eduskunta2021 | TDNN-BLSTM  | André 20M   |       |       |
-| ✔️     | Parl-test 2021   | Eduskunta2021 | TDNN-d      | André 20M   |       |       |
-| 🔲     | Parl-test 2021   | Eduskunta2021 | TDNN-d      | Kielipankki |       |       |
-| 🔲     | Parl-test 2021   | Eduskunta2021 | TDNN-d      | Transkripti |       |       |
-| ✔️     | Parl-test 2021   | Eduskunta2017 | TDNN-d      | André 20M   | 13.96 |       |
-| 🔲     | Parl-test 2021   | Eduskunta2017 | TDNN-d      | Kielipankki |       |       |
-| 🔲     | Parl-test 2021   | Eduskunta2017 | TDNN-d      | Transkripti |       |       |
-| ✔️     | Parl-test 2021   | Combined      | TDNN-d      | André 20M   | 10.26 |       |
-| ✔️     | Parl-test 2021   | Combined      | TDNN-d      | André 30M   |       |       |
-| 🔲     | Parl-test 2021   | Combined      | TDNN-d      | Kielipankki |       |       |
-| 🔲     | Parl-test 2021   | Combined      | TDNN-d      | Transkripti |       |       |
-| ✔️     | Speecon-test     | Eduskunta2021 | i/tri4j GMM | André 20M   | 28.01 | 5.10  |
-| ✔️     | Speecon-test     | Eduskunta2021 | TDNN-BLSTM  | André 20M   | 21.60 | 4.36  |
-| ✔️     | Speecon-test     | Eduskunta2021 | TDNN-d      | André 20M   | 22.05 | 3.88  |
-| ✔️     | Speecon-test     | Eduskunta2021 | TDNN-d      | Kielipankki | 13.27 | 2.40  |
-| ✔️     | Speecon-test     | Eduskunta2017 | TDNN-d      | André 20M   | 22.79 | 4.05  |
-| ✔️     | Speecon-test     | Eduskunta2017 | TDNN-d      | Kielipankki | 13.36 | 2.44  |
-| ✔️     | Speecon-test     | Combined      | TDNN-d      | André 20M   | 21.72 | 3.98  |
-| ✔️     | Speecon-test     | Combined      | TDNN-d      | André 30M   | 20.33 | 3.59  |
-| ✔️     | Speecon-test     | Combined      | TDNN-d      | Kielipankki | 12.72 | 2.22  |
-| 🔲     | Lahjoita puhetta | Eduskunta2021 | i/tri4j GMM | André 20M   |       |       |
-| 🔲     | Lahjoita puhetta | Eduskunta2021 | TDNN-BLSTM  | André 20M   |       |       |
-| 🔲     | Lahjoita puhetta | Eduskunta2021 | TDNN-d      | André 20M   |       |       |
-| 🔲     | Lahjoita puhetta | Eduskunta2021 | TDNN-d      | Kielipankki |       |       |
-| 🔲     | Lahjoita puhetta | Eduskunta2017 | TDNN-d      | André 20M   |       |       |
-| 🔲     | Lahjoita puhetta | Eduskunta2017 | TDNN-d      | Kielipankki |       |       |
-| 🔲     | Lahjoita puhetta | Combined      | TDNN-d      | André 20M   |       |       |
-| 🔲     | Lahjoita puhetta | Combined      | TDNN-d      | André 30M   |       |       |
-| 🔲     | Lahjoita puhetta | Combined      | TDNN-d      | Kielipankki |       |       |
-| ✔️     | Yle-test-new     | Eduskunta2021 | i/tri4j GMM | André 20M   | 36.59 | 10.14 |
-| ✔️     | Yle-test-new     | Eduskunta2021 | TDNN-BLSTM  | André 20M   | 25.43 | 7.14  |
-| ✔️     | Yle-test-new     | Eduskunta2021 | TDNN-d      | André 20M   | 25.22 | 6.34  |
-| ✔️     | Yle-test-new     | Eduskunta2021 | TDNN-d      | Kielipankki | 16.87 | 4.90  |
-| ✔️     | Yle-test-new     | Eduskunta2017 | TDNN-d      | André 20M   | 26.68 | 6.97  |
-| ✔️     | Yle-test-new     | Eduskunta2017 | TDNN-d      | Kielipankki | 17.11 | 4.80  |
-| ✔️     | Yle-test-new     | Combined      | TDNN-d      | André 20M   | 25.11 | 6.29  |
-| ✔️     | Yle-test-new     | Combined      | TDNN-d      | André 30M   | 24.37 | 6.31  |
-| ✔️     | Yle-test-new     | Combined      | TDNN-d      | Kielipankki | 16.65 | 4.87  |
-
 [André's paper](https://acris.aalto.fi/ws/portalfiles/portal/15742470/mansikkamaki_interspeech1115.pdf) for comparison.
 
 Different test sets evaluated on Eduskunta2021 AMs and the in-domain 20M token LM.
 
-| Test set              | Best HMM-GMM  | TDNN-d       | TDNN-BLSTM   |
-| --------------------- | ------------- | ------------ | ------------ |
-| Parl-test-seen 2017   | 10.53 / 3.66  | 7.64 / 2.78  | 8.25 / 3.22  |
-| Parl-test-unseen 2017 | 8.82 / 3.35   | 6.26 / 2.53  | 6.52 / 2.73  |
-| Parl-test-all 2017    | 9.69 / 3.51   | 6.97 / 2.66  | 7.40 / 2.98  |
-| Parl-test 2021        | ?             | ?            | ?            |
-| Lahjoita puhetta      | ?             | ?            | ?            |
-| Speecon-test          | 28.01 / 5.10  | 22.05 / 3.88 | 21.60 / 4.36 |
-| Yle-test              | 36.59 / 10.14 | 25.22 / 6.34 | 25.43 / 7.14 |
+| Test set              | Best HMM-GMM  | TDNN-d        | TDNN-BLSTM    |
+| --------------------- | ------------- | ------------- | ------------- |
+| Parl-test-seen 2017   | 10.53 / 3.66  | 7.64 / 2.78   | 8.25 / 3.22   |
+| Parl-test-unseen 2017 | 8.82 / 3.35   | 6.26 / 2.53   | 6.52 / 2.73   |
+| Parl-test-all 2017    | 9.69 / 3.51   | 6.97 / 2.66   | 7.40 / 2.98   |
+| Parl-test 2021        | 16.59 / 3.96  | 9.82 / 2.54   | 10.23 / 3.11  |
+| Lahjoita puhetta      | 72.22 / 37.46 | 66.59 / 33.73 | 71.13 / 43.03 |
+| Speecon-test          | 28.01 / 5.10  | 22.05 / 3.88  | 21.60 / 4.36  |
+| Yle-test              | 36.59 / 10.14 | 25.22 / 6.34  | 25.43 / 7.14  |
+
+Different test sets evaluated on the three TDNN-d acoustic models and 20M token LM.
+
+| Test set              | Eduskunta2021 | Eduskunta2017 | Combined      |
+| --------------------- | ------------- | ------------- | ------------- |
+| Parl-test-seen 2017   | 7.64 / 2.78   | 8.32 / 3.81   | 7.57 / 3.13   |
+| Parl-test-unseen 2017 | 6.26 / 2.53   | 7.11 / 3.38   | 6.62 / 2.87   |
+| Parl-test-all 2017    | 6.97 / 2.66   | 7.73 / 3.60   | 7.11 / 3.00   |
+| Parl-test 2021        | 9.82 / 2.54   | 13.96 / 4.95  | 10.26 / 2.65  |
+| Lahjoita puhetta      | 66.59 / 33.73 | 67.30 / 35.75 | 65.37 / 32.12 |
+| Speecon-test          | 22.05 / 3.88  | 22.79 / 4.05  | 21.72 / 3.98  |
+| Yle-test              | 25.22 / 6.34  | 26.68 / 6.97  | 25.11 / 6.29  |
+
+Different test sets evaluated on two TDNN-d acoustic models and 30M token LM.
+
+| Test set              | Eduskunta2021 | Eduskunta2017 | Combined      |
+| --------------------- | ------------- | ------------- | ------------- |
+| Parl-test-seen 2017   | 7.70 / 2.79   | 8.41 / 3.88   | 7.66 / 3.17   |
+| Parl-test-unseen 2017 | 6.24 / 2.51   | 7.09 / 3.43   | 6.62 / 2.90   |
+| Parl-test-all 2017    | 6.98 / 2.65   | 7.76 / 3.66   | 7.15 / 3.04   |
+| Parl-test 2021        | 8.95 / 2.40   | 12.59 / 4.67  | 9.30 / 2.47   |
+| Lahjoita puhetta      | 66.06 / 33.44 | 66.64 / 35.34 | 64.84 / 31.79 |
+| Speecon-test          | 21.11 / 3.67  | 21.16 / 3.79  | 20.33 / 3.59  |
+| Yle-test              | 24.73 / 6.38  | 25.60 / 6.75  | 24.37 / 6.31  |
+
+Different test sets evaluated on the three TDNN-d acoustic models and Kielipankki LM.
+
+| Test set              | Eduskunta2021 | Eduskunta2017 | Combined      |
+| --------------------- | ------------- | ------------- | ------------- |
+| Parl-test-seen 2017   | 11.69 / 3.75  | 12.29 / 4.72  | 11.21 / 4.09  |
+| Parl-test-unseen 2017 | 10.06 / 3.34  | 11.07 / 4.35  | 9.90 / 3.64   |
+| Parl-test-all 2017    | 10.89 / 3.55  | 11.69 / 4.54  | 10.57 / 3.87  |
+| Parl-test 2021        | 9.71 / 2.69   | 13.88 / 4.58  | 10.12 / 2.78  |
+| Lahjoita puhetta      | 64.33 / 32.32 | 64.75 / 33.55 | 62.61 / 30.63 |
+| Speecon-test          | 13.27 / 2.40  | 13.36 / 2.44  | 12.72 / 2.22  |
+| Yle-test              | 16.87 / 4.90  | 17.11 / 4.80  | 16.65 / 4.87  |
+
+Parliament test sets evaluated on the three TDNN-d acoustic models and their matching transcript LMs.
+
+| Test set              | Eduskunta2021 | Eduskunta2017 | Combined     |
+| --------------------- | ------------- | ------------- | ------------ |
+| Parl-test-seen 2017   | 11.31 / 3.51  | 11.46 / 4.25  | 10.11 / 3.50 |
+| Parl-test-unseen 2017 | 9.63 / 3.17   | 10.86 / 4.02  | 9.09 / 3.19  |
+| Parl-test-all 2017    | 10.48 / 3.35  | 11.17 / 4.14  | 9.61 / 3.34  |
+| Parl-test 2021        | 8.73 / 2.23   | 13.90 / 4.28  | 8.68 / 2.23  |
+
+Different test sets evaluated on the Eduskunta2021 TDNN-d acoustic model and different LMs.
+
+| Test set              | 20M token     | 30M token     | Transcript   | Kielipankki   |
+| --------------------- | ------------- | ------------- | ------------ | ------------- |
+| Parl-test-seen 2017   | 7.64 / 2.78   | 7.70 / 2.79   | 11.31 / 3.51 | 11.69 / 3.75  |
+| Parl-test-unseen 2017 | 6.26 / 2.53   | 6.24 / 2.51   | 9.63 / 3.17  | 10.06 / 3.34  |
+| Parl-test-all 2017    | 6.97 / 2.66   | 6.98 / 2.65   | 10.48 / 3.35 | 10.89 / 3.55  |
+| Parl-test 2021        | 9.82 / 2.54   | 8.95 / 2.40   | 8.73 / 2.23  | 9.71 / 2.69   |
+| Lahjoita puhetta      | 66.59 / 33.73 | 66.06 / 33.44 | -            | 64.33 / 32.32 |
+| Speecon-test          | 22.05 / 3.88  | 21.11 / 3.67  | -            | 13.27 / 2.40  |
+| Yle-test              | 25.22 / 6.34  | 24.73 / 6.38  | -            | 16.87 / 4.90  |
