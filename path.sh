@@ -3,6 +3,8 @@ module load kaldi-strawberry/2b1b041-staticmath-gcc8.4.0-cuda11.0.2-openblas0.3.
 module load cuda/11.0.2
 module load variKN
 module load sentencepiece
+module load flac
+module load sox
 
 export PATH=$PWD/utils:$PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD
