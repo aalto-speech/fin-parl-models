@@ -1,4 +1,5 @@
 # 1. Research diary for Finnish parliament model training
+
 By Aku & Anja
 
 - [1. Research diary for Finnish parliament model training](#1-research-diary-for-finnish-parliament-model-training)
@@ -32,8 +33,8 @@ By Aku & Anja
   - [x] exp A) Kaldi Librispeech
   - [x] exp B) 1 x mono + 2 x tri, all data
   - [x] exp C) 1 x mono + 2 x tri, increase data for each model
-  - [x] exp D) Same as C but increase params for first triphone model 
-  - [x] exp E) 1 x mono 3 x tri, otherwise same as D but train LDA+MLLT+SAT first with less data and then with full data 
+  - [x] exp D) Same as C but increase params for first triphone model
+  - [x] exp E) 1 x mono 3 x tri, otherwise same as D but train LDA+MLLT+SAT first with less data and then with full data
   - [x] exp F) Kaldi Librispeech like but increase data and params to first three triphone models
   - [x] exp G) Kaldi Librispeech like but increase params to first three triphone models
 - [x] Select pipeline
@@ -55,14 +56,13 @@ We start our model building using Kaldi's [Librispeech recipe](https://github.co
     1. `numleaves`
     2. `totgauss`
     3. `num_iters` (and related params realign and fmllr iters)
-- We want to ensure we have optimum, i.e. values on both sides of a selected optimum value perform worse 
-- A good resource for GMM training: https://jrmeyer.github.io/asr/2019/08/17/Kaldi-troubleshooting.html
-- Cheatsheet related to tutorial above: https://jrmeyer.github.io/asr/2019/08/17/Kaldi-cheatsheet.html
+- We want to ensure we have optimum, i.e. values on both sides of a selected optimum value perform worse
+- [A good resource for GMM training](https://jrmeyer.github.io/asr/2019/08/17/Kaldi-troubleshooting.html) and [a related cheatsheet](https://jrmeyer.github.io/asr/2019/08/17/Kaldi-cheatsheet.html).
 - Which GMMs do we want to tune? We hope that it would be enough that the last GMM is tuned rigorously. In an [Aachen Librispeech paper](http://dx.doi.org/10.21437/Interspeech.2019-1780), they train one monophone model with **full data (960 h)** and then different triphone models with **full data**. Inspired by this, we make multiple experiments:
-    - a) Do same steps as in the standard Kaldi Librispeech recipe (monophone + 3 x triphone models: delta+deltadelta & LDA+MLLT & LDA+MLLT+SAT, training data increased after each step)
-    - b) Train one monophone model and two triphone models (LDA+MLLT & LDA+MLLT+SAT) all with full data
-    - c) Train one monophone model with shortest 2k utterances, one triphone model (LDA+MLLT) with 250k utts and one triphone model (LDA+MLLT+SAT) with all data
-    - d) Same as c) but increase params for LDA+MLLT model
+  - a) Do same steps as in the standard Kaldi Librispeech recipe (monophone + 3 x triphone models: delta+deltadelta & LDA+MLLT & LDA+MLLT+SAT, training data increased after each step)
+  - b) Train one monophone model and two triphone models (LDA+MLLT & LDA+MLLT+SAT) all with full data
+  - c) Train one monophone model with shortest 2k utterances, one triphone model (LDA+MLLT) with 250k utts and one triphone model (LDA+MLLT+SAT) with all data
+  - d) Same as c) but increase params for LDA+MLLT model
 
 ---
 
@@ -85,7 +85,7 @@ Later, when the segmentation pipeline was finished it produced 1780 h of data in
 was cleaned with the Kaldi data cleaning script (`steps/cleanup/clean_and_segment_data_nnet3.sh`)
 which cut the total audio length from 1780 h to 1717 h.
 
-### 1.4.1. Exp A) 1000 h set 
+### 1.4.1. Exp A) 1000 h set
 
 Results for experiment A when run with the 1000 h set.  
 
@@ -108,7 +108,7 @@ $ cat exp/a/*/decode*/scoring_kaldi/best_wer
 %WER 30.97 [ 11053 / 35693, 1387 ins, 2275 del, 7391 sub ] exp/a/tri4e/decode_parl-dev-all_test_small.si/wer_13_0.0
 ```
 
-### 1.4.2. Exp B) 1000 h set 
+### 1.4.2. Exp B) 1000 h set
 
 Results for experiment B when run with the 1000 h set.
 
@@ -120,7 +120,7 @@ $ cat exp/b/*/decode*/scoring_kaldi/best_wer
 %WER 31.91 [ 11391 / 35693, 1360 ins, 2469 del, 7562 sub ] exp/b/tri2a/decode_parl-dev-all_test_small.si/wer_12_0.0
 ```
 
-### 1.4.3. Exp C) 1000 h set 
+### 1.4.3. Exp C) 1000 h set
 
 Results for experiment B when run with the 1000 h set.
 
@@ -132,7 +132,7 @@ $ cat exp/c/*/decode*/scoring_kaldi/best_wer
 %WER 32.00 [ 11422 / 35693, 1418 ins, 2354 del, 7650 sub ] exp/c/tri2a/decode_parl-dev-all_test_small.si/wer_12_0.0
 ```
 
-### 1.4.4. Exp D) 1000 h set 
+### 1.4.4. Exp D) 1000 h set
 
 Results for experiment D when run with the 1000 h set.
 
@@ -148,7 +148,7 @@ $ cat exp/d/*/decode*/scoring_kaldi/best_wer
 %WER 31.70 [ 11316 / 35693, 1395 ins, 2384 del, 7537 sub ] exp/d/tri2c/decode_parl-dev-all_test_small.si/wer_13_0.0
 ```
 
-### 1.4.5. Exp E) 1000 h set 
+### 1.4.5. Exp E) 1000 h set
 
 Results for experiment E when run with the 1000 h set.
 
@@ -162,7 +162,7 @@ $ cat exp/e/*/decode*/scoring_kaldi/best_wer
 %WER 32.04 [ 11435 / 35693, 1387 ins, 2380 del, 7668 sub ] exp/e/tri3a/decode_parl-dev-all_test_small.si/wer_12_0.0
 ```
 
-### 1.4.6. Exp F) 1000 h set 
+### 1.4.6. Exp F) 1000 h set
 
 Results for experiment F when run with the 1000 h set.
 
@@ -187,7 +187,7 @@ $ cat exp/f/*/decode*/scoring_kaldi/best_wer
 %WER 30.68 [ 10951 / 35693, 1347 ins, 2304 del, 7300 sub ] exp/f/tri4g/decode_parl-dev-all_test_small.si/wer_14_0.0
 ```
 
-### 1.4.7. Exp G) 1000 h set 
+### 1.4.7. Exp G) 1000 h set
 
 Results for experiment G when run with the 1000 h set.
 
@@ -257,11 +257,13 @@ $ cat exp/i/*/decode*/scoring_kaldi/best_wer
 
 ### 1.4.10. WER comparison tables
 
-A table comparing training pipelines is presented below. A single value in parenthesis tells the data size 
-while three values stand for data size, number of leaves, and number of Gaussians. The last model in the
-first table is always trained with full data, 7000 leaves, and 150 000 Gaussians.
+A table comparing training pipelines is presented below. A single value in parenthesis tells
+the data size while three values stand for data size, number of leaves, and number of Gaussians.
+The last model in the first table is always trained with full data, 7000 leaves, and 150 000
+Gaussians.
 
 Glossary for shorthands:
+
 - 'si' = speaker-independent
 - 'f' = full training data
 - '2k_short' = Shortest 2000 samples from training data
@@ -329,31 +331,29 @@ switch/compare to Morfessor also.
 
 ## 1.6. Observations and thoughts
 
-### 1.6.1. Results 
-
+### 1.6.1. Results
 
 ### 1.6.2. Training speed
 
-Training models with large data from the beginning takes time (run B). Librispeech approach (run A) 
+Training models with large data from the beginning takes time (run B). Librispeech approach (run A)
 of training with incremental data is probably faster. In the end, also the final model performance
 was better with the incremental approach.
 
-
-### 1.6.3. Feature extraction 
+### 1.6.3. Feature extraction
 
 Feature extraction is surprisingly slow (we had to increase the time limit for slurm). One
 hypothesis is that since the data is sorted by speaker, many sequential samples are from different
 sessions which means different input files (002-2019 and 004-2016 in sample below). Assuming Kaldi
 processes samples sequentially, it will access each input file once per speaker instead of
-accessing each file once to read all segments related to that input file (if ordered by session). 
+accessing each file once to read all segments related to that input file (if ordered by session).
 
-```
+```txt
 # Sample from segments file (rows sorted by the first number in uttid)
 00116-002-2019-00046015-00047012 002-2019 460.15 470.12
 00116-004-2016-00504145-00505001 004-2016 5041.45 5050.01
 ```
 
-However, this is not a major issue as feature extraction is done once or twice. So no need 
+However, this is not a major issue as feature extraction is done once or twice. So no need
 currently to optimize this. We could perhaps omit speaker IDs from the utterance IDs (=> input
 would be sorted by session) if we really wanted to avoid this issue.
 

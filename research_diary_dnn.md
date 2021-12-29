@@ -23,6 +23,8 @@ By Aku & Anja
   - [1.6. Observations, thoughts and issues](#16-observations-thoughts-and-issues)
     - [1.6.1. About egs](#161-about-egs)
     - [1.6.2. Cuda problems](#162-cuda-problems)
+      - [_Missing libcuda.so_](#missing-libcudaso)
+      - [_Bash not found on DGX_](#bash-not-found-on-dgx)
 
 ## 1.1. TODOs
 
@@ -92,10 +94,10 @@ After 8 epochs (including evaluations every 500 iterations starting from iterati
 %WER 14.50 [ 5174 / 35693, 647 ins, 1494 del, 3033 sub ] exp/chain/tdnn_a/decode_parl-dev-all_test_varikn.bpe1750.d0.0001/wer_8_0.0
 %WER 10.10 [ 3605 / 35693, 421 ins, 1321 del, 1863 sub ] exp/chain/tdnn_a/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_8_0.0
 %WER 10.11 [ 3608 / 35693, 426 ins, 1336 del, 1846 sub ] exp/chain/tdnn_a/decode_parl-dev-all_test_parl_30M_varikn.bpe19000.d0.0001/wer_8_0.0
-%CER 5.62 [ 14281 / 254165, 5403 ins, 5776 del, 3102 sub ] exp/chain/tdnn_a/decode_parl-dev-all_test_small/cer_7_0.0
+%CER 5.60 [ 14224 / 254165, 5444 ins, 5562 del, 3218 sub ] exp/chain/tdnn_a/decode_parl-dev-all_test_small/cer_6_0.5
 %CER 4.98 [ 12662 / 254165, 4844 ins, 5358 del, 2460 sub ] exp/chain/tdnn_a/decode_parl-dev-all_test_varikn.bpe1750.d0.0001/cer_7_0.0
 %CER 4.01 [ 10189 / 254165, 3794 ins, 4822 del, 1573 sub ] exp/chain/tdnn_a/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/cer_7_0.0
-%CER 4.05 [ 10287 / 254165, 3843 ins, 4832 del, 1612 sub ] exp/chain/tdnn_a/decode_parl-dev-all_test_parl_30M_varikn.bpe19000.d0.0001/cer_7_0.0
+%CER 4.02 [ 10223 / 254165, 4018 ins, 4513 del, 1692 sub ] exp/chain/tdnn_a/decode_parl-dev-all_test_parl_30M_varikn.bpe19000.d0.0001/cer_6_0.5
 ```
 
 ### 1.4.2. Exp B) Large chain model (21 layers, 26.7 million params)
@@ -110,10 +112,10 @@ After 8 epochs (including evaluations every 500 iterations starting from iterati
 %WER 14.34 [ 5118 / 35693, 656 ins, 1456 del, 3006 sub ] exp/chain/tdnn_b/decode_parl-dev-all_test_varikn.bpe1750.d0.0001/wer_8_0.0
 %WER 9.97 [ 3559 / 35693, 423 ins, 1266 del, 1870 sub ] exp/chain/tdnn_b/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_8_0.
 %WER 10.06 [ 3591 / 35693, 436 ins, 1260 del, 1895 sub ] exp/chain/tdnn_b/decode_parl-dev-all_test_parl_30M_varikn.bpe19000.d0.0001/wer_8_0.0
-%CER 5.48 [ 13934 / 254165, 5354 ins, 5584 del, 2996 sub ] exp/chain/tdnn_b/decode_parl-dev-all_test_small/cer_7_0.0
-%CER 4.91 [ 12492 / 254165, 4838 ins, 5215 del, 2439 sub ] exp/chain/tdnn_b/decode_parl-dev-all_test_varikn.bpe1750.d0.0001/cer_7_0.0
-%CER 3.98 [ 10112 / 254165, 3830 ins, 4697 del, 1585 sub ] exp/chain/tdnn_b/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/cer_7_0.0
-%CER 4.03 [ 10241 / 254165, 3802 ins, 4772 del, 1667 sub ] exp/chain/tdnn_b/decode_parl-dev-all_test_parl_30M_varikn.bpe19000.d0.0001/cer_7_0.0
+%CER 5.46 [ 13883 / 254165, 5417 ins, 5401 del, 3065 sub ] exp/chain/tdnn_b/decode_parl-dev-all_test_small/cer_6_0.5
+%CER 4.87 [ 12386 / 254165, 5265 ins, 4538 del, 2583 sub ] exp/chain/tdnn_b/decode_parl-dev-all_test_varikn.bpe1750.d0.0001/cer_6_0.0
+%CER 3.97 [ 10078 / 254165, 4115 ins, 4224 del, 1739 sub ] exp/chain/tdnn_b/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/cer_6_0.0
+%CER 3.96 [ 10068 / 254165, 4068 ins, 4227 del, 1773 sub ] exp/chain/tdnn_b/decode_parl-dev-all_test_parl_30M_varikn.bpe19000.d0.0001/cer_6_0.0
 ```
 
 ### 1.4.3. Exp C) Small chain model (12 layers, 7.5 million params)
@@ -128,10 +130,10 @@ After 8 epochs (including evaluations every 500 iterations starting from iterati
 %WER 15.19 [ 5421 / 35693, 584 ins, 1833 del, 3004 sub ] exp/chain/tdnn_c/decode_parl-dev-all_test_varikn.bpe1750.d0.0001/wer_9_0.0
 %WER 10.24 [ 3655 / 35693, 442 ins, 1349 del, 1864 sub ] exp/chain/tdnn_c/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_8_0.0
 %WER 10.22 [ 3647 / 35693, 430 ins, 1369 del, 1848 sub ] exp/chain/tdnn_c/decode_parl-dev-all_test_parl_30M_varikn.bpe19000.d0.0001/wer_8_0.0
-%CER 5.82 [ 14795 / 254165, 5179 ins, 6405 del, 3211 sub ] exp/chain/tdnn_c/decode_parl-dev-all_test_small/cer_7_0.0
+%CER 5.82 [ 14783 / 254165, 5666 ins, 5662 del, 3455 sub ] exp/chain/tdnn_c/decode_parl-dev-all_test_small/cer_6_0.0
 %CER 5.08 [ 12920 / 254165, 4547 ins, 5780 del, 2593 sub ] exp/chain/tdnn_c/decode_parl-dev-all_test_varikn.bpe1750.d0.0001/cer_7_0.0
-%CER 4.06 [ 10330 / 254165, 3612 ins, 5064 del, 1654 sub ] exp/chain/tdnn_c/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/cer_7_0.0
-%CER 4.05 [ 10304 / 254165, 3563 ins, 5111 del, 1630 sub ] exp/chain/tdnn_c/decode_parl-dev-all_test_parl_30M_varikn.bpe19000.d0.0001/cer_7_0.0
+%CER 4.05 [ 10283 / 254165, 3935 ins, 4555 del, 1793 sub ] exp/chain/tdnn_c/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/cer_6_0.0
+%CER 4.03 [ 10231 / 254165, 3878 ins, 4562 del, 1791 sub ] exp/chain/tdnn_c/decode_parl-dev-all_test_parl_30M_varikn.bpe19000.d0.0001/cer_6_0.0
 ```
 
 ### 1.4.4. Exp D) Rerun of TDNN-a experiment with 8 epochs from the beginning
@@ -149,12 +151,14 @@ This model was trained with up to 4 GPUs (Kaldi starts with one, and increases G
 %WER 14.19 [ 5066 / 35693, 661 ins, 1413 del, 2992 sub ] exp/chain/tdnn_d/decode_parl-dev-all_test_varikn.bpe1750.d0.0001/wer_8_0.0
 %WER 9.98 [ 3562 / 35693, 502 ins, 1091 del, 1969 sub ] exp/chain/tdnn_d/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.0
 %WER 10.02 [ 3575 / 35693, 431 ins, 1269 del, 1875 sub ] exp/chain/tdnn_d/decode_parl-dev-all_test_parl_30M_varikn.bpe19000.d0.0001/wer_8_0.0
+%WER 14.77 [ 5272 / 35693, 681 ins, 1350 del, 3241 sub ] exp/chain/tdnn_d/decode_parl-dev-all_test_5gram-kielipankki.bpe19000.d0.0001/wer_6_0.0
 %WER 21.84 [ 7794 / 35693, 1412 ins, 1578 del, 4804 sub ] exp/chain/tdnn_d/decode_parl-dev-all_test_dspcon-webcon-interpolated-conversational-lm/wer_8_0.0
-%CER 5.41 [ 13755 / 254165, 4887 ins, 5997 del, 2871 sub ] exp/chain/tdnn_d/decode_parl-dev-all_test_small/cer_7_0.5
-%CER 4.90 [ 12452 / 254165, 5029 ins, 4952 del, 2471 sub ] exp/chain/tdnn_d/decode_parl-dev-all_test_varikn.bpe1750.d0.0001/cer_7_0.0
-%CER 3.95 [ 10049 / 254165, 3928 ins, 4474 del, 1647 sub ] exp/chain/tdnn_d/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/cer_7_0.0
-%CER 4.00 [ 10157 / 254165, 3922 ins, 4568 del, 1667 sub ] exp/chain/tdnn_d/decode_parl-dev-all_test_parl_30M_varikn.bpe19000.d0.0001/cer_7_0.0
-%CER 5.96 [ 15142 / 254165, 5181 ins, 6689 del, 3272 sub ] exp/chain/tdnn_d/decode_parl-dev-all_test_dspcon-webcon-interpolated-conversational-lm/cer_7_0.0
+%WER 5.39 [ 13707 / 254165, 5554 ins, 5142 del, 3011 sub ] exp/chain/tdnn_d/decode_parl-dev-all_test_small/cer_6_0.5
+%WER 4.86 [ 12348 / 254165, 5131 ins, 4695 del, 2522 sub ] exp/chain/tdnn_d/decode_parl-dev-all_test_varikn.bpe1750.d0.0001/cer_6_0.5
+%WER 3.95 [ 10049 / 254165, 3928 ins, 4474 del, 1647 sub ] exp/chain/tdnn_d/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/cer_7_0.0
+%WER 3.98 [ 10128 / 254165, 4296 ins, 4040 del, 1792 sub ] exp/chain/tdnn_d/decode_parl-dev-all_test_parl_30M_varikn.bpe19000.d0.0001/cer_6_0.0
+%WER 5.00 [ 12705 / 254165, 4958 ins, 5140 del, 2607 sub ] exp/chain/tdnn_d/decode_parl-dev-all_test_5gram-kielipankki.bpe19000.d0.0001/cer_6_0.0
+%WER 5.76 [ 14640 / 254165, 5747 ins, 5532 del, 3361 sub ] exp/chain/tdnn_d/decode_parl-dev-all_test_dspcon-webcon-interpolated-conversational-lm/cer_6_0.0
 ```
 
 ### 1.4.5. Exp A2) TDNN-BLSTM chain model (3 TDNN + 3 BLSTM layers, 46.1 million params)
@@ -162,16 +166,18 @@ This model was trained with up to 4 GPUs (Kaldi starts with one, and increases G
 Started training with one GPU, but since the model is so large it is slow to train, increased the GPU count to four.
 
 ```txt
-%WER 16.25 [ 5800 / 35693, 702 ins, 1705 del, 3393 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-dev-all_test_small/wer_7_0.5
+%WER 16.11 [ 5750 / 35693, 746 ins, 1547 del, 3457 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-dev-all_test_small/wer_6_1.0
 %WER 14.34 [ 5118 / 35693, 706 ins, 1402 del, 3010 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-dev-all_test_varikn.bpe1750.d0.0001/wer_7_0.0
 %WER 10.66 [ 3805 / 35693, 484 ins, 1296 del, 2025 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.0
 %WER 10.58 [ 3775 / 35693, 468 ins, 1307 del, 2000 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-dev-all_test_parl_30M_varikn.bpe19000.d0.0001/wer_7_0.0
+%WER 14.78 [ 5275 / 35693, 743 ins, 1305 del, 3227 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-dev-all_test_5gram-kielipankki.bpe19000.d0.0001/wer_5_0.0
 %WER 21.12 [ 7540 / 35693, 1318 ins, 1602 del, 4620 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-dev-all_test_dspcon-webcon-interpolated-conversational-lm/wer_7_0.0
-%CER 5.74 [ 14588 / 254165, 5312 ins, 6498 del, 2778 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-dev-all_test_small/cer_7_0.0
-%CER 5.31 [ 13490 / 254165, 5068 ins, 6015 del, 2407 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-dev-all_test_varikn.bpe1750.d0.0001/cer_7_0.0
-%CER 4.38 [ 11133 / 254165, 3841 ins, 5605 del, 1687 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/cer_7_0.0
-%CER 4.32 [ 10980 / 254165, 3711 ins, 5564 del, 1705 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-dev-all_test_parl_30M_varikn.bpe19000.d0.0001/cer_7_0.0
-%CER 6.69 [ 17011 / 254165, 5056 ins, 8724 del, 3231 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-dev-all_test_dspcon-webcon-interpolated-conversational-lm/cer_7_0.0
+%CER 5.54 [ 14070 / 254165, 5643 ins, 5580 del, 2847 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-dev-all_test_small/cer_5_1.0
+%CER 5.20 [ 13214 / 254165, 5624 ins, 5064 del, 2526 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-dev-all_test_varikn.bpe1750.d0.0001/cer_6_0.0
+%CER 4.25 [ 10810 / 254165, 4211 ins, 4870 del, 1729 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-dev-all_test_parl_20M_varikn.bpe19000.d0.0001/cer_6_0.0
+%CER 4.29 [ 10903 / 254165, 4251 ins, 4882 del, 1770 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-dev-all_test_parl_30M_varikn.bpe19000.d0.0001/cer_6_0.0
+%CER 5.34 [ 13562 / 254165, 5545 ins, 5444 del, 2573 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-dev-all_test_5gram-kielipankki.bpe19000.d0.0001/cer_5_0.0
+%CER 6.28 [ 15954 / 254165, 6543 ins, 5994 del, 3417 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl-dev-all_test_dspcon-webcon-interpolated-conversational-lm/cer_5_0.0
 ```
 
 ### 1.4.6. Best GMM for comparison
@@ -198,14 +204,14 @@ Started training with one GPU, but since the model is so large it is slow to tra
 
 LM comparisons for Eduskunta2021 acoustic models on parl-dev-all set (WER/CER):
 
-| Acoustic model            | Eduskunta2021 transcripts | 20M token in-domain | 30M token in-domain | Kielipankki | Anssi's conversational LM | Partial transcripts |
-| ------------------------- | ------------------------- | ------------------- | ------------------- | ----------- | ------------------------- | ------------------- |
-| GMM i/tri4j               | 21.12 / 7.21              | 14.34 / 5.71        | 14.38 / 5.69        | ?           | 33.34 / 9.34              | 26.50 / 8.36        |
-| TDNN-a (Librispeech)      | 14.50 / 4.98              | 10.10 / 4.01        | 10.11 / 4.05        | -           | -                         | 17.46 / 5.62        |
-| TDNN-b (large)            | 14.34 / 4.91              | 9.97 / 3.98         | 10.06 / 4.03        | -           | -                         | 17.11 / 5.48        |
-| TDNN-c (small)            | 15.19 / 5.08              | 10.24 / 4.06        | 10.22 / 4.05        | -           | -                         | 18.91 / 5.82        |
-| TDNN-d (retrained TDNN-a) | 14.19 / 4.90              | 9.98 / 3.95         | 10.02 / 4.00        | ?           | 21.84 / 5.96              | 16.73 / 5.41        |
-| TDNN-BLSTM                | 14.34 / 5.31              | 10.66 / 4.38        | 10.58 / 4.32        | ?           | 21.12 / 6.69              | 16.25 / 5.74        |
+| Acoustic model            | Eduskunta2021 transcripts | 20M token in-domain | 30M token in-domain | Kielipankki 5-gram | Anssi's conversational LM | Partial transcripts |
+| ------------------------- | ------------------------- | ------------------- | ------------------- | ------------------ | ------------------------- | ------------------- |
+| GMM i/tri4j               | 21.12 / 7.21              | 14.34 / 5.71        | 14.38 / 5.69        | ?                  | 33.34 / 9.34              | 26.50 / 8.36        |
+| TDNN-a (Librispeech)      | 14.50 / 4.98              | 10.10 / 4.01        | 10.11 / 4.02        | -                  | -                         | 17.46 / 5.60        |
+| TDNN-b (large)            | 14.34 / 4.87              | 9.97 / 3.97         | 10.06 / 3.96        | -                  | -                         | 17.11 / 5.46        |
+| TDNN-c (small)            | 15.19 / 5.08              | 10.24 / 4.05        | 10.22 / 4.03        | -                  | -                         | 18.91 / 5.82        |
+| TDNN-d (retrained TDNN-a) | 14.19 / 4.86              | 9.98 / 3.95         | 10.02 / 3.98        | 14.77 / 5.00       | 21.84 / 5.76              | 16.73 / 5.39        |
+| TDNN-BLSTM                | 14.34 / 5.20              | 10.66 / 4.25        | 10.58 / 4.29        | 14.78 / 5.34       | 21.12 / 6.28              | 16.11 / 5.54        |
 
 ---
 
@@ -262,7 +268,7 @@ augmentation or change MFCC configuration.
 
 ### 1.6.2. Cuda problems
 
-1. _Missing libcuda.so_
+#### _Missing libcuda.so_
 
 CPU nodes do not have `libcuda.so`. Yet, Kaldi's nnet initialization code still depends on it
 even if it doesn't use GPU. For now, we hotfixed the issue by copying the `libcuda.so` to our
@@ -270,7 +276,7 @@ project root. We have [discussed this with Triton admins](https://version.aalto.
 and there is also a similar issue on [Kaldi Github](https://github.com/kaldi-asr/kaldi/issues/4576).
 We will follow the issues and see if a better solution comes up.
 
-2. _Bash not found on DGX_
+#### _Bash not found on DGX_
 
 The DGX nodes have a different OS compared to all other nodes on Triton. For this reason, slurm
 scripts need to have the following shebang `#!/bin/bash -l` if run on DGX nodes. We added the
