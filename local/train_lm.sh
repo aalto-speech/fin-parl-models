@@ -4,7 +4,7 @@ set -eu
 
 stage=1
 BPE_units=1000
-varikn_scale="0.01"
+varikn_scale=0.01
 varikn_cmd="$varikn_cmd"
 varikn_extra="--clear_history --3nzer --arpa"
 skip_lang=false
