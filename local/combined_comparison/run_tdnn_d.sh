@@ -8,10 +8,12 @@ train_set=parl-train-2008-2020-kevat
 decode_set=parl-dev-all
 gmm_str="i/tri4j"
 lm=test_parl_20M_varikn.bpe19000.d0.0001
+suffix=
 
 # EGS options
 frames_per_eg=150,110,100
 common_egs_dir=
+egs_nj=100
 
 # NN hyperparams
 xent_regularize=0.1
@@ -35,7 +37,7 @@ fi
 train_data_dir=data/combined_comparison/${train_set}_hires
 tree_dir=exp/combined_comparison/chain/tree
 lat_dir=exp/combined_comparison/chain/${gmm_str}_${train_set}_lats
-dir=exp/combined_comparison/chain/tdnn_d
+dir=exp/combined_comparison/chain/tdnn_d$suffix
 
 if [ $stage -le 0 ]; then
   echo "$0: creating neural net configs using the xconfig parser";
@@ -96,6 +98,7 @@ if [ $stage -le 1 ]; then
     --cmd "$basic_cmd" \
     --egs.cmd "$egs_cmd" \
     --egs.stage -10 \
+		--egs.nj $egs_nj \
     --egs.opts "--frames-overlap-per-eg 0 --constrained false" \
     --egs.chunk-width $frames_per_eg \
     --cleanup.remove-egs false \
@@ -127,6 +130,7 @@ if [ $stage -le 2 ]; then
 		steps/nnet3/chain/train.py \
 			--stage $train_stage \
 			--cmd "$nnet_cmd" \
+			--egs.nj $egs_nj \
 			--egs.chunk-width $frames_per_eg \
 			--cleanup.remove-egs false \
 			--feat.cmvn-opts "--norm-means=false --norm-vars=false" \
