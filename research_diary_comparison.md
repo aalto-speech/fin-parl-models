@@ -319,10 +319,12 @@ Lahjoita puhetta test set.
 %WER 67.26 [ 42089 / 62574, 839 ins, 20686 del, 20564 sub ] exp/andre_comparison/chain/tdnn_d/decode_lp-test_test_parl_30M_varikn.bpe19000.d0.0001/wer_8_0.0
 %WER 64.75 [ 40515 / 62574, 687 ins, 18920 del, 20908 sub ] exp/andre_comparison/chain/tdnn_d/decode_lp-test_test_5gram-kielipankki.bpe19000.d0.0001/wer_7_0.0
 %WER 64.73 [ 40502 / 62574, 685 ins, 18923 del, 20894 sub ] exp/andre_comparison/chain/tdnn_d/decode_lp-test_test_kielipankki.bpe19000.d0.0001_rescore/wer_7_0.0
+%WER 68.41 [ 42810 / 62574, 717 ins, 21567 del, 20526 sub ] exp/andre_comparison/chain/tdnn_d/decode_lp-test_test_parl-train-unfiltered_varikn.bpe1750.d0.0001/wer_7_1.0
 %WER 65.48 [ 40973 / 62574, 1146 ins, 15507 del, 24320 sub ] exp/combined_comparison/chain/tdnn_d/decode_lp-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_8_0.0
 %WER 65.16 [ 40774 / 62574, 964 ins, 17188 del, 22622 sub ] exp/combined_comparison/chain/tdnn_d/decode_lp-test_test_parl_30M_varikn.bpe19000.d0.0001/wer_8_0.5
 %WER 62.80 [ 39294 / 62574, 935 ins, 14783 del, 23576 sub ] exp/combined_comparison/chain/tdnn_d/decode_lp-test_test_5gram-kielipankki.bpe19000.d0.0001/wer_7_0.0
 %WER 62.79 [ 39289 / 62574, 936 ins, 14789 del, 23564 sub ] exp/combined_comparison/chain/tdnn_d/decode_lp-test_test_kielipankki.bpe19000.d0.0001_rescore/wer_7_0.0
+%WER 64.99 [ 40665 / 62574, 1118 ins, 15549 del, 23998 sub ] exp/combined_comparison/chain/tdnn_d/decode_lp-test_test_parl-train-2008-2020-kevat_varikn.bpe1750.d0.0001/wer_8_0.0
 %CER 40.43 [ 135712 / 335702, 18500 ins, 80655 del, 36557 sub ] exp/i/tri4j/decode_lp-test_test_parl_20M_varikn.bpe19000.d0.0001/cer_13_0.0
 %CER 41.56 [ 139532 / 335702, 15807 ins, 96961 del, 26764 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_lp-test_test_parl_20M_varikn.bpe19000.d0.0001/cer_6_0.0
 %CER 33.73 [ 113230 / 335702, 20054 ins, 62047 del, 31129 sub ] exp/chain/tdnn_d/decode_lp-test_test_parl_20M_varikn.bpe19000.d0.0001/cer_7_0.0
@@ -334,10 +336,12 @@ Lahjoita puhetta test set.
 %CER 36.07 [ 121071 / 335702, 16398 ins, 78863 del, 25810 sub ] exp/andre_comparison/chain/tdnn_d/decode_lp-test_test_parl_30M_varikn.bpe19000.d0.0001/cer_7_0.5
 %CER 32.78 [ 110032 / 335702, 17889 ins, 63897 del, 28246 sub ] exp/andre_comparison/chain/tdnn_d/decode_lp-test_test_5gram-kielipankki.bpe19000.d0.0001/cer_6_0.0
 %CER 33.02 [ 110839 / 335702, 16930 ins, 66637 del, 27272 sub ] exp/andre_comparison/chain/tdnn_d/decode_lp-test_test_kielipankki.bpe19000.d0.0001_rescore/cer_6_0.5
+%CER 37.42 [ 125627 / 335702, 13411 ins, 89362 del, 22854 sub ] exp/andre_comparison/chain/tdnn_d/decode_lp-test_test_parl-train-unfiltered_varikn.bpe1750.d0.0001/cer_7_1.0
 %CER 32.12 [ 107844 / 335702, 23145 ins, 51443 del, 33256 sub ] exp/combined_comparison/chain/tdnn_d/decode_lp-test_test_parl_20M_varikn.bpe19000.d0.0001/cer_7_0.0
 %CER 31.60 [ 106083 / 335702, 22268 ins, 51175 del, 32640 sub ] exp/combined_comparison/chain/tdnn_d/decode_lp-test_test_parl_30M_varikn.bpe19000.d0.0001/cer_6_1.0
 %CER 30.42 [ 102117 / 335702, 21326 ins, 48351 del, 32440 sub ] exp/combined_comparison/chain/tdnn_d/decode_lp-test_test_5gram-kielipankki.bpe19000.d0.0001/cer_6_0.5
 %CER 30.36 [ 101913 / 335702, 22608 ins, 46050 del, 33255 sub ] exp/combined_comparison/chain/tdnn_d/decode_lp-test_test_kielipankki.bpe19000.d0.0001_rescore/cer_6_0.0
+%CER 32.62 [ 109508 / 335702, 17884 ins, 63537 del, 28087 sub ] exp/combined_comparison/chain/tdnn_d/decode_lp-test_test_parl-train-2008-2020-kevat_varikn.bpe1750.d0.0001/cer_7_1.0
 ```
 
 Speecon test set.
@@ -355,10 +359,12 @@ Speecon test set.
 %WER 21.60 [ 1195 / 5533, 138 ins, 290 del, 767 sub ] exp/andre_comparison/chain/tdnn_d/decode_speecon-test_test_parl_30M_varikn.bpe19000.d0.0001/wer_8_0.0
 %WER 14.37 [ 795 / 5533, 71 ins, 243 del, 481 sub ] exp/andre_comparison/chain/tdnn_d/decode_speecon-test_test_5gram-kielipankki.bpe19000.d0.0001/wer_7_0.0
 %WER 14.33 [ 793 / 5533, 70 ins, 243 del, 480 sub ] exp/andre_comparison/chain/tdnn_d/decode_speecon-test_test_kielipankki.bpe19000.d0.0001_rescore/wer_7_0.0
+%WER 22.84 [ 1264 / 5533, 135 ins, 302 del, 827 sub ] exp/andre_comparison/chain/tdnn_d/decode_speecon-test_test_parl-train-unfiltered_varikn.bpe1750.d0.0001/wer_7_1.0
 %WER 22.43 [ 1241 / 5533, 135 ins, 282 del, 824 sub ] exp/combined_comparison/chain/tdnn_d/decode_speecon-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_8_0.0
 %WER 20.42 [ 1130 / 5533, 121 ins, 283 del, 726 sub ] exp/combined_comparison/chain/tdnn_d/decode_speecon-test_test_parl_30M_varikn.bpe19000.d0.0001/wer_8_0.5
 %WER 13.79 [ 763 / 5533, 80 ins, 241 del, 442 sub ] exp/combined_comparison/chain/tdnn_d/decode_speecon-test_test_5gram-kielipankki.bpe19000.d0.0001/wer_7_0.0
 %WER 13.83 [ 765 / 5533, 81 ins, 241 del, 443 sub ] exp/combined_comparison/chain/tdnn_d/decode_speecon-test_test_kielipankki.bpe19000.d0.0001_rescore/wer_7_0.0
+%WER 20.93 [ 1158 / 5533, 135 ins, 272 del, 751 sub ] exp/combined_comparison/chain/tdnn_d/decode_speecon-test_test_parl-train-2008-2020-kevat_varikn.bpe1750.d0.0001/wer_8_0.0
 %CER 5.69 [ 2364 / 41575, 587 ins, 858 del, 919 sub ] exp/i/tri4j/decode_speecon-test_test_parl_20M_varikn.bpe19000.d0.0001/cer_13_0.0
 %CER 4.22 [ 1754 / 41575, 695 ins, 499 del, 560 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_speecon-test_test_parl_20M_varikn.bpe19000.d0.0001/cer_6_0.0
 %CER 3.88 [ 1613 / 41575, 570 ins, 459 del, 584 sub ] exp/chain/tdnn_d/decode_speecon-test_test_parl_20M_varikn.bpe19000.d0.0001/cer_7_0.0
@@ -370,10 +376,12 @@ Speecon test set.
 %CER 3.79 [ 1577 / 41575, 512 ins, 526 del, 539 sub ] exp/andre_comparison/chain/tdnn_d/decode_speecon-test_test_parl_30M_varikn.bpe19000.d0.0001/cer_7_0.5
 %CER 2.82 [ 1173 / 41575, 363 ins, 376 del, 434 sub ] exp/andre_comparison/chain/tdnn_d/decode_speecon-test_test_5gram-kielipankki.bpe19000.d0.0001/cer_6_0.0
 %CER 2.73 [ 1133 / 41575, 313 ins, 395 del, 425 sub ] exp/andre_comparison/chain/tdnn_d/decode_speecon-test_test_kielipankki.bpe19000.d0.0001_rescore/cer_6_0.5
+%CER 3.97 [ 1652 / 41575, 436 ins, 614 del, 602 sub ] exp/andre_comparison/chain/tdnn_d/decode_speecon-test_test_parl-train-unfiltered_varikn.bpe1750.d0.0001/cer_7_1.0
 %CER 4.06 [ 1687 / 41575, 655 ins, 451 del, 581 sub ] exp/combined_comparison/chain/tdnn_d/decode_speecon-test_test_parl_20M_varikn.bpe19000.d0.0001/cer_7_0.0
 %CER 3.58 [ 1488 / 41575, 549 ins, 414 del, 525 sub ] exp/combined_comparison/chain/tdnn_d/decode_speecon-test_test_parl_30M_varikn.bpe19000.d0.0001/cer_6_1.0
 %CER 2.38 [ 989 / 41575, 317 ins, 361 del, 311 sub ] exp/combined_comparison/chain/tdnn_d/decode_speecon-test_test_5gram-kielipankki.bpe19000.d0.0001/cer_6_0.5
 %CER 2.42 [ 1005 / 41575, 342 ins, 350 del, 313 sub ] exp/combined_comparison/chain/tdnn_d/decode_speecon-test_test_kielipankki.bpe19000.d0.0001_rescore/cer_6_0.0
+%CER 3.56 [ 1479 / 41575, 458 ins, 492 del, 529 sub ] exp/combined_comparison/chain/tdnn_d/decode_speecon-test_test_parl-train-2008-2020-kevat_varikn.bpe1750.d0.0001/cer_7_1.0
 ```
 
 Yle test set.
@@ -391,10 +399,12 @@ Yle test set.
 %WER 26.04 [ 9601 / 36869, 1051 ins, 2010 del, 6540 sub ] exp/andre_comparison/chain/tdnn_d/decode_yle-test-new_test_parl_30M_varikn.bpe19000.d0.0001/wer_8_0.0
 %WER 17.63 [ 6500 / 36869, 580 ins, 1536 del, 4384 sub ] exp/andre_comparison/chain/tdnn_d/decode_yle-test-new_test_5gram-kielipankki.bpe19000.d0.0001/wer_7_0.0
 %WER 17.61 [ 6493 / 36869, 577 ins, 1540 del, 4376 sub ] exp/andre_comparison/chain/tdnn_d/decode_yle-test-new_test_kielipankki.bpe19000.d0.0001_rescore/wer_7_0.0
+%WER 27.58 [ 10169 / 36869, 1050 ins, 2140 del, 6979 sub ] exp/andre_comparison/chain/tdnn_d/decode_yle-test-new_test_parl-train-unfiltered_varikn.bpe1750.d0.0001/wer_7_1.0
 %WER 25.49 [ 9397 / 36869, 1013 ins, 1719 del, 6665 sub ] exp/combined_comparison/chain/tdnn_d/decode_yle-test-new_test_parl_20M_varikn.bpe19000.d0.0001/wer_8_0.0
 %WER 24.67 [ 9096 / 36869, 1046 ins, 1809 del, 6241 sub ] exp/combined_comparison/chain/tdnn_d/decode_yle-test-new_test_parl_30M_varikn.bpe19000.d0.0001/wer_8_0.5
 %WER 17.07 [ 6293 / 36869, 751 ins, 1307 del, 4235 sub ] exp/combined_comparison/chain/tdnn_d/decode_yle-test-new_test_5gram-kielipankki.bpe19000.d0.0001/wer_7_0.0
 %WER 17.04 [ 6282 / 36869, 746 ins, 1306 del, 4230 sub ] exp/combined_comparison/chain/tdnn_d/decode_yle-test-new_test_kielipankki.bpe19000.d0.0001_rescore/wer_7_0.0
+%WER 24.70 [ 9106 / 36869, 1131 ins, 1654 del, 6321 sub ] exp/combined_comparison/chain/tdnn_d/decode_yle-test-new_test_parl-train-2008-2020-kevat_varikn.bpe1750.d0.0001/wer_8_0.0
 %CER 11.15 [ 30042 / 269449, 8022 ins, 10031 del, 11989 sub ] exp/i/tri4j/decode_yle-test-new_test_parl_20M_varikn.bpe19000.d0.0001/cer_13_0.0
 %CER 6.89 [ 18569 / 269449, 7616 ins, 5020 del, 5933 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_yle-test-new_test_parl_20M_varikn.bpe19000.d0.0001/cer_6_0.0
 %CER 6.35 [ 17116 / 269449, 7000 ins, 4340 del, 5776 sub ] exp/chain/tdnn_d/decode_yle-test-new_test_parl_20M_varikn.bpe19000.d0.0001/cer_7_0.0
@@ -406,10 +416,12 @@ Yle test set.
 %CER 6.75 [ 18176 / 269449, 7015 ins, 5175 del, 5986 sub ] exp/andre_comparison/chain/tdnn_d/decode_yle-test-new_test_parl_30M_varikn.bpe19000.d0.0001/cer_7_0.5
 %CER 4.92 [ 13255 / 269449, 5489 ins, 3438 del, 4328 sub ] exp/andre_comparison/chain/tdnn_d/decode_yle-test-new_test_5gram-kielipankki.bpe19000.d0.0001/cer_6_0.0
 %CER 4.86 [ 13102 / 269449, 5152 ins, 3693 del, 4257 sub ] exp/andre_comparison/chain/tdnn_d/decode_yle-test-new_test_kielipankki.bpe19000.d0.0001_rescore/cer_6_0.5
+%CER 6.77 [ 18250 / 269449, 5731 ins, 6406 del, 6113 sub ] exp/andre_comparison/chain/tdnn_d/decode_yle-test-new_test_parl-train-unfiltered_varikn.bpe1750.d0.0001/cer_7_1.0
 %CER 6.31 [ 17004 / 269449, 7341 ins, 3892 del, 5771 sub ] exp/combined_comparison/chain/tdnn_d/decode_yle-test-new_test_parl_20M_varikn.bpe19000.d0.0001/cer_7_0.0
 %CER 6.23 [ 16774 / 269449, 7486 ins, 3826 del, 5462 sub ] exp/combined_comparison/chain/tdnn_d/decode_yle-test-new_test_parl_30M_varikn.bpe19000.d0.0001/cer_6_1.0
 %CER 4.91 [ 13223 / 269449, 6038 ins, 3170 del, 4015 sub ] exp/combined_comparison/chain/tdnn_d/decode_yle-test-new_test_5gram-kielipankki.bpe19000.d0.0001/cer_6_0.5
 %CER 4.94 [ 13323 / 269449, 6357 ins, 2891 del, 4075 sub ] exp/combined_comparison/chain/tdnn_d/decode_yle-test-new_test_kielipankki.bpe19000.d0.0001_rescore/cer_6_0.0
+%CER 6.15 [ 16570 / 269449, 6235 ins, 4806 del, 5529 sub ] exp/combined_comparison/chain/tdnn_d/decode_yle-test-new_test_parl-train-2008-2020-kevat_varikn.bpe1750.d0.0001/cer_7_1.0
 ```
 
 ---
@@ -542,12 +554,15 @@ Different test sets evaluated on the three TDNN-d acoustic models and rescored K
 
 Parliament test sets evaluated on the three TDNN-d acoustic models and their matching transcript LMs.
 
-| Test set              | Eduskunta2021 | Eduskunta2017 | Combined     |
-| --------------------- | ------------- | ------------- | ------------ |
-| Parl-test-seen 2017   | 11.31 / 3.45  | 11.46 / 4.25  | 10.32 / 3.54 |
-| Parl-test-unseen 2017 | 9.70 / 3.16   | 10.86 / 4.02  | 9.32 / 3.19  |
-| Parl-test-all 2017    | 10.52 / 3.31  | 11.17 / 4.14  | 9.83 / 3.37  |
-| Parl-test 2021        | 8.84 / 2.19   | 13.90 / 4.28  | 8.76 / 2.29  |
+| Test set              | Eduskunta2021 | Eduskunta2017 | Combined      |
+| --------------------- | ------------- | ------------- | ------------- |
+| Parl-test-seen 2017   | 11.31 / 3.45  | 11.46 / 4.25  | 10.32 / 3.54  |
+| Parl-test-unseen 2017 | 9.70 / 3.16   | 10.86 / 4.02  | 9.32 / 3.19   |
+| Parl-test-all 2017    | 10.52 / 3.31  | 11.17 / 4.14  | 9.83 / 3.37   |
+| Parl-test 2021        | 8.84 / 2.19   | 13.90 / 4.28  | 8.76 / 2.29   |
+| Lahjoita puhetta      | 66.90 / 32.97 | 68.41 / 37.42 | 64.99 / 32.62 |
+| Speecon-test          | 22.12 / 3.75  | 22.84 / 3.97  | 20.93 / 3.56  |
+| Yle-test              | 26.15 / 6.41  | 27.58 / 6.77  | 24.70 / 6.15  |
 
 Different test sets evaluated on the Eduskunta2021 TDNN-d acoustic model and different LMs.
 
@@ -560,3 +575,15 @@ Different test sets evaluated on the Eduskunta2021 TDNN-d acoustic model and dif
 | Lahjoita puhetta      | 66.59 / 33.73 | 66.20 / 32.89 | 66.90 / 32.97 | 64.86 / 31.84  | 64.85 / 31.82   |
 | Speecon-test          | 22.19 / 3.88  | 21.71 / 3.62  | 22.12 / 3.75  | 14.78 / 2.53   | 14.78 / 2.52    |
 | Yle-test              | 25.41 / 6.35  | 24.89 / 6.34  | 26.15 / 6.41  | 18.10 / 4.99   | 18.07 / 4.98    |
+
+Different test sets evaluated with end-to-end models and matched-data HMM system (TDNN-D):
+
+| Test set              | HMM/TDNN 2021 | HMM/TDNN 2017 | HMM/TDNN Comb | CRDNN/E2E 2021 | CRDNN/E2E 2017 | CRDNN/E2E Comb |
+| --------------------- | ------------- | ------------- | ------------- | -------------- | -------------- | -------------- |
+| Parl-test-seen 2017   | 11.31 / 3.45  | 11.46 / 4.25  | 10.32 / 3.54  | 13.32 / 5.47   | 12.60 / 5.88   | 10.81 / 4.26   |
+| Parl-test-unseen 2017 | 9.70 / 3.16   | 10.86 / 4.02  | 9.32 / 3.19   | 12.02 / 5.05   | 11.95 / 5.48   | 10.57 / 4.39   |
+| Parl-test-all 2017    | 10.52 / 3.31  | 11.17 / 4.14  | 9.83 / 3.37   | 12.68 / 5.26   | 12.28 / 5.68   | 10.69 / 4.33   |
+| Parl-test 2021        | 8.84 / 2.19   | 13.90 / 4.28  | 8.76 / 2.29   | 10.30 / 3.10   | 14.80 / 4.81   | 10.15 / 3.01   |
+| Lahjoita puhetta      | 66.90 / 32.97 | -             | -             | 90.06 / 80.15  | -              | -              |
+| Speecon-test          | 22.12 / 3.75  | -             | -             | 25.14 / 5.66   | -              | -              |
+| Yle-test              | 26.15 / 6.41  | -             | -             | 28.99 / 8.19   | -              | -              |
