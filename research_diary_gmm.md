@@ -204,7 +204,9 @@ $ cat exp/g/*/decode*/scoring_kaldi/best_wer
 
 ### 1.4.8. Exp H) 1717 h set
 
-Results for experiment H when run with the cleaned version of the published Kielipankki set (1717 hours).
+Results for experiment H when run with the cleaned version of the published set (1717 hours). An older DNN
+model trained in the research group was used in the cleaning process. Thus this cleaned set is dropped later,
+because the results are not reproducible.
 
 ```txt
 $ cat exp/h/*/decode*/scoring_kaldi/best_wer
@@ -259,53 +261,57 @@ $ cat exp/i/*/decode*/scoring_kaldi/best_wer
 
 A table comparing training pipelines is presented below. A single value in parenthesis tells
 the data size while three values stand for data size, number of leaves, and number of Gaussians.
-The last model in the first table is always trained with full data, 7000 leaves, and 150 000
+The tri4 model in the first table is always trained with full data, 7000 leaves, and 150 000
 Gaussians.
 
 Glossary for shorthands:
 
-- 'si' = speaker-independent
 - 'f' = full training data
 - '2k_short' = Shortest 2000 samples from training data
 - '5k' / '10k' / etc. = 5 000 / 10 000 / etc.
 
-| Model             | Run A, Librispeech   | Run B              | Run C                 | Run D               | Run E               | Run F               | Run G              |
-| ----------------- | -------------------- | ------------------ | --------------------- | ------------------- | ------------------- | ------------------- | ------------------ |
-| Monophone         | 68.53 (2k_short)     | 56.71 (f)          | 68.53 (2k_short)      | 68.53 (2k_short)    | 68.53 (2k_short)    | 68.53 (2k_short)    | 68.53 (2k_short)   |
-| Delta+delta-delta | 38.39 (5k,2k,10k)    | -                  | -                     | -                   | -                   | 37.44 (100k,2k,10k) | 37.44 (5k,2k,10k)  |
-| LDA+MLLT          | 35.06 (10k,2.5k,15k) | 35.22 (f,2.5k,15k) | 35.11 (250k,2.5k,15k) | 32.97 (250k,4k,45k) | 32.97 (250k,4k,45k) | 32.61 (250k,4k,45k) | 33.70 (10k,4k,45k) |
-| LDA+MLLT+SAT, si  | 36.15 (10k,2.5k,15k) | -                  | -                     | -                   | 33.91 (250k,4k,45k) | 33.49 (250k,4k,45k) | 34.75 (10k,4k,45k) |
-| LDA+MLLT+SAT      | 32.71 (10k,2.5k,15k) | -                  | -                     | -                   | 30.51 (250k,4k,45k) | 30.34 (250k,4k,45k) | 31.47 (10k,4k,45k) |
-| LDA+MLLT+SAT, si  | 31.72                | 31.91              | 32.00                 | 32.08               | 32.04               | 31.33               | 31.52              |
-| LDA+MLLT+SAT      | 28.47                | 28.65              | 28.85                 | 28.62               | 28.85               | 28.36               | 28.38              |
+The training data used in these results is the 1000 h set described in [section 1.4](#14-results).
+Language model is made from the transcripts of this same 1000 h set.
 
-Table comparing parameter optimization results for final LDA+MLL+SAT, full data GMM (first value is speaker-independent):
+| Model                    | Run A, Librispeech   | Run B              | Run C                 | Run D               | Run E               | Run F               | Run G              |
+| ------------------------ | -------------------- | ------------------ | --------------------- | ------------------- | ------------------- | ------------------- | ------------------ |
+| Monophone                | 68.53 (2k_short)     | 56.71 (f)          | 68.53 (2k_short)      | 68.53 (2k_short)    | 68.53 (2k_short)    | 68.53 (2k_short)    | 68.53 (2k_short)   |
+| Delta+delta-delta (tri1) | 38.39 (5k,2k,10k)    | -                  | -                     | -                   | -                   | 37.44 (100k,2k,10k) | 37.44 (5k,2k,10k)  |
+| LDA+MLLT (tri2)          | 35.06 (10k,2.5k,15k) | 35.22 (f,2.5k,15k) | 35.11 (250k,2.5k,15k) | 32.97 (250k,4k,45k) | 32.97 (250k,4k,45k) | 32.61 (250k,4k,45k) | 33.70 (10k,4k,45k) |
+| LDA+MLLT+SAT (tri3)      | 32.71 (10k,2.5k,15k) | -                  | -                     | -                   | 30.51 (250k,4k,45k) | 30.34 (250k,4k,45k) | 31.47 (10k,4k,45k) |
+| LDA+MLLT+SAT (tri4)      | 28.47                | 28.65              | 28.85                 | 28.62               | 28.85               | 28.36               | 28.38              |
 
-| Params (#leaves, #gauss, #iters, realign iters, fmllr iters) | Run A        | Run D        | Run F        |
-| ------------------------------------------------------------ | ------------ | ------------ | ------------ |
-| 7k, 150k, 35, "10 20 30", "2 4 6 12"                         | 31.72, 28.47 | 32.08, 28.62 | 31.33, 28.36 |
-| 14k, 150k, 35, "10 20 30", "2 4 6 12"                        | 31.56, 28.12 | -            | -            |
-| 14k, 200k, 35, "10 20 30", "2 4 6 12"                        | 31.22, 27.98 | 31.70, 28.19 | 31.10, 27.80 |
-| 7k, 150k, 70, "10 20 30 40 50 60", "2 4 6 12 36 42 48"       | 31.37, 28.22 | 31.71, 28.50 | -            |
-| 14k, 200k, 70, "10 20 30 40 50 60", "2 4 6 12 36 42 48"      | 30.97, 27.66 | -            | 30.83, 27.50 |
-| 14k, 250k, 70, "10 20 30 40 50 60", "2 4 6 12 36 42 48"      | -            | -            | 30.68, 27.29 |
-| 21k, 200k, 70, "10 20 30 40 50 60", "2 4 6 12 36 42 48"      | -            | -            | 31.15, 27.58 |
-| 21k, 250k, 70, "10 20 30 40 50 60", "2 4 6 12 36 42 48"      | -            | -            | 30.64, 27.28 |
-| 28k, 200k, 70, "10 20 30 40 50 60", "2 4 6 12 36 42 48"      | -            | -            | 31.39, 27.62 |
+Next table compares parameter optimization results for the tri4 model. The training data
+and LM are the same as in above table.
 
-Table comparing data sizes in model training:
+| Params (#leaves, #gauss, #iters, realign iters, fmllr iters) | Run A | Run D | Run F |
+| ------------------------------------------------------------ | ----- | ----- | ----- |
+| 7k, 150k, 35, "10 20 30", "2 4 6 12"                         | 28.47 | 28.62 | 28.36 |
+| 14k, 150k, 35, "10 20 30", "2 4 6 12"                        | 28.12 | -     | -     |
+| 14k, 200k, 35, "10 20 30", "2 4 6 12"                        | 27.98 | 28.19 | 27.80 |
+| 7k, 150k, 70, "10 20 30 40 50 60", "2 4 6 12 36 42 48"       | 28.22 | 28.50 | -     |
+| 14k, 200k, 70, "10 20 30 40 50 60", "2 4 6 12 36 42 48"      | 27.66 | -     | 27.50 |
+| 14k, 250k, 70, "10 20 30 40 50 60", "2 4 6 12 36 42 48"      | -     | -     | 27.29 |
+| 21k, 200k, 70, "10 20 30 40 50 60", "2 4 6 12 36 42 48"      | -     | -     | 27.58 |
+| 21k, 250k, 70, "10 20 30 40 50 60", "2 4 6 12 36 42 48"      | -     | -     | 27.28 |
+| 28k, 200k, 70, "10 20 30 40 50 60", "2 4 6 12 36 42 48"      | -     | -     | 27.62 |
 
-| Model\Data                       | 1000 h (run F) | 1717 h (cleaned, run H) | 1780 h (Kielipankki, run I) |
-| -------------------------------- | -------------- | ----------------------- | --------------------------- |
-| Monophone (2k_short)             | 68.53          | 66.98                   | 71.03                       |
-| Delta+delta-delta (100k,2k,10k)  | 37.44          | 37.36                   | 37.75                       |
-| LDA+MLLT (250k,4k,45k)           | 32.61          | 32.45                   | 32.60                       |
-| LDA+MLLT+SAT (250k,4k,45k)       | 33.49, 30.34   | 33.55, 30.17            | 33.65, 30.17                |
-| LDA+MLLT+SAT (f,14k,250k,70iter) | 30.68, 27.29   | 30.26, 27.23            | 30.57, 27.32                |
-| LDA+MLLT+SAT (f,14k,300k,70iter) | -              | 30.15, 26.95            | -                           |
-| LDA+MLLT+SAT (f,14k,400k,70iter) | -              | 29.68, 26.63            | -                           |
-| LDA+MLLT+SAT (f,14k,500k,70iter) | -              | 29.59, 26.47            | 29.60, 26.50                |
-| LDA+MLLT+SAT (f,14k,600k,70iter) | -              | 29.27, 26.44            | 29.42, 26.56                |
+Further optimization of the number of Gaussians with more data. The cleaned set was created
+with the Kaldi `clean_and_segment_data_nne3.sh` script using an older DNN model trained in
+the research group. Thus this cleaned set is dropped later, because the results are not
+reproducible.
+
+| Model\Data                             | 1000 h (run F) | 1717 h (cleaned, run H) | 1780 h (published, run I) |
+| -------------------------------------- | -------------- | ----------------------- | ------------------------- |
+| Monophone (2k_short)                   | 68.53          | 66.98                   | 71.03                     |
+| Delta+delta-delta, tri1 (100k,2k,10k)  | 37.44          | 37.36                   | 37.75                     |
+| LDA+MLLT, tri2 (250k,4k,45k)           | 32.61          | 32.45                   | 32.60                     |
+| LDA+MLLT+SAT, tri3 (250k,4k,45k)       | 30.34          | 30.17                   | 30.17                     |
+| LDA+MLLT+SAT, tri4 (f,14k,250k,70iter) | 27.29          | 27.23                   | 27.32                     |
+| LDA+MLLT+SAT, tri4 (f,14k,300k,70iter) | -              | 26.95                   | -                         |
+| LDA+MLLT+SAT, tri4 (f,14k,400k,70iter) | -              | 26.63                   | -                         |
+| LDA+MLLT+SAT, tri4 (f,14k,500k,70iter) | -              | 26.47                   | 26.50                     |
+| LDA+MLLT+SAT, tri4 (f,14k,600k,70iter) | -              | 26.44                   | 26.56                     |
 
 ---
 
