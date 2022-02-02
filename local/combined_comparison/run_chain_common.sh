@@ -2,11 +2,11 @@
 
 train_set=parl-train-2008-2020-kevat
 gmm_str=i/tri4j
-lang=data/combined_comparison/lang_chain
-tree_dir=exp/combined_comparison/chain/tree
+
 
 stage=1
 num_leaves=6000
+use_cleaned=false
 nj_align=100
 
 # EGS OPTIONS:
@@ -14,16 +14,22 @@ nj_align=100
 egs_opts="--frames-overlap-per-eg 0 --constrained false"
 frames_per_eg=150,110,100
 
-echo $0 $@
+echo "$0 $@"  # Print the command line for logging
 
 . ./cmd.sh
 . ./path.sh
 . ./utils/parse_options.sh
 
-lores_traindir=data/combined_comparison/${train_set}
-gmm_dir=exp/combined_comparison/${gmm_str}
-ali_dir=exp/combined_comparison/${gmm_str}_ali_${train_set}
-lat_dir=exp/combined_comparison/chain/${gmm_str}_${train_set}_lats
+suffix=
+$use_cleaned && suffix=_cleaned
+
+lores_traindir=data/combined_comparison/${train_set}${suffix}
+gmm_dir=exp/combined_comparison/${gmm_str}${suffix}
+ali_dir=exp/combined_comparison/${gmm_str}_ali_${train_set}${suffix}
+gmm_lang=data/lang_${train_set}
+lang=data/combined_comparison/lang_chain
+lat_dir=exp/combined_comparison/chain/${gmm_str}_${train_set}${suffix}_lats
+tree_dir=exp/combined_comparison/chain/tree${suffix}
 
 # -- Step 1, Features --
 
@@ -43,7 +49,7 @@ if [ $stage -le 2 ]; then
   fi
   echo "$0: aligning with the data"
   steps/align_fmllr.sh --nj $nj_align --cmd "$train_cmd" \
-    ${lores_traindir} data/combined_comparison/lang_train $gmm_dir $ali_dir || exit 1
+    ${lores_traindir} $gmm_lang $gmm_dir $ali_dir || exit 1
 fi
 
 if [ $stage -le 3 ]; then
@@ -52,15 +58,15 @@ if [ $stage -le 3 ]; then
   # topo file. [note, it really has two states.. the first one is only repeated
   # once, the second one has zero or more repeats.]
   if [ -d $lang ]; then
-    if [ $lang/L.fst -nt data/combined_comparison/lang_train/L.fst ]; then
+    if [ $lang/L.fst -nt $gmm_lang/L.fst ]; then
       echo "$0: $lang already exists, not overwriting it; continuing"
     else
-      echo "$0: $lang already exists and seems to be older than data/combined_comparison/lang_train..."
+      echo "$0: $lang already exists and seems to be older than ${gmm_lang}..."
       echo " ... not sure what to do. Exiting."
       exit 1;
     fi
   else
-    cp -r data/combined_comparison/lang_train $lang
+    cp -r $gmm_lang $lang
     silphonelist=$(cat $lang/phones/silence.csl) || exit 1;
     nonsilphonelist=$(cat $lang/phones/nonsilence.csl) || exit 1;
     # Use our special topology... note that later on may have to tune this

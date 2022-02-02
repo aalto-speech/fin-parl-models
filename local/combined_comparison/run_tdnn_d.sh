@@ -8,7 +8,7 @@ train_set=parl-train-2008-2020-kevat
 decode_set=parl-dev-all
 gmm_str="i/tri4j"
 lm=test_parl_20M_varikn.bpe19000.d0.0001
-suffix=
+use_cleaned=false
 
 # EGS options
 frames_per_eg=150,110,100
@@ -26,6 +26,9 @@ echo "$0 $@"  # Print the command line for logging
 . ./path.sh
 . ./utils/parse_options.sh
 
+suffix=
+$use_cleaned && suffix=_cleaned
+
 if ! cuda-compiled; then
   cat <<EOF && exit 1
 This script is intended to be used with GPUs but you have not compiled Kaldi with CUDA
@@ -34,10 +37,10 @@ where "nvcc" is installed.
 EOF
 fi
 
-train_data_dir=data/combined_comparison/${train_set}_hires
-tree_dir=exp/combined_comparison/chain/tree
-lat_dir=exp/combined_comparison/chain/${gmm_str}_${train_set}_lats
-dir=exp/combined_comparison/chain/tdnn_d$suffix
+train_data_dir=data/combined_comparison/${train_set}${suffix}_hires
+tree_dir=exp/combined_comparison/chain/tree${suffix}
+lat_dir=exp/combined_comparison/chain/${gmm_str}_${train_set}${suffix}_lats
+dir=exp/combined_comparison/chain/tdnn_d${suffix}
 
 if [ $stage -le 0 ]; then
   echo "$0: creating neural net configs using the xconfig parser";
