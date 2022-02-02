@@ -66,7 +66,7 @@ if [ $stage -le 3 ]; then
       echo "$0: $lang already exists, not overwriting it; continuing"
     else
       echo "$0: $lang already exists and seems to be older than ${gmm_lang}..."
-      echo " ... not sure what to do.  Exiting."
+      echo " ... not sure what to do. Exiting."
       exit 1;
     fi
   else
