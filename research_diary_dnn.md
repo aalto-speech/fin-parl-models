@@ -206,12 +206,14 @@ LM comparisons for Eduskunta2021 acoustic models on parl-dev-all set (WER/CER):
 
 | Acoustic model            | Eduskunta2021 transcripts | 20M token in-domain | 30M token in-domain | Kielipankki 5-gram | Anssi's conversational LM | Partial transcripts |
 | ------------------------- | ------------------------- | ------------------- | ------------------- | ------------------ | ------------------------- | ------------------- |
-| GMM i/tri4j               | 21.12 / 7.21              | 14.34 / 5.71        | 14.38 / 5.69        | ?                  | 33.34 / 9.34              | 26.50 / 8.36        |
+| GMM i/tri4j               | 21.12 / 7.21              | 14.34 / 5.71        | 14.38 / 5.69        | None               | 33.34 / 9.34              | 26.50 / 8.36        |
 | TDNN-a (Librispeech)      | 14.50 / 4.98              | 10.10 / 4.01        | 10.11 / 4.02        | -                  | -                         | 17.46 / 5.60        |
 | TDNN-b (large)            | 14.34 / 4.87              | 9.97 / 3.97         | 10.06 / 3.96        | -                  | -                         | 17.11 / 5.46        |
 | TDNN-c (small)            | 15.19 / 5.08              | 10.24 / 4.05        | 10.22 / 4.03        | -                  | -                         | 18.91 / 5.82        |
 | TDNN-d (retrained TDNN-a) | 14.19 / 4.86              | 9.98 / 3.95         | 10.02 / 3.98        | 14.77 / 5.00       | 21.84 / 5.76              | 16.73 / 5.39        |
 | TDNN-BLSTM                | 14.34 / 5.20              | 10.66 / 4.25        | 10.58 / 4.29        | 14.78 / 5.34       | 21.12 / 6.28              | 16.11 / 5.54        |
+
+We could not build HCLG.fst for HMM-GMM acoustic model with Kielipankki 5-gram due to LM size issues.
 
 ---
 
