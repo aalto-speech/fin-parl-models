@@ -1,8 +1,8 @@
-# 1. Experiments comparing different parliament data combinations
+# 1. Evaluation of parliament models on different test sets
 
 By Aku & Anja
 
-- [1. Experiments comparing different parliament data combinations](#1-experiments-comparing-different-parliament-data-combinations)
+- [1. Evaluation of parliament models on different test sets](#1-evaluation-of-parliament-models-on-different-test-sets)
   - [1.1. Datasets](#11-datasets)
     - [1.1.1. Dataset sizes](#111-dataset-sizes)
   - [1.2. Results](#12-results)
@@ -153,7 +153,7 @@ Results with a cleaned version of the old parliament data, where cleanup was don
 
 ### 1.2.5. Test set evaluations
 
-Parliament2017 test set, unseen and seen splits. Unseen and seen speaker splits do not apply for the new eduskunta2021 set.
+Parliament2016 test set, unseen and seen splits. Unseen and seen speaker splits do not apply for the new Test2020 set.
 
 ```txt
 # Seen
@@ -240,7 +240,7 @@ Parliament2017 test set, unseen and seen splits. Unseen and seen speaker splits 
 %CER 3.71 [ 4694 / 126461, 2626 ins, 1304 del, 764 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl-test-unseen_test_kielipankki.bpe19000.d0.0001_rescore/cer_6_0.0
 %CER 4.32 [ 5460 / 126461, 2750 ins, 1539 del, 1171 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl-test-unseen_test_dspcon-webcon-interpolated-conversational-lm/cer_6_0.0
 %CER 3.19 [ 4031 / 126461, 1956 ins, 1408 del, 667 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl-test-unseen_test_parl-train-2008-2020-kevat_varikn.bpe1750.d0.0001/cer_7_1.0
-# Parl-test-all 2017 (calculated by hand)
+# Parl-test-all 2016 (calculated by hand)
 %WER 9.72 [ 3417 / 35142, 597 ins, 763 del, 2057 sub ] exp/i/tri4j + test_parl_20M_varikn.bpe19000.d0.0001
 %WER 11.62 [ 4085 / 35142, 697 ins, 846 del, 2542 sub ] exp/i/tri4j + test_parl_20M_varikn.bpe19000.d0.0001.si
 %WER 7.40 [ 2600 / 35142, 353 ins, 908 del, 1339 sub ] exp/chain/tdnn_blstm_a_multigpu + test_parl_20M_varikn.bpe19000.d0.0001
@@ -284,50 +284,50 @@ Parliament2017 test set, unseen and seen splits. Unseen and seen speaker splits 
 %CER 3.37 [ 8679 / 257798, 4158 ins, 3103 del, 1418 sub ] exp/combined_comparison/chain/tdnn_d + test_parl-train-2008-2020-kevat_varikn.bpe1750.d0.0001
 ```
 
-Parliament2021 test set.
+Parliament2020 test set.
 
 ```txt
-%WER 17.53 [ 4780 / 27261, 729 ins, 795 del, 3256 sub ] exp/i/tri4j/decode_parl2021-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_16_0.0
-%WER 20.53 [ 5596 / 27261, 889 ins, 802 del, 3905 sub ] exp/i/tri4j/decode_parl2021-test_test_parl_20M_varikn.bpe19000.d0.0001.si/wer_14_0.0
-%WER 10.32 [ 2814 / 27261, 314 ins, 781 del, 1719 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl2021-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.0
-%WER 9.83 [ 2680 / 27261, 289 ins, 659 del, 1732 sub ] exp/chain/tdnn_d/decode_parl2021-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.0
-%WER 9.34 [ 2545 / 27261, 247 ins, 765 del, 1533 sub ] exp/chain/tdnn_d/decode_parl2021-test_test_parl_30M_varikn.bpe19000.d0.0001/wer_8_0.0
-%WER 9.59 [ 2613 / 27261, 275 ins, 648 del, 1690 sub ] exp/chain/tdnn_d/decode_parl2021-test_test_5gram-kielipankki.bpe19000.d0.0001/wer_6_0.0
-%WER 9.59 [ 2614 / 27261, 278 ins, 648 del, 1688 sub ] exp/chain/tdnn_d/decode_parl2021-test_test_kielipankki.bpe19000.d0.0001_rescore/wer_6_0.0
-%WER 17.43 [ 4752 / 27261, 1062 ins, 678 del, 3012 sub ] exp/chain/tdnn_d/decode_parl2021-test_test_dspcon-webcon-interpolated-conversational-lm/wer_8_0.0
-%WER 8.84 [ 2410 / 27261, 254 ins, 596 del, 1560 sub ] exp/chain/tdnn_d/decode_parl2021-test_test_varikn.bpe1750.d0.0001/wer_8_0.0
-%WER 14.97 [ 4081 / 27261, 756 ins, 1238 del, 2087 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2021-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_9_0.0
-%WER 13.17 [ 3589 / 27261, 750 ins, 1008 del, 1831 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2021-test_test_parl_30M_varikn.bpe19000.d0.0001/wer_8_0.0
-%WER 13.91 [ 3791 / 27261, 480 ins, 1167 del, 2144 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2021-test_test_5gram-kielipankki.bpe19000.d0.0001/wer_7_0.0
-%WER 13.89 [ 3786 / 27261, 478 ins, 1165 del, 2143 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2021-test_test_kielipankki.bpe19000.d0.0001_rescore/wer_7_0.0
-%WER 21.29 [ 5804 / 27261, 1203 ins, 1103 del, 3498 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2021-test_test_dspcon-webcon-interpolated-conversational-lm/wer_8_0.0
-%WER 13.90 [ 3790 / 27261, 581 ins, 1075 del, 2134 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2021-test_test_parl-train-unfiltered_varikn.bpe1750.d0.0001/wer_7_1.0
-%WER 10.67 [ 2908 / 27261, 312 ins, 815 del, 1781 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2021-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_8_0.0
-%WER 9.73 [ 2653 / 27261, 230 ins, 884 del, 1539 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2021-test_test_parl_30M_varikn.bpe19000.d0.0001/wer_8_0.5
-%WER 10.12 [ 2759 / 27261, 243 ins, 814 del, 1702 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2021-test_test_5gram-kielipankki.bpe19000.d0.0001/wer_7_0.0
-%WER 10.12 [ 2759 / 27261, 241 ins, 816 del, 1702 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2021-test_test_kielipankki.bpe19000.d0.0001_rescore/wer_7_0.0
-%WER 17.57 [ 4790 / 27261, 1055 ins, 663 del, 3072 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2021-test_test_dspcon-webcon-interpolated-conversational-lm/wer_8_0.0
-%WER 8.76 [ 2389 / 27261, 248 ins, 602 del, 1539 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2021-test_test_parl-train-2008-2020-kevat_varikn.bpe1750.d0.0001/wer_8_0.0
-%CER 4.18 [ 8438 / 201861, 3467 ins, 2799 del, 2172 sub ] exp/i/tri4j/decode_parl2021-test_test_parl_20M_varikn.bpe19000.d0.0001/cer_13_0.0
-%CER 2.81 [ 5671 / 201861, 2674 ins, 2006 del, 991 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl2021-test_test_parl_20M_varikn.bpe19000.d0.0001/cer_6_0.0
-%CER 2.54 [ 5129 / 201861, 2258 ins, 1964 del, 907 sub ] exp/chain/tdnn_d/decode_parl2021-test_test_parl_20M_varikn.bpe19000.d0.0001/cer_7_0.0
-%CER 2.27 [ 4591 / 201861, 2218 ins, 1559 del, 814 sub ] exp/chain/tdnn_d/decode_parl2021-test_test_parl_30M_varikn.bpe19000.d0.0001/cer_6_0.0
-%CER 2.50 [ 5043 / 201861, 2224 ins, 1890 del, 929 sub ] exp/chain/tdnn_d/decode_parl2021-test_test_5gram-kielipankki.bpe19000.d0.0001/cer_6_0.0
-%CER 2.50 [ 5039 / 201861, 2226 ins, 1893 del, 920 sub ] exp/chain/tdnn_d/decode_parl2021-test_test_kielipankki.bpe19000.d0.0001_rescore/cer_6_0.0
-%CER 3.03 [ 6116 / 201861, 2861 ins, 1820 del, 1435 sub ] exp/chain/tdnn_d/decode_parl2021-test_test_dspcon-webcon-interpolated-conversational-lm/cer_6_0.0
-%CER 2.19 [ 4422 / 201861, 2268 ins, 1336 del, 818 sub ] exp/chain/tdnn_d/decode_parl2021-test_test_varikn.bpe1750.d0.0001/cer_6_0.5
-%CER 5.13 [ 10357 / 201861, 5423 ins, 3611 del, 1323 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2021-test_test_parl_20M_varikn.bpe19000.d0.0001/cer_7_0.5
-%CER 4.81 [ 9713 / 201861, 5098 ins, 3459 del, 1156 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2021-test_test_parl_30M_varikn.bpe19000.d0.0001/cer_7_0.5
-%CER 4.72 [ 9536 / 201861, 4394 ins, 3590 del, 1552 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2021-test_test_5gram-kielipankki.bpe19000.d0.0001/cer_6_0.0
-%CER 4.56 [ 9202 / 201861, 3828 ins, 3891 del, 1483 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2021-test_test_kielipankki.bpe19000.d0.0001_rescore/cer_6_0.5
-%CER 5.13 [ 10360 / 201861, 3862 ins, 4429 del, 2069 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2021-test_test_dspcon-webcon-interpolated-conversational-lm/cer_6_0.5
-%CER 4.28 [ 8630 / 201861, 3422 ins, 3920 del, 1288 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2021-test_test_parl-train-unfiltered_varikn.bpe1750.d0.0001/cer_7_1.0
-%CER 2.65 [ 5349 / 201861, 2465 ins, 1931 del, 953 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2021-test_test_parl_20M_varikn.bpe19000.d0.0001/cer_7_0.0
-%CER 2.39 [ 4833 / 201861, 2218 ins, 1810 del, 805 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2021-test_test_parl_30M_varikn.bpe19000.d0.0001/cer_6_1.0
-%CER 2.63 [ 5319 / 201861, 2328 ins, 2047 del, 944 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2021-test_test_5gram-kielipankki.bpe19000.d0.0001/cer_6_0.5
-%CER 2.60 [ 5249 / 201861, 2429 ins, 1868 del, 952 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2021-test_test_kielipankki.bpe19000.d0.0001_rescore/cer_6_0.0
-%CER 3.02 [ 6087 / 201861, 2919 ins, 1736 del, 1432 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2021-test_test_dspcon-webcon-interpolated-conversational-lm/cer_6_0.0
-%CER 2.29 [ 4620 / 201861, 1960 ins, 1894 del, 766 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2021-test_test_parl-train-2008-2020-kevat_varikn.bpe1750.d0.0001/cer_7_1.0
+%WER 17.53 [ 4780 / 27261, 729 ins, 795 del, 3256 sub ] exp/i/tri4j/decode_parl2020-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_16_0.0
+%WER 20.53 [ 5596 / 27261, 889 ins, 802 del, 3905 sub ] exp/i/tri4j/decode_parl2020-test_test_parl_20M_varikn.bpe19000.d0.0001.si/wer_14_0.0
+%WER 10.32 [ 2814 / 27261, 314 ins, 781 del, 1719 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl2020-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.0
+%WER 9.83 [ 2680 / 27261, 289 ins, 659 del, 1732 sub ] exp/chain/tdnn_d/decode_parl2020-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_7_0.0
+%WER 9.34 [ 2545 / 27261, 247 ins, 765 del, 1533 sub ] exp/chain/tdnn_d/decode_parl2020-test_test_parl_30M_varikn.bpe19000.d0.0001/wer_8_0.0
+%WER 9.59 [ 2613 / 27261, 275 ins, 648 del, 1690 sub ] exp/chain/tdnn_d/decode_parl2020-test_test_5gram-kielipankki.bpe19000.d0.0001/wer_6_0.0
+%WER 9.59 [ 2614 / 27261, 278 ins, 648 del, 1688 sub ] exp/chain/tdnn_d/decode_parl2020-test_test_kielipankki.bpe19000.d0.0001_rescore/wer_6_0.0
+%WER 17.43 [ 4752 / 27261, 1062 ins, 678 del, 3012 sub ] exp/chain/tdnn_d/decode_parl2020-test_test_dspcon-webcon-interpolated-conversational-lm/wer_8_0.0
+%WER 8.84 [ 2410 / 27261, 254 ins, 596 del, 1560 sub ] exp/chain/tdnn_d/decode_parl2020-test_test_varikn.bpe1750.d0.0001/wer_8_0.0
+%WER 14.97 [ 4081 / 27261, 756 ins, 1238 del, 2087 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2020-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_9_0.0
+%WER 13.17 [ 3589 / 27261, 750 ins, 1008 del, 1831 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2020-test_test_parl_30M_varikn.bpe19000.d0.0001/wer_8_0.0
+%WER 13.91 [ 3791 / 27261, 480 ins, 1167 del, 2144 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2020-test_test_5gram-kielipankki.bpe19000.d0.0001/wer_7_0.0
+%WER 13.89 [ 3786 / 27261, 478 ins, 1165 del, 2143 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2020-test_test_kielipankki.bpe19000.d0.0001_rescore/wer_7_0.0
+%WER 21.29 [ 5804 / 27261, 1203 ins, 1103 del, 3498 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2020-test_test_dspcon-webcon-interpolated-conversational-lm/wer_8_0.0
+%WER 13.90 [ 3790 / 27261, 581 ins, 1075 del, 2134 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2020-test_test_parl-train-unfiltered_varikn.bpe1750.d0.0001/wer_7_1.0
+%WER 10.67 [ 2908 / 27261, 312 ins, 815 del, 1781 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2020-test_test_parl_20M_varikn.bpe19000.d0.0001/wer_8_0.0
+%WER 9.73 [ 2653 / 27261, 230 ins, 884 del, 1539 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2020-test_test_parl_30M_varikn.bpe19000.d0.0001/wer_8_0.5
+%WER 10.12 [ 2759 / 27261, 243 ins, 814 del, 1702 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2020-test_test_5gram-kielipankki.bpe19000.d0.0001/wer_7_0.0
+%WER 10.12 [ 2759 / 27261, 241 ins, 816 del, 1702 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2020-test_test_kielipankki.bpe19000.d0.0001_rescore/wer_7_0.0
+%WER 17.57 [ 4790 / 27261, 1055 ins, 663 del, 3072 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2020-test_test_dspcon-webcon-interpolated-conversational-lm/wer_8_0.0
+%WER 8.76 [ 2389 / 27261, 248 ins, 602 del, 1539 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2020-test_test_parl-train-2008-2020-kevat_varikn.bpe1750.d0.0001/wer_8_0.0
+%CER 4.18 [ 8438 / 201861, 3467 ins, 2799 del, 2172 sub ] exp/i/tri4j/decode_parl2020-test_test_parl_20M_varikn.bpe19000.d0.0001/cer_13_0.0
+%CER 2.81 [ 5671 / 201861, 2674 ins, 2006 del, 991 sub ] exp/chain/tdnn_blstm_a_multigpu/decode_parl2020-test_test_parl_20M_varikn.bpe19000.d0.0001/cer_6_0.0
+%CER 2.54 [ 5129 / 201861, 2258 ins, 1964 del, 907 sub ] exp/chain/tdnn_d/decode_parl2020-test_test_parl_20M_varikn.bpe19000.d0.0001/cer_7_0.0
+%CER 2.27 [ 4591 / 201861, 2218 ins, 1559 del, 814 sub ] exp/chain/tdnn_d/decode_parl2020-test_test_parl_30M_varikn.bpe19000.d0.0001/cer_6_0.0
+%CER 2.50 [ 5043 / 201861, 2224 ins, 1890 del, 929 sub ] exp/chain/tdnn_d/decode_parl2020-test_test_5gram-kielipankki.bpe19000.d0.0001/cer_6_0.0
+%CER 2.50 [ 5039 / 201861, 2226 ins, 1893 del, 920 sub ] exp/chain/tdnn_d/decode_parl2020-test_test_kielipankki.bpe19000.d0.0001_rescore/cer_6_0.0
+%CER 3.03 [ 6116 / 201861, 2861 ins, 1820 del, 1435 sub ] exp/chain/tdnn_d/decode_parl2020-test_test_dspcon-webcon-interpolated-conversational-lm/cer_6_0.0
+%CER 2.19 [ 4422 / 201861, 2268 ins, 1336 del, 818 sub ] exp/chain/tdnn_d/decode_parl2020-test_test_varikn.bpe1750.d0.0001/cer_6_0.5
+%CER 5.13 [ 10357 / 201861, 5423 ins, 3611 del, 1323 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2020-test_test_parl_20M_varikn.bpe19000.d0.0001/cer_7_0.5
+%CER 4.81 [ 9713 / 201861, 5098 ins, 3459 del, 1156 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2020-test_test_parl_30M_varikn.bpe19000.d0.0001/cer_7_0.5
+%CER 4.72 [ 9536 / 201861, 4394 ins, 3590 del, 1552 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2020-test_test_5gram-kielipankki.bpe19000.d0.0001/cer_6_0.0
+%CER 4.56 [ 9202 / 201861, 3828 ins, 3891 del, 1483 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2020-test_test_kielipankki.bpe19000.d0.0001_rescore/cer_6_0.5
+%CER 5.13 [ 10360 / 201861, 3862 ins, 4429 del, 2069 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2020-test_test_dspcon-webcon-interpolated-conversational-lm/cer_6_0.5
+%CER 4.28 [ 8630 / 201861, 3422 ins, 3920 del, 1288 sub ] exp/andre_comparison/chain/tdnn_d/decode_parl2020-test_test_parl-train-unfiltered_varikn.bpe1750.d0.0001/cer_7_1.0
+%CER 2.65 [ 5349 / 201861, 2465 ins, 1931 del, 953 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2020-test_test_parl_20M_varikn.bpe19000.d0.0001/cer_7_0.0
+%CER 2.39 [ 4833 / 201861, 2218 ins, 1810 del, 805 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2020-test_test_parl_30M_varikn.bpe19000.d0.0001/cer_6_1.0
+%CER 2.63 [ 5319 / 201861, 2328 ins, 2047 del, 944 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2020-test_test_5gram-kielipankki.bpe19000.d0.0001/cer_6_0.5
+%CER 2.60 [ 5249 / 201861, 2429 ins, 1868 del, 952 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2020-test_test_kielipankki.bpe19000.d0.0001_rescore/cer_6_0.0
+%CER 3.02 [ 6087 / 201861, 2919 ins, 1736 del, 1432 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2020-test_test_dspcon-webcon-interpolated-conversational-lm/cer_6_0.0
+%CER 2.29 [ 4620 / 201861, 1960 ins, 1894 del, 766 sub ] exp/combined_comparison/chain/tdnn_d/decode_parl2020-test_test_parl-train-2008-2020-kevat_varikn.bpe1750.d0.0001/cer_7_1.0
 ```
 
 Lahjoita puhetta test set.
@@ -473,49 +473,49 @@ Yle test set.
 ### 1.2.6. Development set result comparison
 
 Comparison of models with different acoustic model training datasets using 20M indomain corpus LM.
-In the _"Eduskunta2017 André's cleanup"_ column, we use a version of the Eduskunta2017 data that
+In the _"Train2016 André's cleanup"_ column, we use a version of the Train2016 data that
 André/Peter had cleaned previously and train with it from the beginning. In contrast, the last two
 rows in the table (with cleaned AMs) refer to the more common Kaldi practice of cleaning the
 original data with the best GMM model (tri4) trained on that original data. The clean data is then
 used to train the best GMM and TDNN model again. The latter approach is better for reproducibility
 when _only_ the original data is published because it allows others to replicate the clean up procedure.
 
-| Acoustic model                  | Eduskunta2021 | Eduskunta2017 | Eduskunta2017 André's cleanup | Combined |
-| ------------------------------- | ------------- | ------------- | ----------------------------- | -------- |
-| Monophone GMM (mono)            | 56.24         | 69.87         | 55.16                         | 61.29    |
-| Delta+delta-delta GMM (tri1)    | 21.56         | 21.43         | 21.16                         | 21.34    |
-| LDA+MLLT GMM (tri2)             | 17.83         | 17.72         | 17.70                         | 17.63    |
-| LDA+MLLT+SAT GMM (tri3)         | 16.70         | 16.77         | 16.71                         | 16.41    |
-| LDA+MLLT+SAT GMM (tri4)         | 14.34         | 14.42         | 14.05                         | 14.09    |
-| TDNN-d                          | 9.98          | 10.34         | 8.35                          | 10.28    |
-| TDNN-BLSTM                      | 10.66         | -             | -                             | 10.54    |
-| LDA+MLLT+SAT GMM (tri4) cleaned | 14.31         | 14.22         | -                             | -        |
-| TDNN-d cleaned                  | 9.37          | 8.49          | -                             | -        |
+| Acoustic model                  | Train2020 | Train2016 | Train2016 André's cleanup | Combined |
+| ------------------------------- | --------- | --------- | ------------------------- | -------- |
+| Monophone GMM (mono)            | 56.24     | 69.87     | 55.16                     | 61.29    |
+| Delta+delta-delta GMM (tri1)    | 21.56     | 21.43     | 21.16                     | 21.34    |
+| LDA+MLLT GMM (tri2)             | 17.83     | 17.72     | 17.70                     | 17.63    |
+| LDA+MLLT+SAT GMM (tri3)         | 16.70     | 16.77     | 16.71                     | 16.41    |
+| LDA+MLLT+SAT GMM (tri4)         | 14.34     | 14.42     | 14.05                     | 14.09    |
+| TDNN-d                          | 9.98      | 10.34     | 8.35                      | 10.28    |
+| TDNN-BLSTM                      | 10.66     | -         | -                         | 10.54    |
+| LDA+MLLT+SAT GMM (tri4) cleaned | 14.31     | 14.22     | -                         | -        |
+| TDNN-d cleaned                  | 9.37      | 8.49      | -                         | -        |
 
 Next is a comparison of language models made from the transcripts of acoustic model training data
 versus 20M indomain corpus.
 
-Acoustic models trained with Eduskunta2021:
+Acoustic models trained with Train2020:
 
-| Acoustic model        | Eduskunta2021 LM | 20M indomain LM |
-| --------------------- | ---------------- | --------------- |
-| Monophone GMM         | 65.54            | 56.24           |
-| Delta+delta-delta GMM | 30.93            | 21.56           |
-| LDA+MLLT GMM          | 25.99            | 17.83           |
-| LDA+MLLT+SAT GMM      | 24.28            | 16.70           |
-| LDA+MLLT+SAT GMM      | 21.12            | 14.34           |
-| TDNN-d                | 14.19            | 9.98            |
+| Acoustic model        | Train2020 LM | 20M indomain LM |
+| --------------------- | ------------ | --------------- |
+| Monophone GMM         | 65.54        | 56.24           |
+| Delta+delta-delta GMM | 30.93        | 21.56           |
+| LDA+MLLT GMM          | 25.99        | 17.83           |
+| LDA+MLLT+SAT GMM      | 24.28        | 16.70           |
+| LDA+MLLT+SAT GMM      | 21.12        | 14.34           |
+| TDNN-d                | 14.19        | 9.98            |
 
-Acoustic models trained with Eduskunta2017:
+Acoustic models trained with Train2016:
 
-| Acoustic model        | Eduskunta2017 LM | 20M indomain LM |
-| --------------------- | ---------------- | --------------- |
-| Monophone GMM         | 76.23            | 69.87           |
-| Delta+delta-delta GMM | 29.99            | 21.43           |
-| LDA+MLLT GMM          | 25.25            | 17.72           |
-| LDA+MLLT+SAT GMM      | 23.56            | 16.77           |
-| LDA+MLLT+SAT GMM      | 20.94            | 14.42           |
-| TDNN-d                | 13.97            | 10.34           |
+| Acoustic model        | Train2016 LM | 20M indomain LM |
+| --------------------- | ------------ | --------------- |
+| Monophone GMM         | 76.23        | 69.87           |
+| Delta+delta-delta GMM | 29.99        | 21.43           |
+| LDA+MLLT GMM          | 25.25        | 17.72           |
+| LDA+MLLT+SAT GMM      | 23.56        | 16.77           |
+| LDA+MLLT+SAT GMM      | 20.94        | 14.42           |
+| TDNN-d                | 13.97        | 10.34           |
 
 Acoustic models trained with combined parliament data:
 
@@ -536,98 +536,98 @@ Multiple result tables for different evaluation sets. All results are given as W
 
 [André's paper](https://acris.aalto.fi/ws/portalfiles/portal/15742470/mansikkamaki_interspeech1115.pdf) for comparison.
 
-Different test sets evaluated on Eduskunta2021 AMs and the in-domain 20M token LM.
+Different test sets evaluated on Train2020 AMs and the in-domain 20M token LM.
 
 | Test set              | Best HMM-GMM  | TDNN-d        | TDNN-BLSTM    |
 | --------------------- | ------------- | ------------- | ------------- |
-| Parl-test-seen 2017   | 10.55 / 3.71  | 7.64 / 2.78   | 8.25 / 3.06   |
-| Parl-test-unseen 2017 | 8.86 / 3.35   | 6.26 / 2.53   | 6.52 / 2.65   |
-| Parl-test-all 2017    | 9.72 / 3.53   | 6.97 / 2.66   | 7.40 / 2.86   |
-| Parl-test 2021        | 17.53 / 4.18  | 9.83 / 2.54   | 10.32 / 2.81  |
+| Parl-test-seen 2016   | 10.55 / 3.71  | 7.64 / 2.78   | 8.25 / 3.06   |
+| Parl-test-unseen 2016 | 8.86 / 3.35   | 6.26 / 2.53   | 6.52 / 2.65   |
+| Parl-test-all 2016    | 9.72 / 3.53   | 6.97 / 2.66   | 7.40 / 2.86   |
+| Parl-test 2020        | 17.53 / 4.18  | 9.83 / 2.54   | 10.32 / 2.81  |
 | Lahjoita puhetta      | 73.48 / 40.43 | 66.59 / 33.73 | 71.13 / 41.56 |
 | Speecon-test          | 30.00 / 5.69  | 22.19 / 3.88  | 21.76 / 4.22  |
 | Yle-test              | 38.03 / 11.15 | 25.41 / 6.35  | 25.54 / 6.89  |
 
 Different test sets evaluated on the three TDNN-d acoustic models and 20M token LM.
 
-| Test set              | Eduskunta2021 | Eduskunta2017 | Combined      |
+| Test set              | Train2020     | Train2016     | Combined      |
 | --------------------- | ------------- | ------------- | ------------- |
-| Parl-test-seen 2017   | 7.64 / 2.78   | 8.42 / 3.81   | 7.58 / 3.17   |
-| Parl-test-unseen 2017 | 6.26 / 2.53   | 7.22 / 3.38   | 6.67 / 2.94   |
-| Parl-test-all 2017    | 6.97 / 2.66   | 7.83 / 3.60   | 7.14 / 3.06   |
-| Parl-test 2021        | 9.83 / 2.54   | 14.97 / 5.13  | 10.67 / 2.65  |
+| Parl-test-seen 2016   | 7.64 / 2.78   | 8.42 / 3.81   | 7.58 / 3.17   |
+| Parl-test-unseen 2016 | 6.26 / 2.53   | 7.22 / 3.38   | 6.67 / 2.94   |
+| Parl-test-all 2016    | 6.97 / 2.66   | 7.83 / 3.60   | 7.14 / 3.06   |
+| Parl-test 2020        | 9.83 / 2.54   | 14.97 / 5.13  | 10.67 / 2.65  |
 | Lahjoita puhetta      | 66.59 / 33.73 | 68.85 / 36.37 | 65.48 / 32.12 |
 | Speecon-test          | 22.19 / 3.88  | 23.73 / 4.05  | 22.43 / 4.06  |
 | Yle-test              | 25.41 / 6.35  | 27.59 / 6.97  | 25.49 / 6.31  |
 
 Different test sets evaluated on two TDNN-d acoustic models and 30M token LM.
 
-| Test set              | Eduskunta2021 | Eduskunta2017 | Combined      |
+| Test set              | Train2020     | Train2016     | Combined      |
 | --------------------- | ------------- | ------------- | ------------- |
-| Parl-test-seen 2017   | 7.71 / 2.73   | 8.41 / 3.89   | 7.66 / 3.22   |
-| Parl-test-unseen 2017 | 6.37 / 2.53   | 7.10 / 3.43   | 6.62 / 2.91   |
-| Parl-test-all 2017    | 7.05 / 2.63   | 7.77 / 3.66   | 7.15 / 3.07   |
-| Parl-test 2021        | 9.34 / 2.27   | 13.17 / 4.81  | 9.73 / 2.39   |
+| Parl-test-seen 2016   | 7.71 / 2.73   | 8.41 / 3.89   | 7.66 / 3.22   |
+| Parl-test-unseen 2016 | 6.37 / 2.53   | 7.10 / 3.43   | 6.62 / 2.91   |
+| Parl-test-all 2016    | 7.05 / 2.63   | 7.77 / 3.66   | 7.15 / 3.07   |
+| Parl-test 2020        | 9.34 / 2.27   | 13.17 / 4.81  | 9.73 / 2.39   |
 | Lahjoita puhetta      | 66.20 / 32.89 | 67.26 / 36.07 | 65.16 / 31.60 |
 | Speecon-test          | 21.71 / 3.62  | 21.60 / 3.79  | 20.42 / 3.58  |
 | Yle-test              | 24.89 / 6.34  | 26.04 / 6.75  | 24.67 / 6.23  |
 
 Different test sets evaluated on the three TDNN-d acoustic models and Kielipankki 5-gram LM.
 
-| Test set              | Eduskunta2021 | Eduskunta2017 | Combined      |
+| Test set              | Train2020     | Train2016     | Combined      |
 | --------------------- | ------------- | ------------- | ------------- |
-| Parl-test-seen 2017   | 11.69 / 3.55  | 12.29 / 4.70  | 11.26 / 3.91  |
-| Parl-test-unseen 2017 | 10.06 / 3.26  | 11.19 / 4.45  | 9.90 / 3.64   |
-| Parl-test-all 2017    | 10.89 / 3.41  | 11.75 / 4.57  | 10.59 / 3.78  |
-| Parl-test 2021        | 9.59 / 2.50   | 13.91 / 4.72  | 10.12 / 2.63  |
+| Parl-test-seen 2016   | 11.69 / 3.55  | 12.29 / 4.70  | 11.26 / 3.91  |
+| Parl-test-unseen 2016 | 10.06 / 3.26  | 11.19 / 4.45  | 9.90 / 3.64   |
+| Parl-test-all 2016    | 10.89 / 3.41  | 11.75 / 4.57  | 10.59 / 3.78  |
+| Parl-test 2020        | 9.59 / 2.50   | 13.91 / 4.72  | 10.12 / 2.63  |
 | Lahjoita puhetta      | 64.86 / 31.84 | 64.75 / 32.78 | 62.80 / 30.42 |
 | Speecon-test          | 14.78 / 2.53  | 14.37 / 2.82  | 13.79 / 2.38  |
 | Yle-test              | 18.10 / 4.99  | 17.63 / 4.92  | 17.07 / 4.91  |
 
 Different test sets evaluated on the three TDNN-d acoustic models and rescored Kielipankki 10-gram LM.
 
-| Test set              | Eduskunta2021 | Eduskunta2017 | Combined      |
+| Test set              | Train2020     | Train2016     | Combined      |
 | --------------------- | ------------- | ------------- | ------------- |
-| Parl-test-seen 2017   | 11.73 / 3.56  | 12.33 / 4.61  | 11.25 / 3.93  |
-| Parl-test-unseen 2017 | 10.07 / 3.27  | 11.19 / 4.37  | 9.93 / 3.71   |
-| Parl-test-all 2017    | 10.92 / 3.41  | 11.77 / 4.49  | 10.60 / 3.82  |
-| Parl-test 2021        | 9.59 / 2.50   | 13.89 / 4.56  | 10.12 / 2.60  |
+| Parl-test-seen 2016   | 11.73 / 3.56  | 12.33 / 4.61  | 11.25 / 3.93  |
+| Parl-test-unseen 2016 | 10.07 / 3.27  | 11.19 / 4.37  | 9.93 / 3.71   |
+| Parl-test-all 2016    | 10.92 / 3.41  | 11.77 / 4.49  | 10.60 / 3.82  |
+| Parl-test 2020        | 9.59 / 2.50   | 13.89 / 4.56  | 10.12 / 2.60  |
 | Lahjoita puhetta      | 64.85 / 31.82 | 64.73 / 33.02 | 62.79 / 30.36 |
 | Speecon-test          | 14.78 / 2.52  | 14.33 / 2.73  | 13.83 / 2.42  |
 | Yle-test              | 18.07 / 4.98  | 17.61 / 4.86  | 17.04 / 4.94  |
 
 Parliament test sets evaluated on the three TDNN-d acoustic models and their matching transcript LMs.
 
-| Test set              | Eduskunta2021 | Eduskunta2017 | Combined      |
+| Test set              | Train2020     | Train2016     | Combined      |
 | --------------------- | ------------- | ------------- | ------------- |
-| Parl-test-seen 2017   | 11.31 / 3.45  | 11.46 / 4.25  | 10.32 / 3.54  |
-| Parl-test-unseen 2017 | 9.70 / 3.16   | 10.86 / 4.02  | 9.32 / 3.19   |
-| Parl-test-all 2017    | 10.52 / 3.31  | 11.17 / 4.14  | 9.83 / 3.37   |
-| Parl-test 2021        | 8.84 / 2.19   | 13.90 / 4.28  | 8.76 / 2.29   |
+| Parl-test-seen 2016   | 11.31 / 3.45  | 11.46 / 4.25  | 10.32 / 3.54  |
+| Parl-test-unseen 2016 | 9.70 / 3.16   | 10.86 / 4.02  | 9.32 / 3.19   |
+| Parl-test-all 2016    | 10.52 / 3.31  | 11.17 / 4.14  | 9.83 / 3.37   |
+| Parl-test 2020        | 8.84 / 2.19   | 13.90 / 4.28  | 8.76 / 2.29   |
 | Lahjoita puhetta      | 66.90 / 32.97 | 68.41 / 37.42 | 64.99 / 32.62 |
 | Speecon-test          | 22.12 / 3.75  | 22.84 / 3.97  | 20.93 / 3.56  |
 | Yle-test              | 26.15 / 6.41  | 27.58 / 6.77  | 24.70 / 6.15  |
 
-Different test sets evaluated on the Eduskunta2021 TDNN-d acoustic model and different LMs.
+Different test sets evaluated on the Train2020 TDNN-d acoustic model and different LMs.
 
 | Test set              | 20M token     | 30M token     | Transcript    | Kpankki 5-gram | Kpankki 10-gram | Conv 4-gram   |
 | --------------------- | ------------- | ------------- | ------------- | -------------- | --------------- | ------------- |
-| Parl-test-seen 2017   | 7.64 / 2.78   | 7.71 / 2.73   | 11.31 / 3.45  | 11.69 / 3.55   | 11.73 / 3.56    | 19.30 / 4.36  |
-| Parl-test-unseen 2017 | 6.26 / 2.53   | 6.37 / 2.53   | 9.70 /  3.16  | 10.06 / 3.26   | 10.07 / 3.27    | 16.31 / 3.89  |
-| Parl-test-all 2017    | 6.97 / 2.66   | 7.05 / 2.63   | 10.52 / 3.31  | 10.89 / 3.41   | 10.92 / 3.41    | 17.83 / 4.13  |
-| Parl-test 2021        | 9.83 / 2.54   | 9.34 / 2.27   | 8.84 /  2.19  | 9.59 / 2.50    | 9.59 / 2.50     | 17.43 / 3.03  |
+| Parl-test-seen 2016   | 7.64 / 2.78   | 7.71 / 2.73   | 11.31 / 3.45  | 11.69 / 3.55   | 11.73 / 3.56    | 19.30 / 4.36  |
+| Parl-test-unseen 2016 | 6.26 / 2.53   | 6.37 / 2.53   | 9.70 / 3.16   | 10.06 / 3.26   | 10.07 / 3.27    | 16.31 / 3.89  |
+| Parl-test-all 2016    | 6.97 / 2.66   | 7.05 / 2.63   | 10.52 / 3.31  | 10.89 / 3.41   | 10.92 / 3.41    | 17.83 / 4.13  |
+| Parl-test 2020        | 9.83 / 2.54   | 9.34 / 2.27   | 8.84 / 2.19   | 9.59 / 2.50    | 9.59 / 2.50     | 17.43 / 3.03  |
 | Lahjoita puhetta      | 66.59 / 33.73 | 66.20 / 32.89 | 66.90 / 32.97 | 64.86 / 31.84  | 64.85 / 31.82   | 60.05 / 30.31 |
 | Speecon-test          | 22.19 / 3.88  | 21.71 / 3.62  | 22.12 / 3.75  | 14.78 / 2.53   | 14.78 / 2.52    | 24.54 / 3.84  |
 | Yle-test              | 25.41 / 6.35  | 24.89 / 6.34  | 26.15 / 6.41  | 18.10 / 4.99   | 18.07 / 4.98    | 27.15 / 6.14  |
 
 Different test sets evaluated with end-to-end models and matched-data HMM system (TDNN-D):
 
-| Test set              | HMM/TDNN 2021 | HMM/TDNN 2017 | HMM/TDNN Comb | CRDNN/E2E 2021 | CRDNN/E2E 2017 | CRDNN/E2E Comb |
+| Test set              | HMM/TDNN 2020 | HMM/TDNN 2016 | HMM/TDNN Comb | CRDNN/E2E 2020 | CRDNN/E2E 2016 | CRDNN/E2E Comb |
 | --------------------- | ------------- | ------------- | ------------- | -------------- | -------------- | -------------- |
-| Parl-test-seen 2017   | 11.31 / 3.45  | 11.46 / 4.25  | 10.32 / 3.54  | 13.32 / 5.47   | 12.60 / 5.88   | 10.81 / 4.26   |
-| Parl-test-unseen 2017 | 9.70 / 3.16   | 10.86 / 4.02  | 9.32 / 3.19   | 12.02 / 5.05   | 11.95 / 5.48   | 10.57 / 4.39   |
-| Parl-test-all 2017    | 10.52 / 3.31  | 11.17 / 4.14  | 9.83 / 3.37   | 12.68 / 5.26   | 12.28 / 5.68   | 10.69 / 4.33   |
-| Parl-test 2021        | 8.84 / 2.19   | 13.90 / 4.28  | 8.76 / 2.29   | 10.30 / 3.10   | 14.80 / 4.81   | 10.15 / 3.01   |
+| Parl-test-seen 2016   | 11.31 / 3.45  | 11.46 / 4.25  | 10.32 / 3.54  | 13.32 / 5.47   | 12.60 / 5.88   | 10.81 / 4.26   |
+| Parl-test-unseen 2016 | 9.70 / 3.16   | 10.86 / 4.02  | 9.32 / 3.19   | 12.02 / 5.05   | 11.95 / 5.48   | 10.57 / 4.39   |
+| Parl-test-all 2016    | 10.52 / 3.31  | 11.17 / 4.14  | 9.83 / 3.37   | 12.68 / 5.26   | 12.28 / 5.68   | 10.69 / 4.33   |
+| Parl-test 2020        | 8.84 / 2.19   | 13.90 / 4.28  | 8.76 / 2.29   | 10.30 / 3.10   | 14.80 / 4.81   | 10.15 / 3.01   |
 | Lahjoita puhetta      | 66.90 / 32.97 | -             | -             | 90.06 / 80.15  | -              | -              |
 | Speecon-test          | 22.12 / 3.75  | -             | -             | 25.14 / 5.66   | -              | -              |
 | Yle-test              | 26.15 / 6.41  | -             | -             | 28.99 / 8.19   | -              | -              |

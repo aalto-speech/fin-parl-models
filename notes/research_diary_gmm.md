@@ -1,54 +1,30 @@
-# 1. Research diary for Finnish parliament model training
+# 1. Research diary for Finnish parliament HMM-GMM model training and tuning
 
 By Aku & Anja
 
-- [1. Research diary for Finnish parliament model training](#1-research-diary-for-finnish-parliament-model-training)
-  - [1.1. TODOs](#11-todos)
-  - [1.2. Ideas, plans and resources](#12-ideas-plans-and-resources)
-  - [1.3. Research questions](#13-research-questions)
-  - [1.4. Results](#14-results)
-    - [1.4.1. Exp A) 1000 h set](#141-exp-a-1000-h-set)
-    - [1.4.2. Exp B) 1000 h set](#142-exp-b-1000-h-set)
-    - [1.4.3. Exp C) 1000 h set](#143-exp-c-1000-h-set)
-    - [1.4.4. Exp D) 1000 h set](#144-exp-d-1000-h-set)
-    - [1.4.5. Exp E) 1000 h set](#145-exp-e-1000-h-set)
-    - [1.4.6. Exp F) 1000 h set](#146-exp-f-1000-h-set)
-    - [1.4.7. Exp G) 1000 h set](#147-exp-g-1000-h-set)
-    - [1.4.8. Exp H) 1717 h set](#148-exp-h-1717-h-set)
-    - [1.4.9. Exp I) 1780 h set](#149-exp-i-1780-h-set)
-    - [1.4.10. WER comparison tables](#1410-wer-comparison-tables)
-  - [1.5. Modeling decisions](#15-modeling-decisions)
-    - [1.5.1. Lexicon](#151-lexicon)
-    - [1.5.2. Language model](#152-language-model)
-  - [1.6. Observations and thoughts](#16-observations-and-thoughts)
-    - [1.6.1. Results](#161-results)
-    - [1.6.2. Training speed](#162-training-speed)
-    - [1.6.3. Feature extraction](#163-feature-extraction)
-
-## 1.1. TODOs
-
-- [x] Do decoding and scoring for each new model
-- [x] Add training and decoding/scoring for full data model
-- [x] Do experiments with different GMM training pipelines
-  - [x] exp A) Kaldi Librispeech
-  - [x] exp B) 1 x mono + 2 x tri, all data
-  - [x] exp C) 1 x mono + 2 x tri, increase data for each model
-  - [x] exp D) Same as C but increase params for first triphone model
-  - [x] exp E) 1 x mono 3 x tri, otherwise same as D but train LDA+MLLT+SAT first with less data and then with full data
-  - [x] exp F) Kaldi Librispeech like but increase data and params to first three triphone models
-  - [x] exp G) Kaldi Librispeech like but increase params to first three triphone models
-- [x] Select pipeline
-- [x] GMM parameter search
-  - [x] Num leaves -> 14k
-  - [x] Num gauss -> 250k
-  - [x] Num iters -> 70
-- [x] Run selected pipeline with full data (final GMM)
-- [ ] Add dev and test sets to `run.sh`
-- [ ] Check that data subsets have all the letters (i.e. do we need to define more rare letters?)
+- [1. Research diary for Finnish parliament HMM-GMM model training and tuning](#1-research-diary-for-finnish-parliament-hmm-gmm-model-training-and-tuning)
+  - [1.1. Ideas, plans and resources](#11-ideas-plans-and-resources)
+  - [1.2. Results](#12-results)
+    - [1.2.1. Exp A) 1000 h set](#121-exp-a-1000-h-set)
+    - [1.2.2. Exp B) 1000 h set](#122-exp-b-1000-h-set)
+    - [1.2.3. Exp C) 1000 h set](#123-exp-c-1000-h-set)
+    - [1.2.4. Exp D) 1000 h set](#124-exp-d-1000-h-set)
+    - [1.2.5. Exp E) 1000 h set](#125-exp-e-1000-h-set)
+    - [1.2.6. Exp F) 1000 h set](#126-exp-f-1000-h-set)
+    - [1.2.7. Exp G) 1000 h set](#127-exp-g-1000-h-set)
+    - [1.2.8. Exp H) 1717 h set](#128-exp-h-1717-h-set)
+    - [1.2.9. Exp I) 1780 h set](#129-exp-i-1780-h-set)
+    - [1.2.10. WER comparison tables](#1210-wer-comparison-tables)
+  - [1.3. Modeling decisions](#13-modeling-decisions)
+    - [1.3.1. Lexicon](#131-lexicon)
+    - [1.3.2. Language model](#132-language-model)
+  - [1.4. Observations and thoughts](#14-observations-and-thoughts)
+    - [1.4.1. Training speed](#141-training-speed)
+    - [1.4.2. Feature extraction](#142-feature-extraction)
 
 ---
 
-## 1.2. Ideas, plans and resources
+## 1.1. Ideas, plans and resources
 
 We start our model building using Kaldi's [Librispeech recipe](https://github.com/kaldi-asr/kaldi/blob/master/egs/librispeech/s5/run.sh) as a starting point. Librispeech recipe was selected because it is designed for a large dataset. Our new Finnish parliament dataset is 1700 hours.
 
@@ -58,22 +34,11 @@ We start our model building using Kaldi's [Librispeech recipe](https://github.co
     3. `num_iters` (and related params realign and fmllr iters)
 - We want to ensure we have optimum, i.e. values on both sides of a selected optimum value perform worse
 - [A good resource for GMM training](https://jrmeyer.github.io/asr/2019/08/17/Kaldi-troubleshooting.html) and [a related cheatsheet](https://jrmeyer.github.io/asr/2019/08/17/Kaldi-cheatsheet.html).
-- Which GMMs do we want to tune? We hope that it would be enough that the last GMM is tuned rigorously. In an [Aachen Librispeech paper](http://dx.doi.org/10.21437/Interspeech.2019-1780), they train one monophone model with **full data (960 h)** and then different triphone models with **full data**. Inspired by this, we make multiple experiments:
-  - a) Do same steps as in the standard Kaldi Librispeech recipe (monophone + 3 x triphone models: delta+deltadelta & LDA+MLLT & LDA+MLLT+SAT, training data increased after each step)
-  - b) Train one monophone model and two triphone models (LDA+MLLT & LDA+MLLT+SAT) all with full data
-  - c) Train one monophone model with shortest 2k utterances, one triphone model (LDA+MLLT) with 250k utts and one triphone model (LDA+MLLT+SAT) with all data
-  - d) Same as c) but increase params for LDA+MLLT model
+- Which GMMs do we want to tune? We hope that it would be enough that the last GMM is tuned rigorously. In an [Aachen Librispeech paper](http://dx.doi.org/10.21437/Interspeech.2019-1780), they train one monophone model with **full data (960 h)** and then different triphone models with **full data**. Inspired by this, we make multiple experiments.
 
 ---
 
-## 1.3. Research questions
-
-1. How good baseline model we can train by finetuning the basic Librispeech recipe for the Finnish parliament data?
-2. Is an expert/rule-based lexicon better than a simple grapheme lexicon for Finnish?
-
----
-
-## 1.4. Results
+## 1.2. Results
 
 The 1000 h set refers to an uncleaned 1000 h (3794820.69 seconds of data) training set that was
 picked when Anja's work on the new Finnish parliament data segmentation pipeline was ongoing.
@@ -85,7 +50,7 @@ Later, when the segmentation pipeline was finished it produced 1780 h of data in
 was cleaned with the Kaldi data cleaning script (`steps/cleanup/clean_and_segment_data_nnet3.sh`)
 which cut the total audio length from 1780 h to 1717 h.
 
-### 1.4.1. Exp A) 1000 h set
+### 1.2.1. Exp A) 1000 h set
 
 Results for experiment A when run with the 1000 h set.  
 
@@ -108,7 +73,7 @@ $ cat exp/a/*/decode*/scoring_kaldi/best_wer
 %WER 30.97 [ 11053 / 35693, 1387 ins, 2275 del, 7391 sub ] exp/a/tri4e/decode_parl-dev-all_test_small.si/wer_13_0.0
 ```
 
-### 1.4.2. Exp B) 1000 h set
+### 1.2.2. Exp B) 1000 h set
 
 Results for experiment B when run with the 1000 h set.
 
@@ -120,7 +85,7 @@ $ cat exp/b/*/decode*/scoring_kaldi/best_wer
 %WER 31.91 [ 11391 / 35693, 1360 ins, 2469 del, 7562 sub ] exp/b/tri2a/decode_parl-dev-all_test_small.si/wer_12_0.0
 ```
 
-### 1.4.3. Exp C) 1000 h set
+### 1.2.3. Exp C) 1000 h set
 
 Results for experiment B when run with the 1000 h set.
 
@@ -132,7 +97,7 @@ $ cat exp/c/*/decode*/scoring_kaldi/best_wer
 %WER 32.00 [ 11422 / 35693, 1418 ins, 2354 del, 7650 sub ] exp/c/tri2a/decode_parl-dev-all_test_small.si/wer_12_0.0
 ```
 
-### 1.4.4. Exp D) 1000 h set
+### 1.2.4. Exp D) 1000 h set
 
 Results for experiment D when run with the 1000 h set.
 
@@ -148,7 +113,7 @@ $ cat exp/d/*/decode*/scoring_kaldi/best_wer
 %WER 31.70 [ 11316 / 35693, 1395 ins, 2384 del, 7537 sub ] exp/d/tri2c/decode_parl-dev-all_test_small.si/wer_13_0.0
 ```
 
-### 1.4.5. Exp E) 1000 h set
+### 1.2.5. Exp E) 1000 h set
 
 Results for experiment E when run with the 1000 h set.
 
@@ -162,7 +127,7 @@ $ cat exp/e/*/decode*/scoring_kaldi/best_wer
 %WER 32.04 [ 11435 / 35693, 1387 ins, 2380 del, 7668 sub ] exp/e/tri3a/decode_parl-dev-all_test_small.si/wer_12_0.0
 ```
 
-### 1.4.6. Exp F) 1000 h set
+### 1.2.6. Exp F) 1000 h set
 
 Results for experiment F when run with the 1000 h set.
 
@@ -187,7 +152,7 @@ $ cat exp/f/*/decode*/scoring_kaldi/best_wer
 %WER 30.68 [ 10951 / 35693, 1347 ins, 2304 del, 7300 sub ] exp/f/tri4g/decode_parl-dev-all_test_small.si/wer_14_0.0
 ```
 
-### 1.4.7. Exp G) 1000 h set
+### 1.2.7. Exp G) 1000 h set
 
 Results for experiment G when run with the 1000 h set.
 
@@ -202,7 +167,7 @@ $ cat exp/g/*/decode*/scoring_kaldi/best_wer
 %WER 31.52 [ 11252 / 35693, 1426 ins, 2311 del, 7515 sub ] exp/g/tri4a/decode_parl-dev-all_test_small.si/wer_12_0.0
 ```
 
-### 1.4.8. Exp H) 1717 h set
+### 1.2.8. Exp H) 1717 h set
 
 Results for experiment H when run with the cleaned version of the published set (1717 hours). An older DNN
 model trained in the research group was used in the cleaning process. Thus this cleaned set is dropped later,
@@ -227,7 +192,7 @@ $ cat exp/h/*/decode*/scoring_kaldi/best_wer
 %WER 29.27 [ 10448 / 35693, 1368 ins, 2132 del, 6948 sub ] exp/h/tri4k/decode_parl-dev-all_test_small.si/wer_13_0.0
 ```
 
-### 1.4.9. Exp I) 1780 h set
+### 1.2.9. Exp I) 1780 h set
 
 Results for experiment I when run with the full training set published in Kielipankki (1780 hours).
 
@@ -257,7 +222,7 @@ $ cat exp/i/*/decode*/scoring_kaldi/best_wer
 %WER 23.86 [ 8517 / 35693, 1123 ins, 1906 del, 5488 sub ] exp/i/tri4j/decode_parl-dev-all_test_varikn.bpe1750.d0.0001.si/wer_13_0.0
 ```
 
-### 1.4.10. WER comparison tables
+### 1.2.10. WER comparison tables
 
 A table comparing training pipelines is presented below. A single value in parenthesis tells
 the data size while three values stand for data size, number of leaves, and number of Gaussians.
@@ -271,7 +236,7 @@ Glossary for shorthands:
 - '5k' / '10k' / etc. = 5 000 / 10 000 / etc.
 
 The training data used in these results is the 1000 h set described in [section 1.4](#14-results).
-Language model is made from the transcripts of this same 1000 h set.
+Language model is made from the transcripts of this same 1000 h set (called `test_small`).
 
 | Model                    | Run A, Librispeech   | Run B              | Run C                 | Run D               | Run E               | Run F               | Run G              |
 | ------------------------ | -------------------- | ------------------ | --------------------- | ------------------- | ------------------- | ------------------- | ------------------ |
@@ -315,11 +280,11 @@ reproducible.
 
 ---
 
-## 1.5. Modeling decisions
+## 1.3. Modeling decisions
 
 Choices and assumptions made during the study regarding models.
 
-### 1.5.1. Lexicon
+### 1.3.1. Lexicon
 
 We chose grapheme lexicon in order to minimize outside expert knowledge and make the comparison of
 HMM-GMM/DNN to E2E-models "as fair as possible". Our hypothesis is that the impact of lexicon is
@@ -328,24 +293,22 @@ pronounced like "s" and sometimes "k").
 
 We could later try to evaluate this assumption by comparing results for different lexicon.
 
-### 1.5.2. Language model
+### 1.3.2. Language model
 
 We chose SentencePiece byte-pair encoding (BPE) because it is now popular and ubiquituous. Can/Might
 switch/compare to Morfessor also.
 
 ---
 
-## 1.6. Observations and thoughts
+## 1.4. Observations and thoughts
 
-### 1.6.1. Results
-
-### 1.6.2. Training speed
+### 1.4.1. Training speed
 
 Training models with large data from the beginning takes time (run B). Librispeech approach (run A)
 of training with incremental data is probably faster. In the end, also the final model performance
 was better with the incremental approach.
 
-### 1.6.3. Feature extraction
+### 1.4.2. Feature extraction
 
 Feature extraction is surprisingly slow (we had to increase the time limit for slurm). One
 hypothesis is that since the data is sorted by speaker, many sequential samples are from different
