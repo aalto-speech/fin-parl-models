@@ -20,13 +20,13 @@ for set in 2008-2016-train 2015-2020-train parl2016-dev parl2016-test parl2020-t
     else
         raw_data_dir=data/fi-parliament-asr/${set/-train/set}
     fi
-    
+
     echo "Creating $dir/text."
-    find $raw_data_dir -iname "*.trn" -type f -print0 | sort -zV | xargs -0 -I % sh -c 'echo -n %" "; cat %' > $dir/text || exit 1
-    
+    find $raw_data_dir -iname "*.trn" -type f -print0 | sort -zV | xargs -0 -I % sh -c 'echo -n %" "; cat %' >$dir/text || exit 1
+
     echo "Creating $dir/wav.scp."
-    find $raw_data_dir -iname "*.wav" -type f -print0 | sort -zV | xargs -0 -I % sh -c 'echo %" "$PWD/%' > $dir/wav.scp || exit 1
-    
+    find $raw_data_dir -iname "*.wav" -type f -print0 | sort -zV | xargs -0 -I % sh -c 'echo %" "$PWD/%' >$dir/wav.scp || exit 1
+
     if [[ $set == 2008-2016-train ]]; then
         echo "Filtering duplicates in 2008-2016 set."
         grep -Fvf $raw_data_dir/dropped_duplicates.list $dir/wav.scp | sponge $dir/wav.scp
@@ -40,9 +40,9 @@ for set in 2008-2016-train 2015-2020-train parl2016-dev parl2016-test parl2020-t
     if [[ $set == *"2016"* ]]; then
         awk '{ print $1 }' $dir/text | awk -F- '{ printf $0" ";
                                                   for(i=1;i<=NF-1;i++) printf("%s%s", $i, (i==NF-1) ? "\n" : "-")
-                                                }' > $dir/utt2spk
+                                                }' >$dir/utt2spk
     else
-        awk '{ print $1 }' $dir/text | awk -F- '{ print $0" "$1 }' > $dir/utt2spk
+        awk '{ print $1 }' $dir/text | awk -F- '{ print $0" "$1 }' >$dir/utt2spk
     fi
-    cat $dir/utt2spk | utils/utt2spk_to_spk2utt.pl > $dir/spk2utt
+    cat $dir/utt2spk | utils/utt2spk_to_spk2utt.pl >$dir/spk2utt
 done

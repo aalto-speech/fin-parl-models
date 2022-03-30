@@ -52,4 +52,3 @@ if [ ! -f $dir/fi-parliament-asr-dev-eval.zip ]; then
     wget https://korp.csc.fi/download/fi-parliament-asr/fi-parliament-asr-dev-eval.zip --directory-prefix=$dir | exit 1
     unzip -n $dir/fi-parliament-asr-dev-eval.zip -d $dir
 fi
-
