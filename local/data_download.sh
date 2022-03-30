@@ -4,7 +4,9 @@ dir=$(pwd)/data/
 
 . path.sh
 
-echo "Downloading all corpus zips. This requires around 315G of space."
+echo "Downloading all corpus zips. Zips require around 315G of space."
+echo "Unpacked data takes another 375G of space."
+echo "Downloading and unzipping this much data will take time."
 
 if [ ! -f $dir/fi-parliament-asr-2008-2016-part1.zip ]; then
     wget https://korp.csc.fi/download/fi-parliament-asr/fi-parliament-asr-2008-2016-part1.zip --directory-prefix=$dir | exit 1
