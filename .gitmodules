@@ -1,3 +1,3 @@
 [submodule "subword-kaldi"]
 	path = subword-kaldi
-	url = ./subword-kaldi
+	url = https://github.com/aalto-speech/subword-kaldi
