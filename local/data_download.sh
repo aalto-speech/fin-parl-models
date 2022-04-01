@@ -11,6 +11,8 @@ echo "Downloading and unzipping this much data will take time."
 if [ ! -f $dir/fi-parliament-asr-2008-2016-part1.zip ]; then
     wget https://korp.csc.fi/download/fi-parliament-asr/fi-parliament-asr-2008-2016-part1.zip --directory-prefix=$dir | exit 1
     unzip -n $dir/fi-parliament-asr-2008-2016-part1.zip -d $dir
+    echo "Fix a stray encoding error in the 2008-2016 set."
+    find $dir -iname "juha_korkeaoja_01551.trn" -exec sed -i 's/Ã€Ã€/ää/' {} \; | exit 1
 fi
 
 if [ ! -f $dir/fi-parliament-asr-2008-2016-part2.zip ]; then
