@@ -5,7 +5,7 @@
 # (with added decoding steps)
 
 trainset=parl2015-2020-train
-stage=1
+stage=5 # Assume that run.sh has been run before so the first four stages are done already
 tri_version=a
 lm_BPE=1750
 lm_scale=0.0001
