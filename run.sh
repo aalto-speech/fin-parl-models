@@ -1,1 +1,1 @@
-local/tuning/run_i.sh
+local/tuning/run_f.sh
