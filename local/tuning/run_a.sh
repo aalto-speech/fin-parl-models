@@ -60,21 +60,10 @@ fi
 
 if [ $stage -le 5 ]; then
     echo "Stage 5: Make subsets."
-    # Subsets
-    utils/subset_data_dir.sh --shortest data/train 2000 data/train_2kshort
-    utils/subset_data_dir.sh data/train 5000 data/train_5k
-    utils/subset_data_dir.sh data/train 10000 data/train_10k
-    # Manually enforce some rare letters:
-    for subset in 2kshort 5k 10k; do
-        for letter in c f q w x z å; do
-            local/enforce_letter_in_data.sh data/train "$letter" data/train_$subset
-        done
-    done
-
-    echo "Stage 5: Make subsets."
-    utils/subset_data_dir.sh --shortest $traindir 2000 ${traindir}_2kshort
-    utils/subset_data_dir.sh $traindir 5000 ${traindir}_5k
-    utils/subset_data_dir.sh $traindir 10000 ${traindir}_10k
+    [ ! -d ${traindir}_2kshort ] &&
+        utils/subset_data_dir.sh --shortest $traindir 2000 ${traindir}_2kshort
+    [ ! -d ${traindir}_5k ] && utils/subset_data_dir.sh $traindir 5000 ${traindir}_5k
+    [ ! -d ${traindir}_10k ] && utils/subset_data_dir.sh $traindir 10000 ${traindir}_10k
     # Manually enforce some rare letters:
     for subset in 2kshort 5k 10k; do
         for letter in c f q w x z å; do
