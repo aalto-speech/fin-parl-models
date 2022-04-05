@@ -16,6 +16,8 @@ echo "$0 $@" # Print the command line for logging
 . ./path.sh
 . ./utils/parse_options.sh
 
+set -eu
+
 $use_cleaned && trainset=${trainset}_cleaned
 lores_traindir=data/${trainset}
 gmm_dir=exp/${trainset}/${gmm_str}
