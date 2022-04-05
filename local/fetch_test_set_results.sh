@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 tablefile="result_tables.txt"
 use_wer_params_for_cer=true

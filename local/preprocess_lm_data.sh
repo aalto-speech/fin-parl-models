@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # basic normalization for the LM training data
 # remove [spk], capitals, kaldi uttid, trim whitespace

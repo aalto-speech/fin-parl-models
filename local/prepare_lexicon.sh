@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Prepares a grapheme lexicon based on the training data text
 #
 # This script can also add lexicon entries for extra text files' words

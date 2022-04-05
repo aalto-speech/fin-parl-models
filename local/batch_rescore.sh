@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #SBATCH --time=4:0:0
 #SBATCH --mem-per-cpu=16G
 #SBATCH --output=rescore_%A.out

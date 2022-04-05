@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 trainset=parl2015-2020-train
 gmm_str=f/tri4j

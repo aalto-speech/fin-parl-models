@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Make sure that a rare letter gets included at least once in a data subset
 # WARNING: this will overwrite the data dir to modify. Normally, this is not
 # a problem as the script is intended to be used with data directories which

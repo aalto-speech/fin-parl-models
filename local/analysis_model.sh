@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Train a 100h model for analysis and decode rest of the data with it
 
 set -euo pipefail

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This script runs the first iteration of the experiments
 # where a GMM is trained just like in the Kaldi Librispeech recipe.
