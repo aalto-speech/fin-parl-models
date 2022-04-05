@@ -1,1 +1,1 @@
-../steps/score_kaldi.sh
+score_kaldi_wer.sh
