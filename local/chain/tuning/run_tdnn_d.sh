@@ -90,7 +90,6 @@ fi
 
 if [ $stage -le 1 ]; then
     # Chain prep (egs, phone-lm, etc.) separately:
-
     steps/nnet3/chain/train.py \
         --stage -10 \
         --exit-stage 0 \
