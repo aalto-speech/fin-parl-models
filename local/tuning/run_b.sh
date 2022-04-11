@@ -42,6 +42,13 @@ if [ $stage -le 2 ]; then
     local/prepare_lexicon.sh $traindir data/local/dict_${trainset} data/lang_${trainset}
 fi
 
+# Check that phone sets are the same
+for other_lang in data/lang_*-train{,_cleaned}/phones.txt; do
+    if [[ $other_lang != "data/lang_${trainset}/phones.txt" ]]; then
+        utils/lang/check_phones_compatible.sh data/lang_${trainset}/phones.txt $other_lang
+    fi
+done
+
 if [ $stage -le 3 ]; then
     echo "Stage 3: Prepare language model."
     local/train_lm.sh --stage 0 --BPE-units $lm_BPE --varikn-scale $lm_scale \
