@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
-# This script runs the first iteration of the experiments
-# where a GMM is trained just like in the Kaldi Librispeech recipe.
-# (with added decoding steps)
+# Copyright 2022 Anja Virkkunen, Aku Rouhe
+# Apache 2.0
+
+# This script runs the seventh iteration of the experiments where we train
+# a GMM like in the Kaldi Librispeech recipe with the same amount of data
+# but higher number of parameters for the second and third triphone models.
 
 trainset=parl2015-2020-train
 stage=5 # Assume that run.sh has been run before so the first four stages are done already

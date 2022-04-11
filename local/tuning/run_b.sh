@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Copyright 2022 Anja Virkkunen, Aku Rouhe
+# Apache 2.0
+
 # This script runs the second iteration of the experiments
 # where we train one monophone and two triphone GMM models with
 # all the training data.

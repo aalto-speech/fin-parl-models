@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 
-# basic normalization for the LM training data
-# remove [spk], capitals, kaldi uttid, trim whitespace
-# concat everything into one file
+# Copyright 2022 Anja Virkkunen, Aku Rouhe
+# Apache 2.0
+
+# Basic normalization for the LM training data.
+# Remove [spk], capitals, kaldi uttid, trim whitespace.
+# Concat everything into one file.
+
 import unicodedata
 
 def normalize(line):

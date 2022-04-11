@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Copyright 2022 Anja Virkkunen, Aku Rouhe
+# Apache 2.0
+
+# Preparation steps common for all chain models.
+
 trainset=parl2015-2020-train
 gmm_str=f/tri4j
 stage=1

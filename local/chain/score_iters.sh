@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Copyright 2022 Anja Virkkunen, Aku Rouhe
+# Apache 2.0
+
 decode_set=parl2016-dev
 lm=test_parl_20M_varikn.bpe19000.d0.0001
 start_iter=4000

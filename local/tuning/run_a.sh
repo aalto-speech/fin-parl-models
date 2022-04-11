@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Copyright 2022 Anja Virkkunen, Aku Rouhe
+# Apache 2.0
+
 # This script runs the first iteration of the experiments
 # where a GMM is trained just like in the Kaldi Librispeech recipe.
 # (with added decoding steps)

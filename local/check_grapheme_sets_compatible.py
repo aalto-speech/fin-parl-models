@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+
+# Copyright 2022 Anja Virkkunen, Aku Rouhe
+# Apache 2.0
+
 import argparse
 import sys
 

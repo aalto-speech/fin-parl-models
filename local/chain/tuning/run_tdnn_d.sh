@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Copyright 2022 Anja Virkkunen, Aku Rouhe
+# Apache 2.0
+
+# The same model as the first one, but train for 8 epochs.
+
 trainset=parl2015-2020-train
 gmm_str=f/tri4j
 stage=0

@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Copyright 2022 Anja Virkkunen, Aku Rouhe
+# Apache 2.0
+
+# Train second chain model that is larger than the first.
+
 trainset=parl2015-2020-train
 gmm_str=f/tri4j
 stage=0

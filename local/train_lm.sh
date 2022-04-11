@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Copyright 2022 Anja Virkkunen, Aku Rouhe
+# Apache 2.0
+
+# Train an n-gram language model with VariKN using BPE subwords.
+
 stage=1
 BPE_units=1750
 varikn_scale=0.0001

@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+
+# Copyright 2022 Anja Virkkunen, Aku Rouhe
+# Apache 2.0
+
 # This script creates a dict directory for utils/prepare_lang.sh
 # It also creates the important lexicon_placeholders.txt file
 # which is used by subword-kaldi/local/make_lfst_spm.py

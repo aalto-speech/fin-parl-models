@@ -1,8 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# This script runs the first iteration of the experiments
-# where a GMM is trained just like in the Kaldi Librispeech recipe.
-# (with added decoding steps)
+# Copyright 2022 Anja Virkkunen, Aku Rouhe
+# Apache 2.0
+
+# This script runs the best iteration of the GMM experiments
+# where a GMM is trained just like in the Kaldi Librispeech recipe
+# but with increased data.
 
 trainset=parl2015-2020-train
 stage=1

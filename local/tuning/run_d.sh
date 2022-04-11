@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
-# This script runs the third iteration of the experiments
-# where we train
-# one monophone with 2k_short,
-# one triphone with 250k and
-# one triphone with all the data
+# Copyright 2022 Anja Virkkunen, Aku Rouhe
+# Apache 2.0
+
+# This script runs the fourth iteration of the experiments where we train
+# one monophone model with 2k_short samples,
+# one triphone with 250k, and
+# one triphone with all the data.
+# Compared to the previous run, the first triphone model has more parameters.
 
 trainset=parl2015-2020-train
 stage=5 # Assume that run.sh has been run before so the first four stages are done already

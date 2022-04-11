@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Copyright 2022 Anja Virkkunen, Aku Rouhe
+# Apache 2.0
+
 dir=$(pwd)/data/
 
 . path.sh
