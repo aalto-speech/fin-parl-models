@@ -13,6 +13,7 @@ varikn_extra="--clear_history --3nzer --arpa"
 skip_lang=false
 traindata=
 validdata=
+phone_table=
 
 echo $0 $@
 
@@ -37,6 +38,10 @@ outdir="$2"
 
 lmdatadir="data/lm_$lmdata"
 lmdir="exp/lm/${lmdata}_varikn.bpe${BPE_units}.d${varikn_scale}"
+
+if [ -z "$phone_table" ]; then
+    phone_table="data/lang_${lmdata}/phones.txt"
+fi
 
 if [ "$stage" -le 0 ]; then
     echo "LM training data prep from Kaldi style data dirs"
@@ -91,7 +96,6 @@ if [ "$skip_lang" = true ]; then
 fi
 
 dict_dir="data/local/dict_${lmdata}_bpe.$BPE_units"
-phone_table="data/lang_${lmdata}/phones.txt"
 if [ "$stage" -le 4 ]; then
     echo "Make SentencePiece LM."
     local/make_spm_lang.sh --phone-table $phone_table \
