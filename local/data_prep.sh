@@ -24,7 +24,7 @@ if [ $stage -le 1 ]; then
         mkdir -p $dir
 
         if [[ $set == *-dev || $set == *-test ]]; then
-            raw_data_dir=data/fi-parliament-asr/dev-eval/$set
+            raw_data_dir=data/fi-parliament-asr/dev-test/$set
         else
             raw_data_dir=data/fi-parliament-asr/${set/-train/set}
         fi
