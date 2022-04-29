@@ -13,7 +13,7 @@ echo "$0 $@"
 . path.sh
 . parse_options.sh
 
-set -euo pipefail
+set -eu
 
 traindir=data/${analysis_set}_40k
 transcript_lm=test_${analysis_set}_40k_varikn.bpe1750.d0.0001
