@@ -51,7 +51,7 @@ for other_lang in data/lang_*-train{,_cleaned}/phones.txt; do
 done
 
 if [ $stage -le 3 ]; then
-    echo "Stage 3: Prepare language model."
+    echo "Stage 3: Prepare transcript language model."
     local/train_lm.sh --stage 0 --BPE-units $lm_BPE --varikn-scale $lm_scale \
         --traindata $traindir --validdata data/parl2016-dev \
         $trainset $lmdir
